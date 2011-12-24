@@ -1,0 +1,52 @@
+#!/usr/local/bin/php -Cq
+<?php
+
+  if ($_SERVER["argc"] <= 1) {
+     echo "syntax: php5fix anyscript.php\n\n  will adapt the given script to work around mutliple problems with PHP5\n";
+  }
+  else {
+     foreach ($_SERVER["argv"] as $i=>$fn) {
+        if (!$i) continue;
+        echo "$fn... ";
+
+        #-- read
+        if ($f = @fopen($fn, "rb")) {
+           $src = fread($f, 1<<20);
+           fclose($f);
+        }
+        else {
+           echo "error reading\n";
+           continue;
+        }
+
+        #-- check
+        $c = 0;
+        if (!($c += preg_match_all('/array_merge\s*\(/i', $src, $uu))) {
+           echo "ok\n";
+           continue;
+        }
+
+        #-- apply rules
+        $src = preg_replace(
+           '/(array_merge\s\()([^()]+)(\))/imse',
+           " '$1' . add_typecast('$2', 'array') . '$3' ",
+           $src
+        );
+
+
+        #-- write changes back
+        $f = fopen($fn, "wb");
+        fwrite($f, $src);
+        fclose($f);
+
+        echo "$c changes\n";
+     }
+  }
+
+
+function add_typecast($str, $type="array") {
+   return
+      "($type)" . preg_replace("/(,\s*)/s", "$1($type)", $str);
+}
+
+?>

@@ -1,0 +1,163 @@
+<html>
+<head>
+ <title>ewiki administration area</title>
+ <style type="text/css"> <!--
+
+  body {
+    background:#112266 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAQ0lEQVR42u3VsQkAMQwDQOfJNJ7S8/xAnidDuAiBUy84UKFVVX8MkpmTenxxOQAAAAAAAAB7+ufdbQIAAAAAAIC3AQdgmAXqaeyhfgAAAABJRU5ErkJggg==");
+  }
+  a {
+    text-decoration:none;
+  }  
+  .panel { 
+    position:relative; left:33px; top:15px;
+    width:575px;
+    min-height:702px;
+    border:1px groove 7f2f2f;
+    background-color:#cccccc;
+    color:#000000;
+  }
+  .panel .title {
+    background-color:#555599;
+    color:#ffffff;
+    text-align:right;
+    border:1px solid #333333;
+    margin:0px;
+  }
+  .title .X {
+    background-color:#dd7722;
+    border-left:1px solid #333333;
+    width:20px;
+    text-align:center;
+    vertical-align:center;
+  }
+  .entry {
+    width:250px;
+    min-height:55px;
+    border:1px transparent solid;
+  }
+  .entry a {
+    color: #000000;
+  }
+  .entry a:hover {
+    color: #ffffff;
+  }
+  .entry img {
+    float:left;
+    margin-right:10px; 
+    border: 0px;
+  }
+  .entry h4 {
+    margin:0px;
+    color:#0000ff;
+  }
+  div.entry:hover {
+    background-color:#aaaacc;
+    border:#555599 solid 1px;
+    -moz-border-radius:9px; border-radius:9px;
+    color:#ffffff;
+  }
+  div.entry a:hover h4 {
+    color: #4444ff;
+  }
+ //--> </style>
+</head>
+<body>
+
+ <span class="around"><div class="panel">
+  <h3 class="title">ewiki control panel&nbsp;<a href=".." class="X">&nbsp;x&nbsp;</a></h3>
+  <div style="padding:10px;">
+
+
+  <table border="0"><tr>
+  <td width="50%" valign="top">
+
+
+   <br>
+   <div class="entry"><a href="t_flags.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAAAAAC8LiksjCERIu3UAAAAAXRSTlMAQObYZgAAAD5JREFUeNpjYAAB0QggoaUFJKRWAAmhJSACxJLKAhIaXGBFDAcYGEKDgYSDPJBTYAMkaj4ACf8LQCI8AKIGAGOKCg8vHdTeAAAAAElFTkSuQmCC" width="64" height="64" border="0" alt="flags">
+      <h4>set page flags</h4>
+      per-page settings and control flags
+   </a></div>
+
+   <br>
+   <div class="entry"><a href="t_remove.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEUAAAAAAADONzcw6FexAAAAAXRSTlMAQObYZgAAAERJREFUeNodidEJwCAQQ1+guIOdxhGc46bxoyOcBZ3SYEJCeIGr7ijVKVnSFYnmHmivBvH5Dg8ZoT+hzAXvMKytwmNfHYJHDxfYjsA2AAAAAElFTkSuQmCC" width="64" height="64" border="0" alt="cross">
+      <h4>remove pages</h4>
+      delete unused pages from the database
+   </a></div>
+
+   <br>
+   <div class="entry"><a href="t_holes.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAD1BMVEUAAADMujnONzcAAACOjo7lAMnjAAAAAXRSTlMAQObYZgAAAFlJREFUeNptzdENwCAIBFCoCwAT6LmACW4g+88kNP3s/dzLhQSinzCxkFSTyjt0NhmJpyuUC2JQTVhiWMGAgYICmJ6o2ocY7jtiEc+oJPaHFnHc87a5r/p0AfkNC4XCIngVAAAAAElFTkSuQmCC" width="64" height="64" border="0" alt="fire">
+      <h4>strip old versions</h4>
+      purge old (archived) page versions from the database
+   </a></div>
+
+   <br>
+   <div class="entry"><a href="t_checklinks.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAACAgKOjo46Ss62+ZtpAAAAAXRSTlMAQObYZgAAADpJREFUeNpjYBB1YGBgiApgYGDMmwIk9i0BEv+/H2BgrANyGeKAEhAljCAWA5gIAREicEIURLAygAEACaEJal8yqKQAAAAASUVORK5CYII=" width="64" height="64" border="0" alt="glass">
+      <h4>check link directory</h4>
+      check all external links of a link directory wiki page
+   </a></div>
+
+   <br>
+   <div class="entry"><a href="t_textinsert.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEXJECsDAjUdViGp0fNsAAAAAXRSTlMAQObYZgAAADJJREFUeNpjYAAB0UBXBwYIC8ZgEAlxhbJEXQJhLFHXBSB6AVCWaxWQASREQ0WgYiAAAA6pCBrk7pmjAAAAAElFTkSuQmCC" width="64" height="64" border="0" alt="text+">
+      <h4>text insert</h4>
+      inserts plain text files as wiki pages into the database (plain text
+      format, no versioned files)
+   </a></div>
+
+
+
+  </td>
+  <td width="50%" valign="top">
+
+   <br>
+   <div class="entry"><a href="t_backup.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEUAAAAAAACJGxvEKRuJiYkjrxbbTxXCAAAAAXRSTlMAQObYZgAAAD1JREFUeNpjYIABRkEgEAAxlJWUlHEwlIyNjSAMIAAzVFxcoAwVFyeBUGSGiIuLY2hoKMR4OIMBRiMYSAAA47cKWIk/7S4AAAAASUVORK5CYII=" width="64" height="64" border="0" alt="disk+">
+      <h4>backup</h4>
+      archive wiki pages in backup files (different formats) for
+      later database restoration
+   </a></div>
+
+   <br>
+   <div class="entry"><a href="t_restore.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAElBMVEUAAAAAAACJGxvEKRseGaiJiYllJQk1AAAAAXRSTlMAQObYZgAAAEBJREFUeNpjYIABRkEgEAAxlJWUlHEwlIyNjSAMIBBxADJUQ0OhDNXQIFSGaGhoIIgBBixQhgsQQARcXOBCCDUAFf8L8n8A9ksAAAAASUVORK5CYII=" width="64" height="64" border="0" alt="disk&darr;">
+      <h4>restore</h4>
+      restores previously archived database backup files (is a wrapper
+      around ewikictl, most formats)
+   </a></div>
+
+   <br>
+   <div class="entry"><a href="t_transfer.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEVtPQltPQnWnFV6PYqaAAAAAXRSTlMAQObYZgAAAChJREFUeNpjYEADrA5AQkCAgYExNNSBgW3VqgkYxKxlyARraGgAQjsA/JIPevMXtUEAAAAASUVORK5CYII=" width="64" height="64" border="0" alt="suitcase">
+      <h4>transfer file</h4>
+      creates a binary backup from the database in one data, which can be
+      transferred more easily from one ewiki to another
+   </a></div>
+
+   <br>
+   <div class="entry"><a href="t_convertdb.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEVtPQk4ODgdViHTEBAMndy/AAAAAXRSTlMAQObYZgAAADhJREFUeNpjYIADVhARGgAkAgIaQMTi/0DuaiCRteoAQ0DWqj9AsdV/gPKLDwCJ5v9Agvk/AyoAAJ5tERMP1xoGAAAAAElFTkSuQmCC" width="64" height="64" border="0" alt="A&rarr;E">
+      <h4>database convert</h4>
+      migrate another wikis database to the structure used by ewiki
+   </a></div>
+
+   <br>
+   <div class="entry"><a href="t_revert.php">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAACVBMVEX///8AAAC6GxuVy9DtAAAAAXRSTlMAQObYZgAAADdJREFUeNpjYAABUVdRBggQCQmFskRZHaAsLY1VUJbGigUdDAodHSuArBUrGDgaOjoYNEAEHAAAWwMLw86WwOoAAAAASUVORK5CYII=" width="64" height="64" border="0" alt="SPAM">
+      <h4>revert mass changes</h4>
+      undo mass changes made by an attacker (automated wiki garbaging script)
+   </a></div>
+
+  </td>
+  </tr></table>
+
+  </div>
+ </div></span>
+ <br>
+
+</body>
+</html>
