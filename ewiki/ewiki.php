@@ -464,7 +464,7 @@
 */
 function ewiki_page($id=false) {
 
-   global $ewikiewiki_request;
+   global $ewiki_request;
    
    global $ewiki_links, $ewiki_plugins, $ewiki_ring, $ewiki_t,
 	  $ewiki_errmsg, $ewiki_data, $ewiki_title, $ewiki_id,
@@ -473,8 +473,8 @@ function ewiki_page($id=false) {
    $o = "";
 
    #-- selected page
-   if (!isset($ewikiewiki_request)) {
-	  $ewikiewiki_request = array();
+   if (!isset($ewiki_request)) {
+	  $ewiki_request = array();
    }
    if (!strlen($id)) {
 	  $id = ewiki_id();
