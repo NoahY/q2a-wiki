@@ -41,14 +41,21 @@ This is **alpha** code.  It may not work as expected.  It may corrupt your data.
 -------
 Release
 -------
-All code herein is Copylefted_.
+All plugin code herin is Copylefted_; _ErfurtWiki is Public Domain.
 
 .. _Copylefted: http://en.wikipedia.org/wiki/Copyleft
+.. _ErfurtWiki: http://erfurtwiki.sourceforge.net/
 
 ---------
-About q2A
+About Q2A
 ---------
 Question2Answer is a free and open source platform for Q&A sites. For more information, visit:
 
 http://www.question2answer.org/
 
+---------
+Credits
+---------
+Special thanks to the creators of _ErfurtWiki, without whose work this plugin wouldn't be possible.
+
+.. _ErfurtWiki: http://erfurtwiki.sourceforge.net/
