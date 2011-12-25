@@ -50,6 +50,47 @@
 
 	qa_register_plugin_phrases('qa-wiki-lang-*.php', 'wiki_page');
 	
+	function wiki_plugin_meta($oid) {
+
+		qa_db_query_sub(
+			'CREATE TABLE IF NOT EXISTS ^postmeta (
+			meta_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			post_id bigint(20) unsigned NOT NULL,
+			meta_key varchar(255) DEFAULT \'\',
+			meta_value longtext,
+			PRIMARY KEY (meta_id),
+			KEY post_id (post_id),
+			KEY meta_key (meta_key)
+			) ENGINE=MyISAM  DEFAULT CHARSET=utf8'
+		);
+		qa_db_query_sub(
+			'CREATE TABLE IF NOT EXISTS ^usermeta (
+			meta_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+			user_id bigint(20) unsigned NOT NULL,
+			meta_key varchar(255) DEFAULT NULL,
+			meta_value longtext,
+			PRIMARY KEY (meta_id),
+			UNIQUE (user_id,meta_key)
+			) ENGINE=MyISAM  DEFAULT CHARSET=utf8'
+		);
+		
+		qa_db_query_sub(
+			'INSERT INTO ^postmeta (post_id,meta_key,meta_value) VALUES (#,$,$) ON DUPLICATE KEY UPDATE meta_value=$',
+			$oid,'is_wikified','true','true'
+		);
+		qa_db_query_sub(
+			'INSERT INTO ^usermeta (user_id,meta_key,meta_value) VALUES (#,#,$) ON DUPLICATE KEY UPDATE meta_value=meta_value+1',
+			qa_get_logged_in_userid(),'wikified',1
+		);
+		$var = qa_db_read_one_value(
+			qa_db_query_sub(
+				'SELECT meta_value FROM ^usermeta WHERE meta_key=$ AND user_id=#',
+				'wikified',qa_get_logged_in_userid()
+			),true
+		);
+		if(function_exists('qa_badge_award_check') && qa_opt('badge_active') && qa_opt('badge_custom_badges'))
+			qa_badge_award_check(array('wikifier','wacky_wikifier','wicked_wikifier'), $var, qa_get_logged_in_userid(), NULL, 2); 
+	}
 
 /*
 	Omit PHP closing tag to help avoid accidental output

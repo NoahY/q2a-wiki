@@ -6,6 +6,16 @@
 	    switch($option) {
 		case 'wiki_send_allow':
 		    return 100;
+		case 'badges/wikifier':
+			return 'Wikifier';
+		case 'badges/wacky_wikifier':
+			return 'Wacky Wikifier';
+		case 'badges/wicked_wikifier':
+			return 'Wicked Wikifier';
+		case 'badges/wikifier_desc':
+		case 'badges/wacky_wikifier_desc':
+		case 'badges/wicked_wikifier_desc':
+			return 'Wikified # answers';
 		case 'wiki_page_css':
 		    return '
 #wiki_container .rbr {
@@ -59,6 +69,29 @@
 	    }
 		
 	}
+
+		function custom_badges() {
+			return array(
+				'wikifier' => array('var'=>1, 'type'=>0),
+				'wacky_wikifier' => array('var'=>5, 'type'=>1),
+				'wicked_wikifier' => array('var'=>20, 'type'=>2),
+			);
+		}
+		
+		
+		function custom_badges_rebuild() {
+			$awarded = 0;
+			
+			$posts = qa_db_query_sub(
+				'SELECT user_id AS userid, meta_value FROM ^usermeta WHERE meta_key=$',
+				'wikified'
+			);
+			while ( ($post=qa_db_read_one_assoc($posts,true)) !== null ) {
+				$badges = array('wikifier','wacky_wikifier','wicked_wikifier');
+				$awarded += count(qa_badge_award_check($badges,(int)$post['meta_value'],$post['userid'],null,2));
+			}
+			return $awarded;
+		}
         
         function allow_template($template)
         {

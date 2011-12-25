@@ -1616,9 +1616,10 @@ function ewiki_page_edit_form(&$id, &$data, &$hidden_postdata) {
 	// get from qa answer button
 
 	if($ewiki_request["qa_wiki_content"]) {
-		$a_link = qa_lang_html_sub('wiki_page/a_to_wiki_link',"[".$ewiki_request["qa_wiki_link"]."|".$id."]");
+		$a_link = qa_lang_html_sub('wiki_page/a_to_wiki_link',"[".$ewiki_request["qa_wiki_link"]."|".$ewiki_request["qa_wiki_handle"]."]");
 		$data["content"] = (@$data["content"]?$data["content"]."\n\n":"").$a_link."\n\n";
-		$data["content"] .= ($ewiki_request["qa_wiki_content"]);
+		$post=qa_db_select_with_pending(qa_db_full_post_selectspec(null, $ewiki_request["qa_wiki_oid"]));
+		$data["content"] .= ($post["content"]);
 		$hidden_postdata["qa_wiki_save"] = $id;
 	}
 

@@ -11,8 +11,8 @@
 				foreach($this->content['a_list']['as'] as $idx => $answer) {
 					if(qa_clicked('a_to_wiki_'.$idx)) {
 						if(!in_array($answer['raw']['postid'],$wikified)) {
-							$this->wiki_meta($answer['raw']['postid']);
-							qa_redirect('wiki',array('id'=>qa_html('edit/'.$this->content['q_view']['raw']['title']),'qa_wiki_content'=>qa_html($answer['raw']['content']),'qa_wiki_link'=>qa_html(qa_q_path($this->content['q_view']['raw']['postid'],$this->content['q_view']['raw']['title'],true,'A',$answer['raw']['postid']))));
+							$handle = $this->id_to_handle($this->content['q_view']['raw']['userid']);
+							qa_redirect('wiki',array('id'=>qa_html('edit/'.$this->content['q_view']['raw']['title']),'qa_wiki_oid'=>$answer['raw']['postid'],'qa_wiki_handle'=>$handle,'qa_wiki_link'=>qa_html(qa_q_path($this->content['q_view']['raw']['postid'],$this->content['q_view']['raw']['title'],true,'A',$answer['raw']['postid']))));
 						}
 						else
 							qa_redirect('wiki',array('id'=>qa_html($this->content['q_view']['raw']['title'])));
@@ -37,7 +37,7 @@
 		
 		// worker
 		
-		function wiki_meta($oid=null) {
+		function wiki_meta() {
 			qa_db_query_sub(
 				'CREATE TABLE IF NOT EXISTS ^postmeta (
 				meta_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -49,22 +49,34 @@
 				KEY meta_key (meta_key)
 				) ENGINE=MyISAM  DEFAULT CHARSET=utf8'
 			);
-			error_log($oid);
-			if($oid) {
+			$array = qa_db_read_all_values(
 				qa_db_query_sub(
-					'INSERT INTO ^postmeta (post_id,meta_key,meta_value) VALUES (#,$,$) ON DUPLICATE KEY UPDATE meta_value=$',
-					$oid,'is_wikified','true','true'
+					'SELECT post_id FROM ^postmeta WHERE meta_key=$',
+					'is_wikified'
+				)
+			);		
+			return $array;
+		}
+
+		function id_to_handle($uid) {
+			require_once QA_INCLUDE_DIR.'qa-app-users.php';
+			
+			if (QA_FINAL_EXTERNAL_USERS) {
+				$publictouserid=qa_get_public_from_userids(array($uid));
+				$handle=@$publictouserid[$uid];
+				
+			} 
+			else {
+				$handle = qa_db_read_one_value(
+					qa_db_query_sub(
+						'SELECT handle FROM ^users WHERE userid = #',
+						$uid
+					),
+					true
 				);
 			}
-			else {
-				$array = qa_db_read_all_values(
-					qa_db_query_sub(
-						'SELECT post_id FROM ^postmeta WHERE meta_key=$',
-						'is_wikified'
-					)
-				);		
-				return $array;
-			}
+			if (!isset($handle)) return;
+			return $handle;
 		}
 
 	}
