@@ -1,0 +1,24 @@
+To make clickable images, we'll need to patch the ewiki_link_regex_callback()
+function. It must recall itself to get images rendered as links.
+However I personally would vote against such functions, as Wiki is a
+hyperTEXT system based upon the HTML (HyperTextMarkupLanguage) - which is
+obviously not the same as a HPML (HyperPictureMarkupLanguage).
+
+
+- edit ewiki.php
+- search for "function ewiki_link_regex_callb"
+- after the code block "#-- anchors\n..." insert:
+
+   #-- image links
+   if (strpos($title, "://")) {
+      $tmp_img = ewiki_link_regex_callback(array("[$title]"));
+      if (strpos($tmp_img, "<img") === 0) {
+         $title = $tmp_img;
+      }
+   }
+
+- save and test your changed ewiki.php
+
+
+To get a clickable image, then just write in your WikiPages something like:
+[http://www.google.com/ "http://images.org/pic1.png"]

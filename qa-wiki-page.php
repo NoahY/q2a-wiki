@@ -52,20 +52,11 @@
 		function process_request($request)
 		{
 
-/*			
-			
-			if($request != 'wiki')
-				$this->urltoroot = substr($this->urltoroot,1); // remove extra dot
-*/		
+
 			$qa_content=qa_content_prepare();
 
 			$qa_content['title']='<a href="'.qa_path_html('wiki').'">Wiki</a>';
-/*
-			ob_start();
-			include $request.($request == 'wiki'?'/index.php':'');
-			$contents = ob_get_contents();
-			ob_end_clean();
-*/			
+		
 			$tools = array(
 				'wiki/tools' => 'index.html',
 				'wiki/tools/flags' => 't_flags.php',
@@ -81,7 +72,7 @@
 			$ewiki_request = array_merge($_GET?$_GET:array(),$_POST?$_POST:array());
 			global $ewiki_links, $ewiki_plugins, $ewiki_ring, $ewiki_t, $ewiki_errmsg, $ewiki_data, $ewiki_title, $ewiki_id, $ewiki_action, $ewiki_config;
 			ob_start();
-			if(isset($tools[$request]))
+			if(isset($tools[$request]) && qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN)
 				include('ewiki/tools/'.$tools[$request]);
 			else
 				include("ewiki/index.php");

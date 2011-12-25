@@ -1,0 +1,30 @@
+In PHP5 beta2 some stupid introduced a 'bugfix' to make the array_merge()
+function refuse to proceed when undefined parameters get passed (the NULL
+value) instead of automatically typecasting it into an empty array like
+previous versions did. This makes ewiki break, because the array_merge()
+is used to create AND collapse arrays all over the code.
+
+If you wish to use ewiki with this early BETA version, then you have to
+recompile your PHP interpreter. Go into your php source directory and open
+"ext/standard/array.c" for editing. There you'll need to find the line
+containing:
+			params_ok = 0;
+
+Just uncomment this and recompile your interpreter, so array_merge() works
+as before, but of a warning message. In the line above this one you should
+also change the E_WARNING to E_NOTICE if your error log fills up too fast.
+
+--------------------------------------------------------------------------
+
+Interesting resources on this issue are:
+- http://bugs.php.net/bug.php?id=25494  (AKA the broken bug report)
+- http://cvs.php.net/cvs.php/php-src/ext/standard/array.c
+- http://marc.theaimsgroup.com/?l=php-dev&m=106561879428591&w=2
+
+Note: the discussion about this major feature change (namely introducing
+"strong typing" into the PHP scripting language) got quiet currently, so
+please visit http://bugs.php.net/ if you anticipate this new development
+direction too. Add a complaint NOW, if the php interpreter ships like it
+currently is, we'll never get a working version again!
+
+mario

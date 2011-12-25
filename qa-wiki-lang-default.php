@@ -25,6 +25,8 @@
 */
 
 	return array(
+		'a_to_wikified_button' => 'wikified',
+		'a_to_wikified_popup' => 'view wikified answer',
 		'a_to_wiki_button' => 'wikify',
 		'a_to_wiki_popup' => 'create wiki post out of this answer',
 		'a_to_wiki_link' => 'From ^:',
