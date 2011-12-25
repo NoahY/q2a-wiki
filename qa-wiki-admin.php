@@ -9,18 +9,27 @@
 		case 'wiki_page_css':
 		    return '
 #wiki_container .rbr {
-  font-family:"skaterdudes","steelfish","coolvetica","Arial","Helvetica","Lucida";
-  background-color:#ffbb44;
-  color:#221003;
-  padding:3px;
-  border-radius:12px 0px 0px 12px;
-  -moz-border-radius:12px 0px 0px 12px;
-  border:2px solid #000000; border-right:0px;
-  margin-top:8px;
-  float:right; clear:right;
+    background-color: #EEEEEE;
+    border-color: #777;
+    border-radius: 12px 0 0 12px;
+    border-style: solid none solid solid;
+    border-width: 2px 0 2px 2px;
+    clear: right;
+    color: #221003;
+    float: left;
+    margin-top: 8px;
+    padding: 6px;
 }
 #wiki_container .rbr a {
   text-decoration:none;
+}
+#wiki_container .rbr ul {
+  list-style: none outside none;
+  padding:0;
+}
+#wiki_container .rbr li {
+  float:left;
+  padding:0 8px;
 }
 #wiki_container #wiki-main {
 }
@@ -28,13 +37,21 @@
 #wiki_container #wiki-main .action-links {
 }
 #wiki_container #wiki-main .action-links a {
-   padding:4px;
-   background-color: #EEE;
-  color:black;
-  text-decoration:none;
+    background-color: #EEEEEE;
+    border: 1px solid silver;
+    border-radius: 4px 4px 4px 4px;
+    color: black;
+    padding: 3px 8px;
+    text-decoration: none;
 }
 #wiki-main .action-links a:hover {
   background-color: #EFEFEF !important;
+}
+#wiki-main .control-links {
+  text-align:left;
+}
+#wiki-main .action-links-buttons {
+  float:right;
 }
 ';
 		default:

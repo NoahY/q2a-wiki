@@ -65,12 +65,26 @@
 			include $request.($request == 'wiki'?'/index.php':'');
 			$contents = ob_get_contents();
 			ob_end_clean();
-*/			global $ewiki_request;
+*/			
+			$tools = array(
+				'wiki/tools' => 'index.html',
+				'wiki/tools/flags' => 't_flags.php',
+				'wiki/tools/backup' => 't_backup.php',
+				'wiki/tools/restore' => 't_restore.php',
+				'wiki/tools/remove' => 't_remove.php',
+				'wiki/tools/holes' => 't_holes.php',
+				'wiki/tools/convertdb' => 't_convertdb.php',
+				'wiki/tools/checklinks' => 't_checklinks.php'
+       		);
+       		
+			global $ewiki_request;
 			$ewiki_request = array_merge($_GET?$_GET:array(),$_POST?$_POST:array());
 			global $ewiki_links, $ewiki_plugins, $ewiki_ring, $ewiki_t, $ewiki_errmsg, $ewiki_data, $ewiki_title, $ewiki_id, $ewiki_action, $ewiki_config;
-			
 			ob_start();
-			include("ewiki/index.php");
+			if(isset($tools[$request]))
+				include('ewiki/tools/'.$tools[$request]);
+			else
+				include("ewiki/index.php");
 			$contents = ob_get_contents();
 			ob_end_clean();
 		   

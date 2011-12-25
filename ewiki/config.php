@@ -45,7 +45,6 @@ chdir(dirname(__FILE__));
 
  #-- load plugins
 // include("plugins/init.php");     # you can disable this later
- include("plugins/page/README.php");
 # include("plugins/pluginloader.php");
 # include("plugins/email_protect.php");
  include("plugins/page/powersearch.php");

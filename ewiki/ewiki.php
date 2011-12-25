@@ -80,7 +80,7 @@
 	define("EWIKI_UP_PAGENUM", "n");	# _UP_ means "url parameter"
 	define("EWIKI_UP_PAGEEND", "e");
 	define("EWIKI_UP_BINARY", "binary");
-	define("EWIKI_UP_UPLOAD", "upload");
+	define("EWIKI_UP_UPLOAD", null);//"upload");
 	define("EWIKI_UP_PARENTID", "parent_page");
 		#- other stuff
 		define("EWIKI_DEFAULT_LANG", "en");
@@ -328,10 +328,11 @@
 	   "EDIT_FORM_1" => "It is <a href=\"".EWIKI_SCRIPT."GoodStyle\">GoodStyle</a>
 				to just start writing. With <a href=\"".EWIKI_SCRIPT."WikiMarkup\">WikiMarkup</a>
 		you can style your text later.<br>",
-	   "EDIT_FORM_2" => "<br>Please do not write things, which may make other
-		people angry. And please keep in mind that you are not all that
-		anonymous in the internet (find out more about your computers
-		'<a href=\"http://google.com/search?q=my+computers+IP+address\">IP address</a>' at Google).",
+	   "EDIT_FORM_2" => "",
+	   //~ <br>Please do not write things, which may make other
+		//~ people angry. And please keep in mind that you are not all that
+		//~ anonymous in the internet (find out more about your computers
+		//~ '<a href=\"http://google.com/search?q=my+computers+IP+address\">IP address</a>' at Google).",
 	   "BIN_IMGTOOLARGE" => "Image file is too large!",
 	   "BIN_NOIMG" => "This is no image file (inacceptable file format)!",
 	   "FORBIDDEN" => "You are not authorized to access this page.",
@@ -1717,7 +1718,7 @@ function ewiki_control_links($id, &$data, $action, $hide_hr=0, $hide_mtime=0) {
    }
 
    $o = "\n"
-	  . '<div align="right" class="action-links control-links">';
+	  . '<div class="action-links control-links">';
    if (!$hide_hr) {
 	  $o .=  "\n<br>\n" . "<hr noshade>" . "\n";
    }
@@ -1745,7 +1746,9 @@ function ewiki_control_links($id, &$data, $action, $hide_hr=0, $hide_mtime=0) {
 #-- the core of ewiki_control_links, separated for use in info and plugins
 function ewiki_control_links_list($id, &$data, $action_links, $version=0) {
    global $ewiki_plugins;
-
+    
+    $o = '<div class="action-links-buttons">';
+    
    foreach ($action_links as $action => $title)
    if (!empty($ewiki_plugins["action"][$action]) || !empty($ewiki_plugins["action_always"][$action]) || strpos($action, ":/"))
    {
@@ -1758,6 +1761,7 @@ function ewiki_control_links_list($id, &$data, $action_links, $version=0) {
 			: ewiki_script($action, $id, $version?array("version"=>$version):NULL)
 		 ) . '">' . ewiki_t($title) . '</a> ';
    }
+    $o .= '</div>';
 
    return($o);
 }

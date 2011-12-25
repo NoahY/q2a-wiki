@@ -76,18 +76,18 @@ $ewiki = ewiki_page();
        -->
     <?php
 
-     if(qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) {
+     if(qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN && false) { // disabled
 
     ?>
        <div class="rbr">
-       <b>database <A HREF="./tools/index.html">tools</A></b><br>
-       » <A HREF="./tools/t_flags.php">set page flags</A><BR>
-       » <A HREF="./tools/t_backup.php">backup util</A><BR>
-       » <A HREF="./tools/t_restore.php">restore util</A><BR>
-       » <A HREF="./tools/t_remove.php">page deletion</A><BR>
-       » <A HREF="./tools/t_holes.php">make holes</A><BR>
-       » <A HREF="./tools/t_convertdb.php">convert db</A><BR>
-       » <A HREF="./tools/t_checklinks.php">check links</A><BR>
+       <b>database <A HREF="./wiki/tools">tools</A></b><br>
+       » <A HREF="./wiki/tools/flags">set page flags</A><BR>
+       » <A HREF="./wiki/tools/backup">backup util</A><BR>
+       » <A HREF="./wiki/tools/restore">restore util</A><BR>
+       » <A HREF="./wiki/tools/remove">page deletion</A><BR>
+       » <A HREF="./wiki/tools/holes">make holes</A><BR>
+       » <A HREF="./wiki/tools/convertdb">convert db</A><BR>
+       » <A HREF="./wiki/tools/checklinks">check links</A><BR>
        </div>
     <?php
 
@@ -96,10 +96,10 @@ $ewiki = ewiki_page();
     ?>
 
        <div class="rbr">
-       <b>internal pages</b><br>
+       <b>internal pages</b><ul>
        <?php
          foreach ($ewiki_plugins["page"] as $id=>$pf) {
-            echo '» <A HREF="' . ewiki_script("", $id) . '">' . $id . '</A><BR>' . "\n";
+            echo '<li><A HREF="' . ewiki_script("", $id) . '">' . $id . '</A></li>' . "\n";
          }
        ?>
        </div>
