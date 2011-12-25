@@ -6,7 +6,6 @@
 			if(strpos($this->request,'wiki') === 0) {
 					$this->output('<style>',str_replace('^',QA_HTML_THEME_LAYER_URLTOROOT,qa_opt('wiki_page_css')),'</style>');
 			}
-			error_log(qa_opt('expert_question_roles'));
 			if($this->template == 'question' && qa_opt('wiki_send_enable') && !qa_permit_value_error(qa_opt('wiki_send_allow'), qa_get_logged_in_userid(), qa_get_logged_in_level(), qa_get_logged_in_flags())  && isset($this->content['a_list']['as']) && count($this->content['a_list']['as'])) {
 				$wikified = $this->wiki_meta();
 				foreach($this->content['a_list']['as'] as $idx => $answer) {
