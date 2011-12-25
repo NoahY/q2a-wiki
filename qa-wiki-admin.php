@@ -76,6 +76,7 @@
 			
                 qa_opt('wiki_send_enable',(bool)qa_post_text('wiki_send_enable'));
                 qa_opt('wiki_send_allow',(int)qa_post_text('wiki_send_allow'));
+                qa_opt('wiki_send_allow_points',(int)qa_post_text('wiki_send_allow_points'));
                 qa_opt('wiki_page_css',qa_post_text('wiki_page_css'));
 		
 		$ok = qa_lang('admin/options_saved');
@@ -86,6 +87,12 @@
 		    if($def !== null) qa_opt($i,$def);
 		}
 		$ok = qa_lang('admin/options_reset');
+	    }
+	    
+	    if(qa_opt('wiki_send_allow')!=106) {
+		qa_set_display_rules($qa_content, array(
+		    'wiki_send_allow_points' => 'wiki_send_allow_points_hidden',
+		));
 	    }
   
         // Create the form for display
@@ -100,16 +107,26 @@
                 'value' => qa_opt('wiki_send_enable'),
             );
             	    
-	    $permitoptions=qa_admin_permit_options(QA_PERMIT_EXPERTS, QA_PERMIT_ADMINS, (!QA_FINAL_EXTERNAL_USERS) && qa_opt('confirm_user_emails'));
+	    $permitoptions=qa_admin_permit_options(QA_PERMIT_ALL, QA_PERMIT_ADMINS, (!QA_FINAL_EXTERNAL_USERS) && qa_opt('confirm_user_emails'));
 
 	    $fields[] = array(
 		'id' => 'wiki_send_allow',
 		'label' => 'Roles allowed to send answers to wiki',
-		'tags' => 'NAME="wiki_send_allow" ID="wiki_send_allow"',
+		'tags' => 'onclick="if(this.selectedIndex==2) jQuery(\'#wiki_send_allow_points\').show(); else jQuery(\'#wiki_send_allow_points\').hide()" NAME="wiki_send_allow" ID="wiki_send_allow"',
 		'type' => 'select',
 		'options' => $permitoptions,
 		'value' => $permitoptions[qa_opt('wiki_send_allow')],
 	    );
+
+	    $fields[] = array(
+		'id' => 'wiki_send_allow_points',
+		'label' => 'Minimum points',
+		'tags' => 'NAME="wiki_send_allow_points"',
+		'type' => 'number',
+		'value' => qa_opt('wiki_send_allow_points'),
+	    );
+
+
 	    $fields[] = array(
 		'type' => 'blank',
 	    );
@@ -126,6 +143,14 @@
                 'ok' => ($ok && !isset($error)) ? $ok : null,
                     
                 'fields' => $fields,
+		
+		'hidden' => array(
+		    array(
+			'id' => 'wiki_send_allow_points_hidden',
+			'tags' => 'NAME="wiki_send_allow_points_hidden"',
+			'value' => 'false',
+		    )
+		),
              
                 'buttons' => array(
                     array(
