@@ -1346,7 +1346,6 @@ function ewiki_chunked_page($action, $id, $dir=-1, $start=10, $end=1, $limit=0, 
 
 function ewiki_page_edit($id, $data, $action) {
 	global $ewiki_request;
-	qa_error_log($ewiki_request);
   global $ewiki_links, $ewiki_author, $ewiki_plugins, $ewiki_ring,
 	  $ewiki_errmsg, $ewiki_config;
 

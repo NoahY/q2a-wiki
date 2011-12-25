@@ -47,7 +47,7 @@ chdir(dirname(__FILE__));
 // include("plugins/init.php");     # you can disable this later
  include("plugins/page/README.php");
 # include("plugins/pluginloader.php");
- include("plugins/email_protect.php");
+# include("plugins/email_protect.php");
  include("plugins/page/powersearch.php");
  include("plugins/page/pageindex.php");
 # include("plugins/page/wordindex.php");
@@ -70,7 +70,7 @@ chdir(dirname(__FILE__));
 # include("plugins/module/downloads.php");
 # include("plugins/aview/downloads.php");
  include("plugins/markup/css.php");
- include("plugins/markup/smilies.php");
+# include("plugins/markup/smilies.php");
 # include("plugins/markup/paragraphs.php");
 # include("plugins/markup/footnotes.php");
 # include("plugins/markup/rescuehtml.php");

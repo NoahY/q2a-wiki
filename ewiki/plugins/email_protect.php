@@ -22,7 +22,7 @@
  define("EWIKI_EMAILPROT_UNLOCK", 1);
  define("EWIKI_UP_ENCEMAIL", "encoded_email");
  define("EWIKI_UP_NOSPAMBOT", "i_am_no_spambot");
- define("EWIKI_UP_REQUESTLV", "rl");
+ define("EWIKI_UPewikiewiki_requestLV", "rl");
  define("EWIKI_FAKE_EMAIL_LOOP", 5);
  $ewiki_config["feedbots_tarpits"] = "@spamassassin.taint.org,@123webhosting.org,@e.mailsiphon.com,@heypete.com,@ncifcrf.gov";
  $ewiki_config["feedbots_badguys"] = "@riaa.com,@whitehouse.gov,@aol.com,@microsoft.com";
@@ -88,10 +88,11 @@
   * mail addresses would still show up in the wikimarkup (cleartext)
   */
  function ewiki_email_protect_edit_hook($id, &$data, &$hidden_postdata) {
+   global $ewikiewikiewikiewiki_request;
 
     $hidden_postdata[EWIKI_UP_NOSPAMBOT] = 1;
 
-    if (empty($_REQUEST[EWIKI_UP_NOSPAMBOT])
+    if (empty($ewikiewiki_request[EWIKI_UP_NOSPAMBOT])
         && strpos($data["content"], "@")
         && preg_match('/\w\w@([-\w]+\.)+\w\w/', $data["content"])   )
     {
@@ -114,11 +115,11 @@
   */
  function ewiki_email_protect_form($id, $data=0, $action=0, $text="PROTE1", $url="") {
 
-    if ($url || ($email = @$_REQUEST[EWIKI_UP_ENCEMAIL])) {
+    if ($url || ($email = @$ewikiewiki_request[EWIKI_UP_ENCEMAIL])) {
 
           $html = "<h3>" . ewiki_t("PROTE0") . "</h3>\n";
 
-          if (empty($_REQUEST[EWIKI_UP_NOSPAMBOT])) {  #// from GET,POST,COOKIE
+          if (empty($ewikiewiki_request[EWIKI_UP_NOSPAMBOT])) {  #// from GET,POST,COOKIE
 
              (empty($url)) and ($url = ewiki_script("", EWIKI_PAGE_EMAIL));
 
@@ -279,12 +280,12 @@
 
     $html .= '<a href="mailto:'.$traps[rand(0, $n_trp)].'">'.$traps[rand(0, $n_trp)].'</a>';
 
-    if (($rl = 1 + @$_REQUEST[EWIKI_UP_REQUESTLV]) < EWIKI_FAKE_EMAIL_LOOP) {
+    if (($rl = 1 + @$ewikiewiki_request[EWIKI_UPewikiewiki_requestLV]) < EWIKI_FAKE_EMAIL_LOOP) {
        $html .= ",\n" . '<br><a href="' .
              ewiki_script("", EWIKI_PAGE_EMAIL,
                array(
                   EWIKI_UP_ENCEMAIL=>ewiki_email_protect_encode($m, 1),
-                  EWIKI_UP_REQUESTLV=>"$rl"
+                  EWIKI_UPewikiewiki_requestLV=>"$rl"
                )
              ) . '">' . ewiki_t("PROTE5") . '</a><br>' . "\n";
        ($rl > 1) && sleep(3);
