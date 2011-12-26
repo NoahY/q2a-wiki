@@ -50,7 +50,7 @@
 
 	qa_register_plugin_phrases('qa-wiki-lang-*.php', 'wiki_page');
 	
-	function wiki_plugin_meta($oid) {
+	function qa_wiki_plugin_meta($oid) {
 
 		qa_db_query_sub(
 			'CREATE TABLE IF NOT EXISTS ^postmeta (

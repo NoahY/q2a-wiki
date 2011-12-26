@@ -1486,23 +1486,28 @@ function ewiki_page_edit($id, $data, $action) {
 
 			}
 			else {
-			// add to list
-				$oid = @$ewiki_request["qa_wiki_save"];
+				$qid = @$ewiki_request["qa_wiki_save"];
+				$oid = @$ewiki_request["qa_wiki_new_oid"];
 			
-				if($oid && !isset($data["version"])) {
+				if($qid) {
+					if($oid)
+						qa_wiki_plugin_meta($oid);
 
-					$current = ewiki_database("GET", array("id"=>EWIKI_ANSWERS_SLUG));
-					$savel = array(
-					   "id" => EWIKI_ANSWERS_SLUG,
-					   "version" => @$current["version"] + 1,
-					   "flags" => ($uu=@$current["flags"]) ? $uu : "",
-					   "content" => $current['content']."\n\n* [".$oid."]",
-					   "created" => ($uu=@$current["created"]) ? $uu : time(),
-					   "meta" => ($uu=@$current["meta"]) ? $uu : "",
-					   "hits" => ($uu=@$current["hits"]) ? $uu : "0",
-					);
-					ewiki_database("WRITE", $savel);
-					unset($current);
+					if(!isset($data["version"])) { // add to list
+
+						$current = ewiki_database("GET", array("id"=>EWIKI_ANSWERS_SLUG));
+						$savel = array(
+						   "id" => EWIKI_ANSWERS_SLUG,
+						   "version" => @$current["version"] + 1,
+						   "flags" => ($uu=@$current["flags"]) ? $uu : "",
+						   "content" => $current['content']."\n\n* [".$qid."]",
+						   "created" => ($uu=@$current["created"]) ? $uu : time(),
+						   "meta" => ($uu=@$current["meta"]) ? $uu : "",
+						   "hits" => ($uu=@$current["hits"]) ? $uu : "0",
+						);
+						ewiki_database("WRITE", $savel);
+						unset($current);
+					}
 				}
 
 			   #-- prevent double saving, when ewiki_page() is re-called
@@ -1615,12 +1620,14 @@ function ewiki_page_edit_form(&$id, &$data, &$hidden_postdata) {
 
 	// get from qa answer button
 
-	if($ewiki_request["qa_wiki_content"]) {
+	if($ewiki_request["qa_wiki_oid"]) {
 		$a_link = qa_lang_html_sub('wiki_page/a_to_wiki_link',"[".$ewiki_request["qa_wiki_link"]."|".$ewiki_request["qa_wiki_handle"]."]");
 		$data["content"] = (@$data["content"]?$data["content"]."\n\n":"").$a_link."\n\n";
 		$post=qa_db_select_with_pending(qa_db_full_post_selectspec(null, $ewiki_request["qa_wiki_oid"]));
+		qa_error_log($post);
 		$data["content"] .= ($post["content"]);
 		$hidden_postdata["qa_wiki_save"] = $id;
+		$hidden_postdata["qa_wiki_new_oid"] = $ewiki_request["qa_wiki_oid"];
 	}
 
    #-- normalize to DOS newlines
@@ -1747,9 +1754,9 @@ function ewiki_control_links($id, &$data, $action, $hide_hr=0, $hide_mtime=0) {
 #-- the core of ewiki_control_links, separated for use in info and plugins
 function ewiki_control_links_list($id, &$data, $action_links, $version=0) {
    global $ewiki_plugins;
-    
-    $o = '<div class="action-links-buttons">';
-    
+	
+	$o = '<div class="action-links-buttons">';
+	
    foreach ($action_links as $action => $title)
    if (!empty($ewiki_plugins["action"][$action]) || !empty($ewiki_plugins["action_always"][$action]) || strpos($action, ":/"))
    {
@@ -1762,7 +1769,7 @@ function ewiki_control_links_list($id, &$data, $action_links, $version=0) {
 			: ewiki_script($action, $id, $version?array("version"=>$version):NULL)
 		 ) . '">' . ewiki_t($title) . '</a> ';
    }
-    $o .= '</div>';
+	$o .= '</div>';
 
    return($o);
 }
