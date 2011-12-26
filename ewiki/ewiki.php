@@ -18,8 +18,8 @@
   use it from inside yoursite.php like that:
 	<html><body>...
 	<?php
-	   include("ewiki.php");
-	   echo ewiki_page();
+		include("ewiki.php");
+		echo ewiki_page();
 	?>
 */
 
@@ -68,7 +68,7 @@
 	define("EWIKI_ESCAPE_AT", 1);		# "@" -> "&#x40;"
 		#- http/urls
 		define("EWIKI_SUBPAGE_LONGTITLE", 0);
-		define("EWIKI_SUBPAGE_START", ".:/");   # set to "" to disable [.Sub] getting a link to [CurrentPage.Sub]
+		define("EWIKI_SUBPAGE_START", ".:/");	# set to "" to disable [.Sub] getting a link to [CurrentPage.Sub]
 #		define("EWIKI_SUBPAGE_CHARS", ".:/-!");
 	define("EWIKI_HTTP_HEADERS", 1);	# most often a good thing
 	define("EWIKI_NO_CACHE", 1);		# browser+proxy shall not cache
@@ -98,8 +98,8 @@
 
 		#-- database
 	define("EWIKI_DB_TABLE_NAME", QA_MYSQL_TABLE_PREFIX."ewiki");	  # MySQL / ADOdb
-	define("EWIKI_DBFILES_DIRECTORY", "/tmp");   # see "db_flat_files.php"
-	define("EWIKI_DBA", "/tmp/ewiki.dba");	   # see "db_dba.php"
+	define("EWIKI_DBFILES_DIRECTORY", "/tmp");	# see "db_flat_files.php"
+	define("EWIKI_DBA", "/tmp/ewiki.dba");		# see "db_dba.php"
 	define("EWIKI_DBQUERY_BUFFER", 512*1024);	# 512K
 	define("EWIKI_INIT_PAGES", "./init-pages");  # for initialization
 
@@ -136,7 +136,7 @@
 	define("EWIKI_IMAGE_RESIZE", 1);
 	define("EWIKI_IMAGE_ACCEPT", "image/jpeg,image/png,image/gif,application/x-shockwave-flash");
 	define("EWIKI_IDF_INTERNAL", "internal://");
-	define("EWIKI_ACCEPT_BINARY", 0);   # for arbitrary binary data files
+	define("EWIKI_ACCEPT_BINARY", 0);	# for arbitrary binary data files
 
 	#-- misc
 		define("EWIKI_TMP", $_SERVER["TEMP"] ? $_SERVER["TEMP"] : "/tmp");
@@ -197,53 +197,53 @@
 
 		#-- variable configuration settings (go into '$ewiki_config')
 		$ewiki_config_DEFAULTSTMP = array(
-		   "edit_thank_you" => 1,
-		   "edit_box_size" => "70x15",
-		   "print_title" => EWIKI_PRINT_TITLE,
-		   "split_title" => EWIKI_SPLIT_TITLE,
-		   "control_line" => EWIKI_CONTROL_LINE,
-		   "list_limit" => EWIKI_LIST_LIMIT,
-		   "script" => EWIKI_SCRIPT,
-		   "script_url" => (defined("EWIKI_SCRIPT_URL")?EWIKI_SCRIPT_URL:NULL),
-		   "script_binary" => EWIKI_SCRIPT_BINARY,
+			"edit_thank_you" => 1,
+			"edit_box_size" => "70x15",
+			"print_title" => EWIKI_PRINT_TITLE,
+			"split_title" => EWIKI_SPLIT_TITLE,
+			"control_line" => EWIKI_CONTROL_LINE,
+			"list_limit" => EWIKI_LIST_LIMIT,
+			"script" => EWIKI_SCRIPT,
+			"script_url" => (defined("EWIKI_SCRIPT_URL")?EWIKI_SCRIPT_URL:NULL),
+			"script_binary" => EWIKI_SCRIPT_BINARY,
 	#-- heart of the wiki -- don't try to read this! ;)
-		   "wiki_pre_scan_regex" =>	'/
+			"wiki_pre_scan_regex" =>	'/
 		(?<![~!])
 		((?:(?:\w+:)*['.EWIKI_CHARS_U.']+['.EWIKI_CHARS_L.']+){2,}[\w\d]*)
 		|\^([-'.EWIKI_CHARS_L.EWIKI_CHARS_U.']{3,})
 		|\[ (?:"[^\]\"]+" | \s+ | [^:\]#]+\|)*  ([^\|\"\[\]\#]+)  (?:\s+ | "[^\]\"]+")* [\]\#] 
 		|(\w{3,9}:\/\/[^?#\s\[\]\'\"\)\,<]+)	/x',
-		   "wiki_link_regex" => "\007 [!~]?(
+			"wiki_link_regex" => "\007 [!~]?(
 		\#?\[[^<>\[\]\n]+\] |
 		\^[-".EWIKI_CHARS_U.EWIKI_CHARS_L."]{3,} |
 		\b([\w]{3,}:)*([".EWIKI_CHARS_U."]+[".EWIKI_CHARS_L."]+){2,}\#?[\w\d]* |
 		([a-z]{2,9}://|mailto:)[^\s\[\]\'\"\)\,<]+ |
 		\w[-_.+\w]+@(\w[-_\w]+[.])+\w{2,}	) \007x",
 	#-- rendering ruleset
-		   "wm_indent" => '<div style="margin-left:15px;" class="indent">',
-		   "wm_table_defaults" => 'cellpadding="2" border="1" cellspacing="0"',
-		   "wm_whole_line" => array("&gt;&gt;" => 'div align="right"'),
-		   "wm_max_header"=>3,
-		   "wm_publishing_headers"=>0,
-		   "htmlentities" => array(
+			"wm_indent" => '<div style="margin-left:15px;" class="indent">',
+			"wm_table_defaults" => 'cellpadding="2" border="1" cellspacing="0"',
+			"wm_whole_line" => array("&gt;&gt;" => 'div align="right"'),
+			"wm_max_header"=>3,
+			"wm_publishing_headers"=>0,
+			"htmlentities" => array(
 		"&" => "&amp;",
 		">" => "&gt;",
 		"<" => "&lt;",
-		   ),
-		   "wm_source" => array(
+			),
+			"wm_source" => array(
 		"%%%" => "<br>",
 		"&lt;br&gt;" => "<br>",
 		"\t" => "		",
-		"\n;:" => "\n	  ",   # workaround, replaces the old ;:
-		   ),
-		   "wm_list" => array(
+		"\n;:" => "\n	  ",	# workaround, replaces the old ;:
+			),
+			"wm_list" => array(
 		"-" => array('ul type="square"', "", "li"),
 		"*" => array('ul type="circle"', "", "li"),
 		"#" => array("ol", "", "li"),
 		":" => array("dl", "dt", "dd"),
 	#<out># ";" => array("dl", "dt", "dd"),
-		   ),
-		   "wm_style" => array(
+			),
+			"wm_style" => array(
 		"'''''" => array("<b><i>", "</i></b>"),
 		"'''" => array("<b>", "</b>"),
 		"''" => array("<em>", "</em>"),
@@ -253,141 +253,141 @@
 	#<off>#	"___" => array("<i><b>", "</b></i>"),
 	#<off>#	"***" => array("<b><i>", "</i></b>"),
 	#<off>#	"###" => array("<big><b>", "</b></big>"),
- #<broken+bug>#	"//" => array("<i>", "</i>"),   # conflicts with URLs, could only be done with regex
+ #<broken+bug>#	"//" => array("<i>", "</i>"),	# conflicts with URLs, could only be done with regex
 		"**" => array("<b>", "</b>"),
 		"##" => array("<big>", "</big>"),
 		"µµ" => array("<small>", "</small>"),
-		   ),
-		   "wm_start_end" => array(
+			),
+			"wm_start_end" => array(
 	#<off># array("[-", "-]", "<s>", "</s>"),
 	#<off># array("(*", "*)", "<!--", "-->"),
-		   ),
+			),
 	#-- rendering plugins
-		   "format_block" => array(
+			"format_block" => array(
 		"html" => array("&lt;html&gt;", "&lt;/html&gt;", "html", 0x0000),
 		"htm" => array("&lt;htm&gt;", "&lt;/htm&gt;", "html", 0x0003),
 		"code" => array("&lt;code&gt;", "&lt;/code&gt;", false, 0x0000),
 		"pre" => array("&lt;pre&gt;", "&lt;/pre&gt;", false, 0x003F),
 		"comment" => array("\n&lt;!--", "--&gt;", false, 0x0030),
 		#  "verbatim" => array("&lt;verbatim&gt;", "&lt;/verbatim&gt;", false, 0x0000),
-		   ),
-		   "format_params" => array(
+			),
+			"format_params" => array(
 		"scan_links" => 1,
 		"html" => EWIKI_ALLOW_HTML,
 		"mpi" => 1,
-		   ),
+			),
 		);
 		foreach ($ewiki_config_DEFAULTSTMP as $set => $val) {
-		   if (!isset($ewiki_config[$set])) {
+			if (!isset($ewiki_config[$set])) {
 			  $ewiki_config[$set] = $val;
-		   }
-		   elseif (is_array($val)) foreach ($val as $vali=>$valv) {
+			}
+			elseif (is_array($val)) foreach ($val as $vali=>$valv) {
 			  if (is_int($vali)) {
 				 $ewiki_config[$set][] = $valv;
 			  }
 			  elseif (!isset($ewiki_config[$set][$vali])) {
 				 $ewiki_config[$set][$vali] = $valv;
 			  }
-		   }
+			}
 		}
 		$ewiki_config_DEFAULTSTMP = $valv = $vali = $val = NULL;
 
 	#-- text  (never remove the "C" or "en" sections!)
 		#
 	$ewiki_t["C"] = array_merge(@$ewiki_t["C"]?$ewiki_t["C"]:array(), array(
-		   "DATE" => "%a, %d %b %G %T %Z",
-	   "EDIT_TEXTAREA_RESIZE_JS" => '',//'<a href="javascript:ewiki_enlarge()" style="text-decoration:none">+</a><script type="text/javascript"><!--'."\n".'function ewiki_enlarge() {var ta=document.getElementById("ewiki_content");ta.style.width=((ta.cols*=1.1)*10).toString()+"px";ta.style.height=((ta.rows*=1.1)*30).toString()+"px";}'."\n".'//--></script>',
+			"DATE" => "%a, %d %b %G %T %Z",
+		"EDIT_TEXTAREA_RESIZE_JS" => '',//'<a href="javascript:ewiki_enlarge()" style="text-decoration:none">+</a><script type="text/javascript"><!--'."\n".'function ewiki_enlarge() {var ta=document.getElementById("ewiki_content");ta.style.width=((ta.cols*=1.1)*10).toString()+"px";ta.style.height=((ta.rows*=1.1)*30).toString()+"px";}'."\n".'//--></script>',
 		));
 		#
 	$ewiki_t["en"] = array_merge(@$ewiki_t["en"], array(
-	   "EDITTHISPAGE" => "EditThisPage",
-		   "APPENDTOPAGE" => "Add to",
-	   "BACKLINKS" => "BackLinks",
-		   "EDITCOMPLETE" => 'Your edit has been saved click <a href="$url">here</a> to see the edited page.',
-	   "PAGESLINKINGTO" => "Pages linking to \$title",
-	   "PAGEHISTORY" => "PageInfo",
-	   "INFOABOUTPAGE" => "Information about page",
-	   "LIKEPAGES" => "Pages like this",
-	   "NEWESTPAGES" => "Newest Pages",
-	   "LASTCHANGED" => "last changed on %c",
-	   "DOESNOTEXIST" => "This page does not yet exist, please click on EditThisPage if you'd like to create it.",
-	   "DISABLEDPAGE" => "This page is currently not available.",
-	   "ERRVERSIONSAVE" => "Sorry, while you edited this page someone else
+		"EDITTHISPAGE" => "EditThisPage",
+			"APPENDTOPAGE" => "Add to",
+		"BACKLINKS" => "BackLinks",
+			"EDITCOMPLETE" => 'Your edit has been saved click <a href="$url">here</a> to see the edited page.',
+		"PAGESLINKINGTO" => "Pages linking to \$title",
+		"PAGEHISTORY" => "PageInfo",
+		"INFOABOUTPAGE" => "Information about page",
+		"LIKEPAGES" => "Pages like this",
+		"NEWESTPAGES" => "Newest Pages",
+		"LASTCHANGED" => "last changed on %c",
+		"DOESNOTEXIST" => "This page does not yet exist, please click on EditThisPage if you'd like to create it.",
+		"DISABLEDPAGE" => "This page is currently not available.",
+		"ERRVERSIONSAVE" => "Sorry, while you edited this page someone else
 		did already save a changed version. Please go back to the
 		previous screen and copy your changes to your computers
 		clipboard to insert it again after you reload the edit
 		screen.",
-	   "ERRORSAVING" => "An error occoured while saving your changes. Please try again.",
-	   "THANKSFORCONTRIBUTION" => "Thank you for your contribution!",
-	   "CANNOTCHANGEPAGE" => "This page cannot be changed.",
-	   "OLDVERCOMEBACK" => "Make this old version come back to replace the current one",
-	   "PREVIEW" => "Preview",
-	   "SAVE" => "Save",
-	   "CANCEL_EDIT" => "CancelEditing",
-	   "UPLOAD_PICTURE_BUTTON" => "upload picture &gt;&gt;&gt;",
-	   "EDIT_FORM_1" => "It is <a href=\"".EWIKI_SCRIPT."GoodStyle\">GoodStyle</a>
+		"ERRORSAVING" => "An error occoured while saving your changes. Please try again.",
+		"THANKSFORCONTRIBUTION" => "Thank you for your contribution!",
+		"CANNOTCHANGEPAGE" => "This page cannot be changed.",
+		"OLDVERCOMEBACK" => "Make this old version come back to replace the current one",
+		"PREVIEW" => "Preview",
+		"SAVE" => "Save",
+		"CANCEL_EDIT" => "CancelEditing",
+		"UPLOAD_PICTURE_BUTTON" => "upload picture &gt;&gt;&gt;",
+		"EDIT_FORM_1" => "It is <a href=\"".EWIKI_SCRIPT."GoodStyle\">GoodStyle</a>
 				to just start writing. With <a href=\"".EWIKI_SCRIPT."WikiMarkup\">WikiMarkup</a>
 		you can style your text later.<br>",
-	   "EDIT_FORM_2" => "",
-	   //~ <br>Please do not write things, which may make other
+		"EDIT_FORM_2" => "",
+		//~ <br>Please do not write things, which may make other
 		//~ people angry. And please keep in mind that you are not all that
 		//~ anonymous in the internet (find out more about your computers
 		//~ '<a href=\"http://google.com/search?q=my+computers+IP+address\">IP address</a>' at Google).",
-	   "BIN_IMGTOOLARGE" => "Image file is too large!",
-	   "BIN_NOIMG" => "This is no image file (inacceptable file format)!",
-	   "FORBIDDEN" => "You are not authorized to access this page.",
+		"BIN_IMGTOOLARGE" => "Image file is too large!",
+		"BIN_NOIMG" => "This is no image file (inacceptable file format)!",
+		"FORBIDDEN" => "You are not authorized to access this page.",
 	));
 		#
 		$ewiki_t["es"] = array_merge(@$ewiki_t["es"]?$ewiki_t["es"]:array(), array(
-		   "EDITTHISPAGE" => "EditarEstaPágina",
-		   "BACKLINKS" => "EnlacesInversos",
-		   "PAGESLINKINGTO" => "Páginas enlazando \$title",
-		   "PAGEHISTORY" => "InfoPágina",
-		   "INFOABOUTPAGE" => "Información sobre la página",
-		   "LIKEPAGES" => "Páginas como esta",
-		   "NEWESTPAGES" => "Páginas más nuevas",
-		   "LASTCHANGED" => "última modificación %d/%m/%Y a las %H:%M",
-		   "DOESNOTEXIST" => "Esta página aún no existe, por favor eliga EditarEstaPágina si desea crearla.",
-		   "DISABLEDPAGE" => "Esta página no está disponible en este momento.",
-		   "ERRVERSIONSAVE" => "Disculpe, mientras editaba esta página alguién más
+			"EDITTHISPAGE" => "EditarEstaPágina",
+			"BACKLINKS" => "EnlacesInversos",
+			"PAGESLINKINGTO" => "Páginas enlazando \$title",
+			"PAGEHISTORY" => "InfoPágina",
+			"INFOABOUTPAGE" => "Información sobre la página",
+			"LIKEPAGES" => "Páginas como esta",
+			"NEWESTPAGES" => "Páginas más nuevas",
+			"LASTCHANGED" => "última modificación %d/%m/%Y a las %H:%M",
+			"DOESNOTEXIST" => "Esta página aún no existe, por favor eliga EditarEstaPágina si desea crearla.",
+			"DISABLEDPAGE" => "Esta página no está disponible en este momento.",
+			"ERRVERSIONSAVE" => "Disculpe, mientras editaba esta página alguién más
 		salvó una versión modificada. Por favor regrese a
 		a la pantalla anterior y copie sus cambios a su computador
 		para insertalos nuevamente después de que cargue
 		la pantalla de edición.",
-		   "ERRORSAVING" => "Ocurrió un error mientras se salvavan sus cambios. Por favor intente de nuevo.",
-		   "THANKSFORCONTRIBUTION" => "Gracias por su contribución!",
-		   "CANNOTCHANGEPAGE" => "Esta página no puede ser modificada.",
-		   "OLDVERCOMEBACK" => "Hacer que esta versión antigua regrese a remplazar la actual",
-		   "PREVIEW" => "Previsualizar",
-		   "SAVE" => "Salvar",
-		   "CANCEL_EDIT" => "CancelarEdición",
-		   "UPLOAD_PICTURE_BUTTON" => "subir gráfica &gt;&gt;&gt;",
-		   "EDIT_FORM_1" => "<a href=\"".EWIKI_SCRIPT."BuenEstilo\">BuenEstilo</a> es
+			"ERRORSAVING" => "Ocurrió un error mientras se salvavan sus cambios. Por favor intente de nuevo.",
+			"THANKSFORCONTRIBUTION" => "Gracias por su contribución!",
+			"CANNOTCHANGEPAGE" => "Esta página no puede ser modificada.",
+			"OLDVERCOMEBACK" => "Hacer que esta versión antigua regrese a remplazar la actual",
+			"PREVIEW" => "Previsualizar",
+			"SAVE" => "Salvar",
+			"CANCEL_EDIT" => "CancelarEdición",
+			"UPLOAD_PICTURE_BUTTON" => "subir gráfica &gt;&gt;&gt;",
+			"EDIT_FORM_1" => "<a href=\"".EWIKI_SCRIPT."BuenEstilo\">BuenEstilo</a> es
 		escribir lo que viene a su mente. No se preocupe mucho
 		por la apariencia. También puede agregar <a href=\"".EWIKI_SCRIPT."ReglasDeMarcadoWiki\">ReglasDeMarcadoWiki</a>
 		más adelante si piensa que es necesario.<br>",
-		   "EDIT_FORM_2" => "<br>Por favor no escriba cosas, que puedan
+			"EDIT_FORM_2" => "<br>Por favor no escriba cosas, que puedan
 		enfadar a otras personas. Y por favor tenga en mente que
 		usted no es del todo anónimo en Internet 
 		(encuentre más sobre 
 		'<a href=\"http://google.com/search?q=my+computers+IP+address\">IP address</a>' de su computador con Google).",
-		   "BIN_IMGTOOLARGE" => "¡La gráfica es demasiado grande!",
-		   "BIN_NOIMG" => "¡No es un archivo con una gráfica (formato de archivo inaceptable)!",
-		   "FORBIDDEN" => "No está autorizado para acceder a esta página.",
+			"BIN_IMGTOOLARGE" => "¡La gráfica es demasiado grande!",
+			"BIN_NOIMG" => "¡No es un archivo con una gráfica (formato de archivo inaceptable)!",
+			"FORBIDDEN" => "No está autorizado para acceder a esta página.",
 		));
 		#
 	$ewiki_t["de"] = array_merge(@$ewiki_t["de"], array(
-	   "EDITTHISPAGE" => "DieseSeiteÄndern",
-		   "APPENDTOPAGE" => "Ergänze",
-	   "BACKLINKS" => "ZurückLinks",
-	   "PAGESLINKINGTO" => "Verweise zur Seite \$title",
-	   "PAGEHISTORY" => "SeitenInfo",
-	   "INFOABOUTPAGE" => "Informationen über Seite",
-	   "LIKEPAGES" => "Ähnliche Seiten",
-	   "NEWESTPAGES" => "Neueste Seiten",
-	   "LASTCHANGED" => "zuletzt geändert am %d.%m.%Y um %H:%M",
-	   "DISABLEDPAGE" => "Diese Seite kann momentan nicht angezeigt werden.",
-	   "ERRVERSIONSAVE" => "Entschuldige, aber während Du an der Seite
+		"EDITTHISPAGE" => "DieseSeiteÄndern",
+			"APPENDTOPAGE" => "Ergänze",
+		"BACKLINKS" => "ZurückLinks",
+		"PAGESLINKINGTO" => "Verweise zur Seite \$title",
+		"PAGEHISTORY" => "SeitenInfo",
+		"INFOABOUTPAGE" => "Informationen über Seite",
+		"LIKEPAGES" => "Ähnliche Seiten",
+		"NEWESTPAGES" => "Neueste Seiten",
+		"LASTCHANGED" => "zuletzt geändert am %d.%m.%Y um %H:%M",
+		"DISABLEDPAGE" => "Diese Seite kann momentan nicht angezeigt werden.",
+		"ERRVERSIONSAVE" => "Entschuldige, aber während Du an der Seite
 		gearbeitet hast, hat bereits jemand anders eine geänderte
 		Fassung gespeichert. Damit nichts verloren geht, browse bitte
 		zurück und speichere Deine Änderungen in der Zwischenablage
@@ -395,18 +395,18 @@
 		Stelle einzufügen, nachdem du die EditBoxSeite nocheinmal
 		geladen hast.<br>
 		Vielen Dank für Deine Mühe.",
-	   "ERRORSAVING" => "Beim Abspeichern ist ein Fehler aufgetreten. Bitte versuche es erneut.",
-	   "THANKSFORCONTRIBUTION" => "Vielen Dank für Deinen Beitrag!",
-	   "CANNOTCHANGEPAGE" => "Diese Seite kann nicht geändert werden.",
-	   "OLDVERCOMEBACK" => "Diese alte Version der Seite wieder zur Aktuellen machen",
-	   "PREVIEW" => "Vorschau",
-	   "SAVE" => "Speichern",
-	   "CANCEL_EDIT" => "ÄnderungenVerwerfen",
-	   "UPLOAD_PICTURE_BUTTON" => "Bild hochladen &gt;&gt;&gt;",
-	   "EDIT_FORM_1" => "Es ist <a href=\"".EWIKI_SCRIPT."GuterStil\">GuterStil</a>,
+		"ERRORSAVING" => "Beim Abspeichern ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+		"THANKSFORCONTRIBUTION" => "Vielen Dank für Deinen Beitrag!",
+		"CANNOTCHANGEPAGE" => "Diese Seite kann nicht geändert werden.",
+		"OLDVERCOMEBACK" => "Diese alte Version der Seite wieder zur Aktuellen machen",
+		"PREVIEW" => "Vorschau",
+		"SAVE" => "Speichern",
+		"CANCEL_EDIT" => "ÄnderungenVerwerfen",
+		"UPLOAD_PICTURE_BUTTON" => "Bild hochladen &gt;&gt;&gt;",
+		"EDIT_FORM_1" => "Es ist <a href=\"".EWIKI_SCRIPT."GuterStil\">GuterStil</a>,
 		einfach drauf los zu tippen. Mit den <a href=\"".EWIKI_SCRIPT."FormatierungsRegeln\">FormatierungsRegeln</a>
 		kannst du den Text später noch umgestalten.<br>",
-	   "EDIT_FORM_2" => "<br>Bitte schreib keine Dinge, die andere Leute
+		"EDIT_FORM_2" => "<br>Bitte schreib keine Dinge, die andere Leute
 		verärgern könnten. Und bedenke auch, daß es schnell auf
 		dich zurückfallen kann wenn du verschiedene andere Dinge sagst (mehr Informationen zur
 		'<a href=\"http://google.de/search?q=computer+IP+adresse\">IP Adresse</a>'
@@ -417,30 +417,30 @@
 	$ewiki_config["interwiki"] = array_merge(
 	@$ewiki_config["interwiki"],
 	array(
-		   "javascript" => "",  # this actually protects from javascript: links
-		   "url" => "",
+			"javascript" => "",  # this actually protects from javascript: links
+			"url" => "",
 #		  "self" => "this",
-		   "this" => EWIKI_SCRIPT,  # better was absolute _URL to ewiki wrapper
-		   "jump" => "",
-	   "ErfurtWiki" => "http://erfurtwiki.sourceforge.net/?id=",
-	   "InterWiki" => "InterWikiSearch",
-	   "InterWikiSearch" => "http://sunir.org/apps/meta.pl?",
-	   "Wiki" => "WardsWiki",
-	   "WardsWiki" => "http://www.c2.com/cgi/wiki?",
-	   "WikiFind" => "http://c2.com/cgi/wiki?FindPage&value=",
-	   "WikiPedia" => "http://www.wikipedia.com/wiki.cgi?",
-	   "MeatBall" => "MeatballWiki",
-	   "MeatballWiki" => "http://www.usemod.com/cgi-bin/mb.pl?",
-	   "UseMod"	   => "http://www.usemod.com/cgi-bin/wiki.pl?",
-	   "PhpWiki" => "http://phpwiki.sourceforge.net/phpwiki/index.php3?",
-	   "LinuxWiki" => "http://linuxwiki.de/",
-	   "OpenWiki" => "http://openwiki.com/?",
-	   "Tavi" => "http://andstuff.org/tavi/",
-	   "TWiki" => "http://twiki.sourceforge.net/cgi-bin/view/",
-	   "MoinMoin" => "http://www.purl.net/wiki/moin/",
-	   "Google" => "http://google.com/search?q=",
-	   "ISBN" => "http://www.amazon.com/exec/obidos/ISBN=",
-	   "icq" => "http://www.icq.com/",
+			"this" => EWIKI_SCRIPT,  # better was absolute _URL to ewiki wrapper
+			"jump" => "",
+		"ErfurtWiki" => "http://erfurtwiki.sourceforge.net/?id=",
+		"InterWiki" => "InterWikiSearch",
+		"InterWikiSearch" => "http://sunir.org/apps/meta.pl?",
+		"Wiki" => "WardsWiki",
+		"WardsWiki" => "http://www.c2.com/cgi/wiki?",
+		"WikiFind" => "http://c2.com/cgi/wiki?FindPage&value=",
+		"WikiPedia" => "http://www.wikipedia.com/wiki.cgi?",
+		"MeatBall" => "MeatballWiki",
+		"MeatballWiki" => "http://www.usemod.com/cgi-bin/mb.pl?",
+		"UseMod"		=> "http://www.usemod.com/cgi-bin/wiki.pl?",
+		"PhpWiki" => "http://phpwiki.sourceforge.net/phpwiki/index.php3?",
+		"LinuxWiki" => "http://linuxwiki.de/",
+		"OpenWiki" => "http://openwiki.com/?",
+		"Tavi" => "http://andstuff.org/tavi/",
+		"TWiki" => "http://twiki.sourceforge.net/cgi-bin/view/",
+		"MoinMoin" => "http://www.purl.net/wiki/moin/",
+		"Google" => "http://google.com/search?q=",
+		"ISBN" => "http://www.amazon.com/exec/obidos/ISBN=",
+		"icq" => "http://www.icq.com/",
 	));
 
 
@@ -448,7 +448,7 @@
 	#-- init stuff, autostarted parts
 	ksort($ewiki_plugins["init"]);
 	if ($pf_a = $ewiki_plugins["init"]) foreach ($pf_a as $pf) {
-		   $pf($GLOBALS);
+			$pf($GLOBALS);
 		}
 	unset($ewiki_plugins["init"]);
 
@@ -464,91 +464,91 @@
 */
 function ewiki_page($id=false) {
 
-   global $ewiki_request;
-   
-   global $ewiki_links, $ewiki_plugins, $ewiki_ring, $ewiki_t,
+	global $ewiki_request;
+	
+	global $ewiki_links, $ewiki_plugins, $ewiki_ring, $ewiki_t,
 	  $ewiki_errmsg, $ewiki_data, $ewiki_title, $ewiki_id,
 	  $ewiki_action, $ewiki_config;
-   #-- output var
-   $o = "";
+	#-- output var
+	$o = "";
 
-   #-- selected page
-   if (!isset($ewiki_request)) {
+	#-- selected page
+	if (!isset($ewiki_request)) {
 	  $ewiki_request = array();
-   }
-   if (!strlen($id)) {
+	}
+	if (!strlen($id)) {
 	  $id = ewiki_id();
-   }
+	}
 
-   #-- page action
-   $action = EWIKI_DEFAULT_ACTION;
-   if ($delim = strpos($id, EWIKI_ACTION_SEP_CHAR)) {
+	#-- page action
+	$action = EWIKI_DEFAULT_ACTION;
+	if ($delim = strpos($id, EWIKI_ACTION_SEP_CHAR)) {
 	  $action = substr($id, 0, $delim);
 	  $id = substr($id, $delim + 1);
-   }
-   elseif (EWIKI_USE_ACTION_PARAM && isset($ewiki_request["action"])) {
+	}
+	elseif (EWIKI_USE_ACTION_PARAM && isset($ewiki_request["action"])) {
 	  $action = $ewiki_request["action"];
-   }
-   $ewiki_data = array();
-   $ewiki_id = $id;
-   $ewiki_title = ewiki_split_title($id);
-   $ewiki_action = $action;
+	}
+	$ewiki_data = array();
+	$ewiki_id = $id;
+	$ewiki_title = ewiki_split_title($id);
+	$ewiki_action = $action;
 
-   #-- more initialization
-   if ($pf_a = @$ewiki_plugins["init"]) {
+	#-- more initialization
+	if ($pf_a = @$ewiki_plugins["init"]) {
 	  ksort($pf_a);
 	  foreach ($pf_a as $pf) {
 		 $o .= $pf();
 	  }
 	  unset($ewiki_plugins["init"]);
-   }
+	}
 
-   #-- fetch from db
-   $dquery = array(
+	#-- fetch from db
+	$dquery = array(
 	  "id" => $id
-   );
-   if (!isset($ewiki_request["content"]) && ($dquery["version"] = @$ewiki_request["version"])) {
+	);
+	if (!isset($ewiki_request["content"]) && ($dquery["version"] = @$ewiki_request["version"])) {
 	  $ewiki_config["forced_version"] = $dquery["version"];
-   }
-   $ewiki_data = ewiki_database("GET", $dquery);
-   $data = &$ewiki_data;
+	}
+	$ewiki_data = ewiki_database("GET", $dquery);
+	$data = &$ewiki_data;
 
-   #-- pre-check if actions exist
-   $pf_page = ewiki_array($ewiki_plugins["page"], $id);
+	#-- pre-check if actions exist
+	$pf_page = ewiki_array($ewiki_plugins["page"], $id);
 
-   #-- edit <form> for non-existent pages
-   if (($action==EWIKI_DEFAULT_ACTION) && empty($data["content"]) && empty($pf_page)) {
+	#-- edit <form> for non-existent pages
+	if (($action==EWIKI_DEFAULT_ACTION) && empty($data["content"]) && empty($pf_page)) {
 	  if (EWIKI_AUTO_EDIT) {
 		 $action = "edit";
 	  }
 	  else {
 		 $data["content"] = ewiki_t("DOESNOTEXIST");
 	  }
-   }
+	}
 
-   #-- internal "create" action / used for authentication requests
-   if ($action == "edit") {
+	#-- internal "create" action / used for authentication requests
+	if ($action == "edit") {
 	  $ewiki_config["create"] = !$data["version"] || !$data["created"] && !$data["flags"];
-   }
+	}
 
-   #-- require auth
-   if (EWIKI_PROTECTED_MODE) {
+	#-- require auth
+	if (EWIKI_PROTECTED_MODE) {
 	  if (!ewiki_auth($id, $data, $action, $ring=false, $force=EWIKI_AUTO_LOGIN)) {
 		 return($o.=$ewiki_errmsg);
 	  }
-   }
+	}
 
-   #-- handlers
-   $handler_o = "";
-   if ($pf_a = @$ewiki_plugins["handler"]) {
+	#-- handlers
+	$handler_o = "";
+	if ($pf_a = @$ewiki_plugins["handler"]) {
 	  ksort($pf_a);
 	  foreach ($pf_a as $pf_i=>$pf) {
 		 if ($handler_o = $pf($id, $data, $action, $pf_i)) { break; }
-   }  }
+	}  }
 
-   #-- stop here if page is not marked as _TEXT,
-   #   perform authentication then, and let only administrators proceed
-   if (!$handler_o) {
+	#-- stop here if page is not marked as _TEXT,
+	#	perform authentication then, and let only administrators proceed
+	if (!$handler_o) {
 	  if (!empty($data["flags"]) && (($data["flags"] & EWIKI_DB_F_TYPE) != EWIKI_DB_F_TEXT)) {
 		 if (($data["flags"] & EWIKI_DB_F_BINARY) && ($pf = $ewiki_plugins["handler_binary"][0])) {
 			return($pf($id, $data, $action)); //_BINARY entries handled separately
@@ -557,22 +557,22 @@ function ewiki_page($id=false) {
 			return(ewiki_t("DISABLEDPAGE"));
 		 }
 	  }
-   }
+	}
 
-   #-- finished by handler
-   if ($handler_o) {
+	#-- finished by handler
+	if ($handler_o) {
 	  $o .= $handler_o;
-   }
-   #-- actions that also work for static and internal pages
-   elseif (($pf = @$ewiki_plugins["action_always"][$action]) && function_exists($pf)) {
+	}
+	#-- actions that also work for static and internal pages
+	elseif (($pf = @$ewiki_plugins["action_always"][$action]) && function_exists($pf)) {
 	  $o .= $pf($id, $data, $action);
-   }
-   #-- internal pages
-   elseif ($pf_page && function_exists($pf_page)) {
+	}
+	#-- internal pages
+	elseif ($pf_page && function_exists($pf_page)) {
 	  $o .= $pf_page($id, $data, $action);
-   }
-   #-- page actions
-   else {
+	}
+	#-- page actions
+	else {
 	  $pf = @$ewiki_plugins["action"][$action];
 
 	  #-- fallback to "view" action
@@ -594,15 +594,15 @@ function ewiki_page($id=false) {
 			$time = $time_end - $time_start;
 			ewiki_log("$time seconds to complete action plugin $pf for $action on $id", 3);
 		}
-   }
+	}
 
-   #-- error instead of page?
-   if (empty($o) && $ewiki_errmsg) {
+	#-- error instead of page?
+	if (empty($o) && $ewiki_errmsg) {
 	  $o = $ewiki_errmsg;
-   }
+	}
 
-   #-- html post processing
-   if ($pf_a = $ewiki_plugins["page_final"]) {
+	#-- html post processing
+	if ($pf_a = $ewiki_plugins["page_final"]) {
 	  ksort($pf_a);
 	  foreach ($pf_a as $pf) {
 	  
@@ -621,21 +621,21 @@ function ewiki_page($id=false) {
 	  
 		 
 	  }
-   }
+	}
 
-   (EWIKI_ESCAPE_AT) && ($o = str_replace("@", "&#x40;", $o));
+	(EWIKI_ESCAPE_AT) && ($o = str_replace("@", "&#x40;", $o));
 
-   $ewiki_data = &$data;
-   unset($ewiki_data["content"]);
-   return($o);
+	$ewiki_data = &$data;
+	unset($ewiki_data["content"]);
+	return($o);
 }
 
 
 
 #-- HTTP meta headers
 function ewiki_http_headers(&$o, $id, &$data, $action) {
-   global $ewiki_t;
-   if (EWIKI_HTTP_HEADERS && !headers_sent()) {
+	global $ewiki_t;
+	if (EWIKI_HTTP_HEADERS && !headers_sent()) {
 	  if (!empty($data)) {
 		 if ($uu = @$data["id"]) @header('Content-Disposition: inline; filename="' . urlencode($uu) . '.html"');
 		 if ($uu = @$data["version"]) @header('Content-Version: ' . $uu);
@@ -652,10 +652,10 @@ function ewiki_http_headers(&$o, $id, &$data, $action) {
 		 $weak = "W/" . urlencode($id) . "." . $data["version"];
 		 header("ETag: \"$etag\"");	 ###, \"$weak\"");
 	  }
-   }
+	}
 }
 function ewiki_etag(&$data) {
-   return(  urlencode($data["id"]) . ":" . dechex($data["version"]) . ":ewiki:" .
+	return(  urlencode($data["id"]) . ":" . dechex($data["version"]) . ":ewiki:" .
 			dechex(crc32($data["content"]) & 0x7FFFBFFF)  );
 }
 
@@ -663,67 +663,67 @@ function ewiki_etag(&$data) {
 
 #-- encloses whole page output with a descriptive <div>
 function ewiki_page_css_container(&$o, &$id, &$data, &$action) {
-   $sterilized_id = trim(preg_replace('/[^\w\d]+/', "-", $id), "-");
-   $sterilized_id = preg_replace('/^(\d)/', 'page$1', $sterilized_id);
-   $o = "<div class=\"wiki $action $sterilized_id\">\n" . $o . "\n</div>\n";
+	$sterilized_id = trim(preg_replace('/[^\w\d]+/', "-", $id), "-");
+	$sterilized_id = preg_replace('/^(\d)/', 'page$1', $sterilized_id);
+	$o = "<div class=\"wiki $action $sterilized_id\">\n" . $o . "\n</div>\n";
 }
 
 
 
 function ewiki_split_title ($id='', $split=-1, $entities=1) {
-   if ($split==-1) {
+	if ($split==-1) {
 	  $split = $GLOBALS["ewiki_config"]["split_title"];
-   }
-   strlen($id) or ($id = $GLOBALS["ewiki_id"]);
-   if ($split) {
+	}
+	strlen($id) or ($id = $GLOBALS["ewiki_id"]);
+	if ($split) {
 	  $id = preg_replace("/([".EWIKI_CHARS_L."])([".EWIKI_CHARS_U."]+)/", "$1 $2", $id);
-   }
-   return($entities ? htmlentities($id) : $id);
+	}
+	return($entities ? htmlentities($id) : $id);
 }
 
 
 
 function ewiki_add_title(&$html, $id, &$data, $action, $go_action="links") {
-   $html = ewiki_make_title($id, '', 1, $action, $go_action) . $html;
+	$html = ewiki_make_title($id, '', 1, $action, $go_action) . $html;
 }
 
 
 function ewiki_make_title($id='', $title='', $class=3, $action="view", $go_action="links", $may_split=1) {
 
-   global $ewiki_config, $ewiki_plugins, $ewiki_title, $ewiki_id;
+	global $ewiki_config, $ewiki_plugins, $ewiki_title, $ewiki_id;
 
-   #-- advanced handler
-   if ($pf = @$ewiki_plugins["make_title"][0]) {
+	#-- advanced handler
+	if ($pf = @$ewiki_plugins["make_title"][0]) {
 	  return($pf($title, $class, $action, $go_action, $may_split));
-   }
-   #-- disabled
-   elseif (!$ewiki_config["print_title"]) {
+	}
+	#-- disabled
+	elseif (!$ewiki_config["print_title"]) {
 	  return("");
-   }
+	}
 
-   #-- get id
-   if (empty($id)) {
+	#-- get id
+	if (empty($id)) {
 	  $id = $ewiki_id;
-   }
+	}
 
-   #-- get title
-   if (!strlen($title)) {
+	#-- get title
+	if (!strlen($title)) {
 	  $title = $ewiki_title;  // already in &html; format
-   }
-   elseif ($ewiki_config["split_title"] && $may_split) {
+	}
+	elseif ($ewiki_config["split_title"] && $may_split) {
 	  $title = ewiki_split_title($title, $ewiki_config["split_title"], 0&($title!=$ewiki_title));
-   }
-   else {
+	}
+	else {
 	  $title = htmlentities($title);
-   }
+	}
 
-   #-- title mangling
-   if ($pf_a = @$ewiki_plugins["title_transform"]) {
+	#-- title mangling
+	if ($pf_a = @$ewiki_plugins["title_transform"]) {
 	  foreach ($pf_a as $pf) { $pf($id, $title, $go_action); }
-   }
+	}
 
-   #-- clickable link or simple headline
-   if ($class <= $ewiki_config["print_title"]) {
+	#-- clickable link or simple headline
+	if ($class <= $ewiki_config["print_title"]) {
 	  if ($uu = @$ewiki_config["link_title_action"][$action]) {
 		 $go_action = $uu;
 	  }
@@ -735,12 +735,12 @@ function ewiki_make_title($id='', $title='', $class=3, $action="view", $go_actio
 		 $href = ewiki_script($go_action, $id);
 	  }
 	  $o = '<a href="' . $href . '">' . ($title) . '</a>';
-   }
-   else {
+	}
+	else {
 	  $o = $title;
-   }
+	}
 
-   return('<h2 class="page title">' . $o . '</h2>'."\n");
+	return('<h2 class="page title">' . $o . '</h2>'."\n");
 }
 
 
@@ -748,23 +748,23 @@ function ewiki_make_title($id='', $title='', $class=3, $action="view", $go_actio
 
 function ewiki_page_view($id, &$data, $action, $all=1) {
 
-   global $ewiki_plugins, $ewiki_config;
-   $o = "";
+	global $ewiki_plugins, $ewiki_config;
+	$o = "";
 
-   #-- render requested wiki page  <-- goal !!!
-   $render_args = array(
+	#-- render requested wiki page  <-- goal !!!
+	$render_args = array(
 	  "scan_links" => 1,
 	  "html" => (EWIKI_ALLOW_HTML||(@$data["flags"]&EWIKI_DB_F_HTML)),
-   );
-   $o .= '<div class="text-body">'
+	);
+	$o .= '<div class="text-body">'
 	  . $ewiki_plugins["render"][0] ($data["content"], $render_args)
 	  . '</div>';
-   if (!$all) {
+	if (!$all) {
 	  return($o);
-   }
+	}
 
-   #-- control line + other per-page info stuff
-   if ($pf_a = $ewiki_plugins["view_append"]) {
+	#-- control line + other per-page info stuff
+	if ($pf_a = $ewiki_plugins["view_append"]) {
 	  ksort($pf_a);
 	foreach ($pf_a as $n => $pf) { 
 	  if(EWIKI_LOGLEVEL>=3){
@@ -772,15 +772,15 @@ function ewiki_page_view($id, &$data, $action, $all=1) {
 	  }
 	  
 	  $o .= $pf($id, $data, $action); 
-	   
+		
 	  if(EWIKI_LOGLEVEL>=3){
 		$time_end = getmicrotime();
 		$time = $time_end - $time_start;
 		ewiki_log(" $time seconds to complete view_append plugin $pf for $action on $id", 3);
 	  }
 	}
-   }
-   if ($pf_a = $ewiki_plugins["view_final"]) {
+	}
+	if ($pf_a = $ewiki_plugins["view_final"]) {
 	  ksort($pf_a);
 	foreach ($pf_a as $n => $pf) { 
 	  if(EWIKI_LOGLEVEL>=3){
@@ -794,17 +794,17 @@ function ewiki_page_view($id, &$data, $action, $all=1) {
 		$time = $time_end - $time_start;
 		ewiki_log("$time seconds to complete view_final plugin $pf for $action on $id", 3);
 	  }
-   }
+	}
   }  
-   if (!empty($ewiki_request["thankyou"]) && $ewiki_config["edit_thank_you"]) {
+	if (!empty($ewiki_request["thankyou"]) && $ewiki_config["edit_thank_you"]) {
 	  $o = ewiki_t("THANKSFORCONTRIBUTION") . $o;
-   }
+	}
 
-   if (EWIKI_HIT_COUNTING) {
+	if (EWIKI_HIT_COUNTING) {
 	  ewiki_database("HIT", $data);
-   }
+	}
 
-   return($o);
+	return($o);
 }
 
 
@@ -819,18 +819,18 @@ function ewiki_page_view($id, &$data, $action, $all=1) {
 */
 function ewiki_id() {
 	global $ewiki_request;
-   ($id = @$ewiki_request["id"]) or
-   ($id = @$ewiki_request["name"]) or
-   ($id = @$ewiki_request["page"]) or
-   ($id = @$ewiki_request["file"]) or
-   (EWIKI_USE_PATH_INFO) and ($id = ltrim(@$_SERVER["PATH_INFO"], "/")) or 
-   (!isset($ewiki_request["id"])) and ($id = trim(strtok(implode('&',$ewiki_request), "&")));
-   ;
-   if (!strlen($id) || ($id=="id=")) {
+	($id = @$ewiki_request["id"]) or
+	($id = @$ewiki_request["name"]) or
+	($id = @$ewiki_request["page"]) or
+	($id = @$ewiki_request["file"]) or
+	(EWIKI_USE_PATH_INFO) and ($id = ltrim(@$_SERVER["PATH_INFO"], "/")) or 
+	(!isset($ewiki_request["id"])) and ($id = trim(strtok(implode('&',$ewiki_request), "&")));
+	;
+	if (!strlen($id) || ($id=="id=")) {
 	  $id = EWIKI_PAGE_INDEX;
-   }
-   (EWIKI_URLDECODE) && ($id = urldecode($id));
-   return($id);
+	}
+	(EWIKI_URLDECODE) && ($id = urldecode($id));
+	return($id);
 }
 
 
@@ -846,15 +846,15 @@ function ewiki_id() {
 */
 function ewiki_script($asid, $id=false, $params="", $bin=0, $html=1, $script=NULL) {
 
-   global $ewiki_config, $ewiki_plugins;
+	global $ewiki_config, $ewiki_plugins;
 
-   #-- get base script url from config vars
-   if (empty($script)) {
+	#-- get base script url from config vars
+	if (empty($script)) {
 	  $script = &$ewiki_config[!$bin?"script":"script_binary"];
-   }
+	}
 
-   #-- separate $action and $id for old style requests
-   if ($id === false) {
+	#-- separate $action and $id for old style requests
+	if ($id === false) {
 	  if (strpos($asid, EWIKI_ACTION_SEP_CHAR) !== false) {
 		 $asid = strtok($asid, EWIKI_ACTION_SEP_CHAR);
 		 $id = strtok("\000");
@@ -863,57 +863,57 @@ function ewiki_script($asid, $id=false, $params="", $bin=0, $html=1, $script=NUL
 		 $id = $asid;
 		 $asid = "";
 	  }
-   }
+	}
 
-   #-- prepare params
-   if (is_array($params)) {
+	#-- prepare params
+	if (is_array($params)) {
 	  $uu = $params;
 	  $params = "";
 	  if ($uu) foreach ($uu as $k=>$v) {
 		 $params .= (strlen($params)?"&":"") . rawurlencode($k) . "=" . rawurlencode($v);
 	  }
-   }
-   #-- action= parameter
-   if (EWIKI_USE_ACTION_PARAM >= 2) {
+	}
+	#-- action= parameter
+	if (EWIKI_USE_ACTION_PARAM >= 2) {
 	  $params = "action=$asid" . (strlen($params)?"&":"") . $params;
 	  $asid = "";
-   }
+	}
 
-   #-- workaround slashes in $id
-   if (empty($asid) && (strpos($id, EWIKI_ACTION_SEP_CHAR) !== false) && !$bin) {
+	#-- workaround slashes in $id
+	if (empty($asid) && (strpos($id, EWIKI_ACTION_SEP_CHAR) !== false) && !$bin) {
 	  $asid = EWIKI_DEFAULT_ACTION;
-   }
-   /*paranoia*/ $asid = trim($asid, EWIKI_ACTION_SEP_CHAR);
+	}
+	/*paranoia*/ $asid = trim($asid, EWIKI_ACTION_SEP_CHAR);
 
-   #-- make url
-   if (EWIKI_URLENCODE) {
+	#-- make url
+	if (EWIKI_URLENCODE) {
 	  $id = urlencode($id);
 	  $asid = urlencode($asid);
-   }
-   else {
+	}
+	else {
 	  # only urlencode &, %, ? for example
-   }
-   $url = $script;
-   if ($asid) {
+	}
+	$url = $script;
+	if ($asid) {
 	  $id = $asid . EWIKI_ACTION_SEP_CHAR . $id;  #= "action/PageName"
-   }
-   if (strpos($url, "%s") !== false) {
+	}
+	if (strpos($url, "%s") !== false) {
 	  $url = str_replace("%s", $id, $url);
-   }
-   else {
+	}
+	else {
 	  $url .= $id;
-   }
+	}
 
-   #-- add url params
-   if (strlen($params)) {
+	#-- add url params
+	if (strlen($params)) {
 	  $url .= (strpos($url,"?")!==false ? "&":"?") . $params;
-   }
+	}
 
-   #-- fin
-   if ($html) {
+	#-- fin
+	if ($html) {
 	  $url = str_replace("&", "&amp;", $url);
-   }
-   return($url);
+	}
+	return($url);
 }
 
 
@@ -922,20 +922,20 @@ function ewiki_script($asid, $id=false, $params="", $bin=0, $html=1, $script=NUL
 */
 function ewiki_script_binary($asid, $id=false, $params=array(), $upload=0) {
 
-   $upload |= is_string($params) && strlen($params) || count($params);
+	$upload |= is_string($params) && strlen($params) || count($params);
 
-   #-- generate URL directly to the plainly saved data file,
-   #   see also plugins/db/binary_store
-   if (defined("EWIKI_DB_STORE_URL") && !$upload) {
+	#-- generate URL directly to the plainly saved data file,
+	#	see also plugins/db/binary_store
+	if (defined("EWIKI_DB_STORE_URL") && !$upload) {
 	  $url = EWIKI_DB_STORE_URL . urlencode(rawurlencode(strtok($id, "?")));
-   }
+	}
 
-   #-- else get standard URL (thru ewiki.php) from ewiki_script()
-   else {
+	#-- else get standard URL (thru ewiki.php) from ewiki_script()
+	else {
 	  $url = ewiki_script($asid, $id, $params, "_BINARY=1");
-   }
+	}
 
-   return($url);
+	return($url);
 }
 
 
@@ -944,39 +944,39 @@ function ewiki_script_binary($asid, $id=false, $params=array(), $upload=0) {
 */
 function ewiki_script_url() {
 
-   global $ewiki_action, $ewiki_id, $ewiki_config;
+	global $ewiki_action, $ewiki_id, $ewiki_config;
 
-   if ($url = $ewiki_config["script_url"]) {
+	if ($url = $ewiki_config["script_url"]) {
 	  return($url);
-   }
+	}
 
-   $scr_template = $ewiki_config["script"];
-   $scr_current = ewiki_script($ewiki_action, $ewiki_id);
-   $req_uri = $_SERVER["REQUEST_URI"];
-   $qs = $_SERVER["QUERY_STRING"]?1:0;
-   $sn = $_SERVER["SCRIPT_NAME"];
+	$scr_template = $ewiki_config["script"];
+	$scr_current = ewiki_script($ewiki_action, $ewiki_id);
+	$req_uri = $_SERVER["REQUEST_URI"];
+	$qs = $_SERVER["QUERY_STRING"]?1:0;
+	$sn = $_SERVER["SCRIPT_NAME"];
 
-   if (($p = strpos($req_uri, $scr_current)) !== false) {
+	if (($p = strpos($req_uri, $scr_current)) !== false) {
 	  $url = substr($req_uri, 0, $p) . $scr_template;
-   }
-   elseif (($qs) && (strpos($scr_template, "?") !== false)) {
+	}
+	elseif (($qs) && (strpos($scr_template, "?") !== false)) {
 	  $url = substr($req_uri, 0, strpos($req_uri, "?"))
-		   . substr($scr_template, strpos($scr_template, "?"));
-   }
-   elseif (($p = strrpos($sn, "/")) && (strncmp($req_uri, $sn, $p) == 0)) {
+			. substr($scr_template, strpos($scr_template, "?"));
+	}
+	elseif (($p = strrpos($sn, "/")) && (strncmp($req_uri, $sn, $p) == 0)) {
 	  $url = $sn . "?id=";
-   }
-   else {
-	  return(NULL);   #-- could not guess it
-   }
+	}
+	else {
+	  return(NULL);	#-- could not guess it
+	}
  
-   $port = "";
-   if ($_SERVER["SERVER_PORT"] != 80) {
+	$port = "";
+	if ($_SERVER["SERVER_PORT"] != 80) {
 	  $port = ":" .$_SERVER["SERVER_PORT"];
-   }
-   $url = "http://" . $_SERVER["SERVER_NAME"]. $port . $url; 
-   	
-   return($ewiki_config["script_url"] = $url);
+	}
+	$url = "http://" . $_SERVER["SERVER_NAME"]. $port . $url; 
+		
+	return($ewiki_config["script_url"] = $url);
 }
 
 
@@ -987,30 +987,30 @@ function ewiki_script_url() {
 
 
 function ewiki_page_links($id, &$data, $action) {
-   $o = ewiki_make_title($id, ewiki_t("PAGESLINKINGTO", array("title"=>$id)), 1, $action, "", "_MAY_SPLIT=1");
-   if ($pages = ewiki_get_backlinks($id)) {
+	$o = ewiki_make_title($id, ewiki_t("PAGESLINKINGTO", array("title"=>$id)), 1, $action, "", "_MAY_SPLIT=1");
+	if ($pages = ewiki_get_backlinks($id)) {
 	  $o .= ewiki_list_pages($pages);
-   } else {
+	} else {
 	  $o .= ewiki_t("This page isn't linked from anywhere else.");
-   }
-   return($o);
+	}
+	return($o);
 }
 
 #-- get all pages, that are linking to $id
 function ewiki_get_backlinks($id) {
-   $result = ewiki_database("SEARCH", array("refs" => $id));
-   $pages = array();
-   while ($row = $result->get(0, 0x0020)) {
+	$result = ewiki_database("SEARCH", array("refs" => $id));
+	$pages = array();
+	while ($row = $result->get(0, 0x0020)) {
 	  if ( strpos($row["refs"], "\n$id\n") !== false) {
 		 $pages[] = $row["id"];
 	  }
-   }
-   return($pages);
+	}
+	return($pages);
 }
 
 #-- get all existing pages (as array of pagenames), that are linked from $id
 function ewiki_get_links($id) {
-   if ($data = ewiki_database("GET", array("id"=>$id))) {
+	if ($data = ewiki_database("GET", array("id"=>$id))) {
 	  $refs = explode("\n", trim($data["refs"]));
 	  $r = array();
 	  foreach (ewiki_database("FIND", $refs) as $id=>$exists) {
@@ -1019,21 +1019,21 @@ function ewiki_get_links($id) {
 		 }
 	  }
 	  return($r);
-   }
+	}
 }
 
 
 function ewiki_list_pages($pages=array(), $limit=EWIKI_LIST_LIMIT,
 						  $value_as_title=0, $pf_list=false)
 {
-   global $ewiki_plugins;
-   $o = "";
+	global $ewiki_plugins;
+	$o = "";
 
-   $is_num = !empty($pages[0]);
-   $lines = array();
-   $n = 0;
+	$is_num = !empty($pages[0]);
+	$lines = array();
+	$n = 0;
 
-   foreach ($pages as $id=>$add_text) {
+	foreach ($pages as $id=>$add_text) {
 
 	  $title = $id;
 	  $params = "";
@@ -1055,21 +1055,21 @@ function ewiki_list_pages($pages=array(), $limit=EWIKI_LIST_LIMIT,
 	  if (($limit > 0)  &&  ($n++ >= $limit)) {
 		 break;
 	  }
-   }
+	}
 
-   if ($pf_a = @$ewiki_plugins["list_transform"])
-   foreach ($pf_a as $pf_transform) {
+	if ($pf_a = @$ewiki_plugins["list_transform"])
+	foreach ($pf_a as $pf_transform) {
 	  $pf_transform($lines);
-   }
+	}
 
-   if (($pf_list) || ($pf_list = @$ewiki_plugins["list_pages"][0])) {
+	if (($pf_list) || ($pf_list = @$ewiki_plugins["list_pages"][0])) {
 	  $o = $pf_list($lines);
-   }
-   elseif($lines) {
+	}
+	elseif($lines) {
 	  $o = "&middot; " . implode("<br>\n&middot; ", $lines) . "<br>\n";
-   }
+	}
 
-   return($o);
+	return($o);
 }
 
 
@@ -1077,12 +1077,12 @@ function ewiki_list_pages($pages=array(), $limit=EWIKI_LIST_LIMIT,
 
 function ewiki_page_ordered_list($orderby="created", $asc=0, $print="%n things", $title="Ordered List") {
 
-   $o = ewiki_make_title("", $title, 2, ".list", "links", 0);
+	$o = ewiki_make_title("", $title, 2, ".list", "links", 0);
 
-   $sorted = array();
-   $result = ewiki_database("GETALL", array($orderby));
+	$sorted = array();
+	$result = ewiki_database("GETALL", array($orderby));
 
-   while ($row = $result->get()) {
+	while ($row = $result->get()) {
 	  $row = ewiki_database("GET", array(
 		 "id" => $row["id"],
 		 ($asc >= 0 ? "version" : "uu") => 1  // version 1 is most accurate for {hits}
@@ -1094,36 +1094,36 @@ function ewiki_page_ordered_list($orderby="created", $asc=0, $print="%n things",
 			$sorted[$row["id"]] = $row[$orderby];
 		 }
 	  }
-   }
+	}
 
-   if ($asc != 0) { arsort($sorted); }
-   else { asort($sorted); }
+	if ($asc != 0) { arsort($sorted); }
+	else { asort($sorted); }
 
-   foreach ($sorted as $name => $value) { 
+	foreach ($sorted as $name => $value) { 
 	  if (empty($value)) { $value = "0"; }
 	  $sorted[$name] = strftime(str_replace('%n', $value, $print), $value);
-   }
-   $o .= ewiki_list_pages($sorted);
-   
-   return($o);
+	}
+	$o .= ewiki_list_pages($sorted);
+	
+	return($o);
 }
 
 
 
 function ewiki_page_newest($id=0, $data=0) {
-   return( ewiki_page_ordered_list("created", 1, ewiki_t("LASTCHANGED"), ewiki_t("NEWESTPAGES")) );
+	return( ewiki_page_ordered_list("created", 1, ewiki_t("LASTCHANGED"), ewiki_t("NEWESTPAGES")) );
 }
 
 function ewiki_page_updates($id=0, $data=0) {
-   return( ewiki_page_ordered_list("lastmodified", -1, ewiki_t("LASTCHANGED"), EWIKI_PAGE_UPDATES) );
+	return( ewiki_page_ordered_list("lastmodified", -1, ewiki_t("LASTCHANGED"), EWIKI_PAGE_UPDATES) );
 }
 
 function ewiki_page_hits($id=0, $data=0) {
-   return( ewiki_page_ordered_list("hits", 1, "%n hits", EWIKI_PAGE_HITS) );
+	return( ewiki_page_ordered_list("hits", 1, "%n hits", EWIKI_PAGE_HITS) );
 }
 
 function ewiki_page_versions($id=0, $data=0) {
-   return( ewiki_page_ordered_list("version", -1, "%n changes", EWIKI_PAGE_VERSIONS) );
+	return( ewiki_page_ordered_list("version", -1, "%n changes", EWIKI_PAGE_VERSIONS) );
 }
 
 
@@ -1135,17 +1135,17 @@ function ewiki_page_versions($id=0, $data=0) {
 function ewiki_page_search($id, &$data, $action) {
 
 	global $ewiki_request;
-   
-   $o = ewiki_make_title($id, $id, 2, $action);
+	
+	$o = ewiki_make_title($id, $id, 2, $action);
 
-   if (! ($q = @$ewiki_request["q"])) {
+	if (! ($q = @$ewiki_request["q"])) {
 
 	  $o .= '<form action="' . ewiki_script("", $id) . '" method="POST">';
 	  $o .= '<input name="q" size="30"><br><br>';
 	  $o .= '<input type="submit" value="'.$id.'">';
 	  $o .= '</form>';
-   }
-   else {
+	}
+	else {
 	  $found = array();
 
 	  $q = preg_replace('/\s*[^\w]+\s*/', ' ', $q);
@@ -1159,7 +1159,7 @@ function ewiki_page_search($id, &$data, $action) {
 
 			#-- show this entry in page listings?
 			if (EWIKI_PROTECTED_MODE && EWIKI_PROTECTED_MODE_HIDING && !ewiki_auth($row["id"], $row, "view")) {
-			   continue;
+				continue;
 			}
 
 			$found[] = $row["id"];
@@ -1167,9 +1167,9 @@ function ewiki_page_search($id, &$data, $action) {
 	  }
 
 	  $o .= ewiki_list_pages($found);
-   }
+	}
  
-   return($o);
+	return($o);
 }
 
 
@@ -1182,34 +1182,34 @@ function ewiki_page_search($id, &$data, $action) {
 function ewiki_page_info($id, &$data, $action) {
 
 	global $ewiki_request;
-   global $ewiki_plugins, $ewiki_config, $ewiki_links;
+	global $ewiki_plugins, $ewiki_config, $ewiki_links;
 
-   $o = ewiki_make_title($id, ewiki_t("INFOABOUTPAGE")." '{$id}'", 2, $action,"", "_MAY_SPLIT=1"); 
+	$o = ewiki_make_title($id, ewiki_t("INFOABOUTPAGE")." '{$id}'", 2, $action,"", "_MAY_SPLIT=1"); 
 
-   $flagnames = array(
+	$flagnames = array(
 	  "TEXT", "BIN", "DISABLED", "HTML", "READONLY", "WRITEABLE",
 	  "APPENDONLY", "SYSTEM",
-   );
-   $show = array(
+	);
+	$show = array(
 	  "version", "author",
 	  "lastmodified",  "created", "refs",
 	  "flags", "meta", "content"
-   );
+	);
 
-   #-- versions to show
-   $v_start = $data["version"];
-   if ( ($uu=@$ewiki_request[EWIKI_UP_PAGENUM]) && ($uu<=$v_start) ) {
+	#-- versions to show
+	$v_start = $data["version"];
+	if ( ($uu=@$ewiki_request[EWIKI_UP_PAGENUM]) && ($uu<=$v_start) ) {
 	  $v_start = $uu;
-   }
-   $v_end = $v_start - $ewiki_config["list_limit"];
-   if ( ($uu=@$ewiki_request[EWIKI_UP_PAGEEND]) && ($uu<=$v_start) ) {
+	}
+	$v_end = $v_start - $ewiki_config["list_limit"];
+	if ( ($uu=@$ewiki_request[EWIKI_UP_PAGEEND]) && ($uu<=$v_start) ) {
 	  $v_end = $uu;
-   }
-   $v_end = max($v_end, 1);
+	}
+	$v_end = max($v_end, 1);
 
-   #-- go
-   # the very ($first) entry is rendered more verbosely than the others
-   for ($v=$v_start,$first=1; ($v>=$v_end); $v--,$first=0) {
+	#-- go
+	# the very ($first) entry is rendered more verbosely than the others
+	for ($v=$v_start,$first=1; ($v>=$v_end); $v--,$first=0) {
 
 	  $current = ewiki_database("GET", array("id"=>$id, "version"=>$v));
 
@@ -1233,7 +1233,7 @@ function ewiki_page_info($id, &$data, $action) {
 		 if ($i == "meta") {
 			$str = "";
 			if ($first && $value) { foreach ($value as $n=>$d) {
-			   $str .= htmlentities("$n: $d") . "<br>\n";
+				$str .= htmlentities("$n: $d") . "<br>\n";
 			} }
 			$value = $str;
 		 }
@@ -1249,17 +1249,17 @@ function ewiki_page_info($id, &$data, $action) {
 			$ewiki_links = ewiki_database("FIND", $a);
 			ewiki_merge_links($ewiki_links);
 			foreach ($a as $n=>$link) {
-			   $a[$n] = ewiki_link_regex_callback(array("$link"), "force_noimg");
+				$a[$n] = ewiki_link_regex_callback(array("$link"), "force_noimg");
 			}
 			$value = implode(", ", $a);
 		 }
-		 elseif (strpos($value, "\n") !== false) {	   #-- also for {refs}
+		 elseif (strpos($value, "\n") !== false) {		#-- also for {refs}
 			$value = str_replace("\n", ", ", trim($value));
 		 }
 		 elseif ($i == "version") {
 			$value = '<a href="' .
-			   ewiki_script("", $id, array("version"=>$value)) . '">' .
-			   $value . '</a>';
+				ewiki_script("", $id, array("version"=>$value)) . '">' .
+				$value . '</a>';
 		 }
 		 elseif ($i == "flags") {
 			$fstr = "";
@@ -1277,19 +1277,19 @@ function ewiki_page_info($id, &$data, $action) {
 		 }
 
 		 $o .= '<tr class="page-'.$i.'"><td valign="top"><b>' . $i . '</b></td>' .
-			   '<td>' . $value . "</td></tr>\n";
+				'<td>' . $value . "</td></tr>\n";
 
 	  }
 
 	  $o .= "</table><br>\n";
-   }
+	}
 
-   #-- page result split
-   if ($v >= 1) {
+	#-- page result split
+	if ($v >= 1) {
 	  $o .= "<br>\n show " . ewiki_chunked_page($this, $id, -1, $v+1, 1) . "\n <br>";
-   }
+	}
 
-   return($o);
+	return($o);
 }
 
 
@@ -1297,19 +1297,19 @@ function ewiki_page_info($id, &$data, $action) {
 
 function ewiki_chunked_page($action, $id, $dir=-1, $start=10, $end=1, $limit=0, $overlap=0.25, $collapse_last=0.67) {
 
-   global $ewiki_config;
+	global $ewiki_config;
 
-   if (empty($limit)) {
+	if (empty($limit)) {
 	  $limit = $ewiki_config["list_limit"];
-   }
-   if ($overlap < 1) {
+	}
+	if ($overlap < 1) {
 	  $overlap = (int) ($limit * $overlap);
-   }
+	}
 
-   $p = "";
-   $n = $start;
+	$p = "";
+	$n = $start;
 
-   while ($n) {
+	while ($n) {
 
 	  $n -= $dir * $overlap;
 
@@ -1335,9 +1335,9 @@ function ewiki_chunked_page($action, $id, $dir=-1, $start=10, $end=1, $limit=0, 
 	  if (($n=$e) <= $end) {
 		 $n = false;
 	  }
-   }
+	}
 
-   return('<div class="chunked-result">'. $o .'</div>');
+	return('<div class="chunked-result">'. $o .'</div>');
 }
 
 
@@ -1350,10 +1350,10 @@ function ewiki_page_edit($id, $data, $action) {
   global $ewiki_links, $ewiki_author, $ewiki_plugins, $ewiki_ring,
 	  $ewiki_errmsg, $ewiki_config;
 
-   $hidden_postdata = array();
+	$hidden_postdata = array();
 
-   #-- previous version come back
-   if ($ewiki_config["forced_version"]) {
+	#-- previous version come back
+	if ($ewiki_config["forced_version"]) {
 
 	  $current = ewiki_database("GET", array("id"=>$id));
 	  $data["version"] = $current["version"];
@@ -1361,10 +1361,10 @@ function ewiki_page_edit($id, $data, $action) {
 
 	  unset($ewiki_request["content"]);
 	  unset($ewiki_request["version"]);
-   }
+	}
 
-   #-- edit hacks
-   if ($pf_a = @$ewiki_plugins["edit_hook"]) foreach ($pf_a as $pf) {
+	#-- edit hacks
+	if ($pf_a = @$ewiki_plugins["edit_hook"]) foreach ($pf_a as $pf) {
 		if(EWIKI_LOGLEVEL>=3){
 			$time_start = getmicrotime();
 		}
@@ -1376,16 +1376,16 @@ function ewiki_page_edit($id, $data, $action) {
 			$time = $time_end - $time_start;
 			ewiki_log(" $time seconds to complete edit_hook plugin $pf on $id", 3);
 		}
-   }
+	}
 
-   #-- permission checks
-   if (isset($ewiki_ring)) {
+	#-- permission checks
+	if (isset($ewiki_ring)) {
 	  $ring = $ewiki_ring;
-   } else { 
+	} else { 
 	  $ring = 3;
-   }
-   $flags = @$data["flags"];
-   if (!($flags & EWIKI_DB_F_WRITEABLE)) {
+	}
+	$flags = @$data["flags"];
+	if (!($flags & EWIKI_DB_F_WRITEABLE)) {
 
 	  #-- perform auth
 	  $edit_ring = (EWIKI_PROTECTED_MODE>=2) ? (2) : (NULL);
@@ -1400,22 +1400,22 @@ function ewiki_page_edit($id, $data, $action) {
 	  if (($flags) and (($flags & EWIKI_DB_F_TYPE) != EWIKI_DB_F_TEXT) and ($ring >= 1)) {
 		 return(ewiki_t("CANNOTCHANGEPAGE"));
 	  }
-   }
+	}
 
-   #-- "Edit Me"
-   $o = ewiki_make_title($id, ewiki_t("EDITTHISPAGE").(" '{$id}'"), 2, $action, "", "_MAY_SPLIT=1");
+	#-- "Edit Me"
+	$o = ewiki_make_title($id, ewiki_t("EDITTHISPAGE").(" '{$id}'"), 2, $action, "", "_MAY_SPLIT=1");
 
-   #-- normalize to UNIX newlines
-   $ewiki_request["content"] = str_replace("\015\012", "\012", $ewiki_request["content"]);
-   $ewiki_request["content"] = str_replace("\015", "\012", $ewiki_request["content"]);
+	#-- normalize to UNIX newlines
+	$ewiki_request["content"] = str_replace("\015\012", "\012", $ewiki_request["content"]);
+	$ewiki_request["content"] = str_replace("\015", "\012", $ewiki_request["content"]);
 
-   #-- preview
-   if (isset($ewiki_request["preview"])) {
+	#-- preview
+	if (isset($ewiki_request["preview"])) {
 	  $o .= $ewiki_plugins["edit_preview"][0]($data);
-   }
+	}
 
-   #-- save
-   if (isset($ewiki_request["save"])) {
+	#-- save
+	if (isset($ewiki_request["save"])) {
 
 		 #-- check for concurrent version saving
 		 $error = 0;
@@ -1424,8 +1424,8 @@ function ewiki_page_edit($id, $data, $action) {
 			$pf = $ewiki_plugins["edit_patch"][0];
 
 			if (!$pf || !$pf($id, $data)) {
-			   $error = 1;
-			   $o .= ewiki_t("ERRVERSIONSAVE") . "<br><br>";
+				$error = 1;
+				$o .= ewiki_t("ERRVERSIONSAVE") . "<br><br>";
 			}
 
 		 }
@@ -1433,32 +1433,32 @@ function ewiki_page_edit($id, $data, $action) {
 
 			#-- new pages` flags
 			if (! ($set_flags = @$data["flags"] & EWIKI_DB_F_COPYMASK)) {
-			   $set_flags = 1;
+				$set_flags = 1;
 			}
 			if (EWIKI_ALLOW_HTML) {
-			   $set_flags |= EWIKI_DB_F_HTML;
+				$set_flags |= EWIKI_DB_F_HTML;
 			}
 
 			#-- mk db entry
 			$save = array(
-			   "id" => $id,
-			   "version" => @$data["version"] + 1,
-			   "flags" => $set_flags,
-			   "content" => $ewiki_request["content"],
-			   "created" => ($uu=@$data["created"]) ? $uu : time(),
-			   "meta" => ($uu=@$data["meta"]) ? $uu : "",
-			   "hits" => ($uu=@$data["hits"]) ? $uu : "0",
+				"id" => $id,
+				"version" => @$data["version"] + 1,
+				"flags" => $set_flags,
+				"content" => $ewiki_request["content"],
+				"created" => ($uu=@$data["created"]) ? $uu : time(),
+				"meta" => ($uu=@$data["meta"]) ? $uu : "",
+				"hits" => ($uu=@$data["hits"]) ? $uu : "0",
 			);
 			ewiki_data_update($save);
 
 			#-- edit storage hooks
 			if ($pf_a = @$ewiki_plugins["edit_save"]) {
-			   foreach ($pf_a as $pf) {
-			   
+				foreach ($pf_a as $pf) {
+				
 					if(EWIKI_LOGLEVEL>=3){
 						$time_start = getmicrotime();
 					}
-			   
+				
 				  $pf($save, $data);
 					
 					if(EWIKI_LOGLEVEL>=3){
@@ -1466,7 +1466,7 @@ function ewiki_page_edit($id, $data, $action) {
 						$time = $time_end - $time_start;
 						ewiki_log(" $time seconds to complete edit_save plugin $pf for $action on $id", 3);
 					}
-			   }
+				}
 			}
 
 			if(EWIKI_LOGLEVEL>=3){
@@ -1476,7 +1476,7 @@ function ewiki_page_edit($id, $data, $action) {
 			#-- save
 			if (!$save || !ewiki_database("WRITE", $save)) {
 
-			   $o .= $ewiki_errmsg ? $ewiki_errmsg : ewiki_t("ERRORSAVING");
+				$o .= $ewiki_errmsg ? $ewiki_errmsg : ewiki_t("ERRORSAVING");
 
 				if(EWIKI_LOGLEVEL>=3){
 					$time_end = getmicrotime();
@@ -1497,25 +1497,25 @@ function ewiki_page_edit($id, $data, $action) {
 
 						$current = ewiki_database("GET", array("id"=>EWIKI_ANSWERS_SLUG));
 						$savel = array(
-						   "id" => EWIKI_ANSWERS_SLUG,
-						   "version" => @$current["version"] + 1,
-						   "flags" => ($uu=@$current["flags"]) ? $uu : "",
-						   "content" => $current['content']."\n\n* [".$qid."]",
-						   "created" => ($uu=@$current["created"]) ? $uu : time(),
-						   "meta" => ($uu=@$current["meta"]) ? $uu : "",
-						   "hits" => ($uu=@$current["hits"]) ? $uu : "0",
+							"id" => EWIKI_ANSWERS_SLUG,
+							"version" => @$current["version"] + 1,
+							"flags" => ($uu=@$current["flags"]) ? $uu : "",
+							"content" => $current['content']."\n\n* [".$qid."]",
+							"created" => ($uu=@$current["created"]) ? $uu : time(),
+							"meta" => ($uu=@$current["meta"]) ? $uu : "",
+							"hits" => ($uu=@$current["hits"]) ? $uu : "0",
 						);
 						ewiki_database("WRITE", $savel);
 						unset($current);
 					}
 				}
 
-			   #-- prevent double saving, when ewiki_page() is re-called
-			   $ewiki_request = $_GET = $_POST = array();
+				#-- prevent double saving, when ewiki_page() is re-called
+				$ewiki_request = $_GET = $_POST = array();
 
-			   $o = ewiki_t("THANKSFORCONTRIBUTION") . "<br><br>";
+				$o = ewiki_t("THANKSFORCONTRIBUTION") . "<br><br>";
 
-			   if (EWIKI_EDIT_REDIRECT) {
+				if (EWIKI_EDIT_REDIRECT) {
 				  $url = ewiki_script("", $id, "thankyou=1", 0, 0, ewiki_script_url());
 				  $o .= ewiki_t("EDITCOMPLETE", array("url"=>htmlentities($url)));
 
@@ -1529,8 +1529,8 @@ function ewiki_page_edit($id, $data, $action) {
 				  else {
 					 $o .= '<meta http-equiv="Location" content="'.htmlentities($url).'">';
 				  }
-			   }
-			   else {
+				}
+				else {
 				  if(EWIKI_LOGLEVEL>=4){
 					  $time_start = getmicrotime();
 				  }
@@ -1542,7 +1542,7 @@ function ewiki_page_edit($id, $data, $action) {
 					  $time = $time_end - $time_start;
 					  ewiki_log(" $time seconds to complete ewiki_page() for $action on $id within ewiki_page_edit()", 4);
 				  }				  
-			   }
+				}
 
 			}
 			
@@ -1553,8 +1553,8 @@ function ewiki_page_edit($id, $data, $action) {
 		 //@REWORK
 		 // header("Reload-Location: " . ewiki_script("", $id, "", 0, 0, ewiki_script_url()) );
 
-   }
-   else {
+	}
+	else {
 	  #-- Edit <form>
 	  $o .= ewiki_page_edit_form($id, $data, $hidden_postdata);
 
@@ -1562,26 +1562,26 @@ function ewiki_page_edit($id, $data, $action) {
 	  if ($pf_a = $ewiki_plugins["edit_form_final"]) foreach ($pf_a as $pf) {
 		 $pf($o, $id, $data, $action);
 	  }
-   }
+	}
 
-   return($o);
+	return($o);
 }
 
 
 function ewiki_data_update(&$data, $author="") {
-   global $ewiki_links;
+	global $ewiki_links;
 
-   #-- add backlinks entry
-   ewiki_scan_wikiwords($data["content"], $ewiki_links, "_STRIP_EMAIL=1");
-   $data["refs"] = "\n\n".implode("\n", array_keys($ewiki_links))."\n\n";
+	#-- add backlinks entry
+	ewiki_scan_wikiwords($data["content"], $ewiki_links, "_STRIP_EMAIL=1");
+	$data["refs"] = "\n\n".implode("\n", array_keys($ewiki_links))."\n\n";
 
-   $data["lastmodified"] = time();
-   $data["author"] = ewiki_author($author);
+	$data["lastmodified"] = time();
+	$data["author"] = ewiki_author($author);
 }
 
 
 function ewiki_new_data($id, $flags=EWIKI_DB_F_TEXT, $author="") {
-   $data = array(
+	$data = array(
 	  "id" => $id,
 	  "version" => 1,
 	  "flags" => $flags,
@@ -1591,8 +1591,8 @@ function ewiki_new_data($id, $flags=EWIKI_DB_F_TEXT, $author="") {
 	  "created" => time(),
 	  "lastmodified" => time(),
 	  "author" => ewiki_author($author),
-   );
-   return($data);
+	);
+	return($data);
 }
 
 
@@ -1601,88 +1601,97 @@ function ewiki_new_data($id, $flags=EWIKI_DB_F_TEXT, $author="") {
 function ewiki_page_edit_form(&$id, &$data, &$hidden_postdata) {
 
 	global $ewiki_request;
-   global $ewiki_plugins, $ewiki_config;
+	global $ewiki_plugins, $ewiki_config;
 
 
-   #-- previously edited, or db fetched content
-   if (@$ewiki_request["content"] || @$ewiki_request["version"]) {
+	#-- previously edited, or db fetched content
+	if (@$ewiki_request["content"] || @$ewiki_request["version"]) {
 	  $data = array(
 		 "version" => &$ewiki_request["version"],
 		 "content" => &$ewiki_request["content"]
 	  );
-   }
-   else {
+	}
+	else {
 	  if (empty($data["version"])) {
 		 $data["version"] = 1;
 	  }
 	  @$data["content"] .= "";
-   }
+	}
 
 	// get from qa answer button
 
 	if($ewiki_request["qa_wiki_oid"]) {
 		$a_link = qa_lang_html_sub('wiki_page/a_to_wiki_link',"[".$ewiki_request["qa_wiki_link"]."|".$ewiki_request["qa_wiki_handle"]."]");
-		$data["content"] = (@$data["content"]?$data["content"]."\n\n":"").$a_link."\n\n";
 		$post=qa_db_select_with_pending(qa_db_full_post_selectspec(null, $ewiki_request["qa_wiki_oid"]));
-		qa_error_log($post);
-		$data["content"] .= ($post["content"]);
+		if(!@$data["content"]) {
+			$question = qa_db_read_one_value(
+				qa_db_query_sub(
+					'SELECT content FROM ^posts WHERE postid=$',
+					$post['parentid']
+				)
+			);	
+			$data["content"] = $question;
+		}
+		else 
+			$data["content"] = $data["content"];
+		$data["content"] .= "\n\n".$a_link."\n\n".$post["content"];
 		$hidden_postdata["qa_wiki_save"] = $id;
 		$hidden_postdata["qa_wiki_new_oid"] = $ewiki_request["qa_wiki_oid"];
 	}
 
-   #-- normalize to DOS newlines
-   $data["content"] = str_replace("\015\012", "\012", $data["content"]);
-   $data["content"] = str_replace("\015", "\012", $data["content"]);
-   $data["content"] = str_replace("\012", "\015\012", $data["content"]);
+	#-- normalize to DOS newlines
+	$data["content"] = str_replace("\015\012", "\012", $data["content"]);
+	$data["content"] = str_replace("\015", "\012", $data["content"]);
+	$data["content"] = str_replace("\012", "\015\012", $data["content"]);
 
-   $hidden_postdata["version"] = &$data["version"];
+	$hidden_postdata["version"] = &$data["version"];
 
-   #-- edit textarea/form
-   $o .= ewiki_t("EDIT_FORM_1")
-	   . '<form method="POST" enctype="multipart/form-data" action="'
-	   . ewiki_script("edit", $id) . '" name="ewiki"'
-	   . ' accept-charset="'.EWIKI_CHARSET.'">' . "\n";
+	#-- edit textarea/form
+	$o .= ewiki_t("EDIT_FORM_1")
+		. '<form method="POST" enctype="multipart/form-data" action="'
+		. ewiki_script("edit", $id) . '" name="ewiki"'
+		. ' accept-charset="'.EWIKI_CHARSET.'">' . "\n";
 
-   #-- additional POST vars
-   foreach ($hidden_postdata as $name => $value) {
-	   $o .= '<input type="hidden" name="'.$name.'" value="'.$value.'">'."\n";
-   }
+	#-- additional POST vars
+	foreach ($hidden_postdata as $name => $value) {
+		$o .= '<input type="hidden" name="'.$name.'" value="'.$value.'">'."\n";
+	}
 
-   if (EWIKI_CHARSET=="UTF-8") {
+	if (EWIKI_CHARSET=="UTF-8") {
 	  $data["content"] = utf8_encode($data["content"]);
-   }
-   ($cols = strtok($ewiki_config["edit_box_size"], "x*/,;:")) && ($rows = strtok("x, ")) || ($cols=70) && ($rows=15);
-   $o .= '<textarea wrap="soft" id="ewiki_content" name="content" rows="'.$rows.'" cols="'.$cols.'">'
+	}
+	($cols = strtok($ewiki_config["edit_box_size"], "x*/,;:")) && ($rows = strtok("x, ")) || ($cols=70) && ($rows=15);
+	$o .= '<textarea wrap="soft" id="ewiki_content" name="content" rows="'.$rows.'" cols="'.$cols.'">'
 	  . htmlentities($data["content"]) . "</textarea>"
 	  . $GLOBALS["ewiki_t"]["C"]["EDIT_TEXTAREA_RESIZE_JS"];
 
-   #-- more <input> elements before the submit button
-   if ($pf_a = $ewiki_plugins["edit_form_insert"]) foreach ($pf_a as $pf) {
+	#-- more <input> elements before the submit button
+	if ($pf_a = $ewiki_plugins["edit_form_insert"]) foreach ($pf_a as $pf) {
 	  $o .= $pf($id, $data, $action);
-   }
+	}
 
-   $o .= "\n<br>\n"
+	$o .= "\n<br>\n"
 	  . '<input type="submit" name="save" value=" &nbsp; '. ewiki_t("SAVE") . ' &nbsp; ">'."\n"
 	  . " &nbsp; "
 	  . '<input type="submit" name="preview" value=" &nbsp; '. ewiki_t("PREVIEW") . ' &nbsp; ">' . "\n"
 	  . ' &nbsp; <a class="cancel" href="'. ewiki_script("", $id) . '">' . ewiki_t("CANCEL_EDIT") . '</a><br>';
 
-   #-- additional form elements
-   if ($pf_a = $ewiki_plugins["edit_form_append"]) foreach ($pf_a as $pf) {
+	#-- additional form elements
+	if ($pf_a = $ewiki_plugins["edit_form_append"]) foreach ($pf_a as $pf) {
 	  $o .= $pf($id, $data, $action);
-   }
+	}
 
-   $o .= "\n</form>\n"
+	$o .= "\n</form>\n"
 	  . ewiki_t("EDIT_FORM_2");
 
-   return('<div class="edit-box">'. $o .'</div>');
+	return('<div class="edit-box">'. $o .'</div>');
 }
 
 
 
 #-- pic upload form
 function ewiki_page_edit_form_final_imgupload(&$o, &$id, &$data, &$action) {
-   if (EWIKI_SCRIPT_BINARY && EWIKI_UP_UPLOAD && EWIKI_IMAGE_MAXSIZE) {
+	if (EWIKI_SCRIPT_BINARY && EWIKI_UP_UPLOAD && EWIKI_IMAGE_MAXSIZE) {
 	  $o .= "\n<br>\n". '<div class="image-upload">'
 	  . '<form action='
 	  . '"'. ewiki_script_binary("", EWIKI_IDF_INTERNAL, "", "_UPLOAD=1") .'"'
@@ -1700,13 +1709,13 @@ function ewiki_page_edit_form_final_imgupload(&$o, &$id, &$data, &$action) {
 
 function ewiki_page_edit_preview(&$data) {
 	global $ewiki_request;
-   return( '<div class="preview">'
-		   . "<hr noshade>"
-		   . "<div align=\"right\">" . ewiki_t("PREVIEW") . "</div><hr noshade><br>\n"
-		   . $GLOBALS["ewiki_plugins"]["render"][0]($ewiki_request["content"], 1, EWIKI_ALLOW_HTML || (@$data["flags"]&EWIKI_DB_F_HTML))
-		   . "<hr noshade><br>"
-		   . "</div>"
-   );
+	return( '<div class="preview">'
+			. "<hr noshade>"
+			. "<div align=\"right\">" . ewiki_t("PREVIEW") . "</div><hr noshade><br>\n"
+			. $GLOBALS["ewiki_plugins"]["render"][0]($ewiki_request["content"], 1, EWIKI_ALLOW_HTML || (@$data["flags"]&EWIKI_DB_F_HTML))
+			. "<hr noshade><br>"
+			. "</div>"
+	);
 }
 
 
@@ -1717,61 +1726,61 @@ function ewiki_page_edit_preview(&$data) {
 
 function ewiki_control_links($id, &$data, $action, $hide_hr=0, $hide_mtime=0) {
 
-   global $ewiki_plugins, $ewiki_ring, $ewiki_config;
-   $action_links = &$ewiki_config["action_links"][$action];
+	global $ewiki_plugins, $ewiki_ring, $ewiki_config;
+	$action_links = &$ewiki_config["action_links"][$action];
 
-   #-- disabled
-   if (!$ewiki_config["control_line"]) {
+	#-- disabled
+	if (!$ewiki_config["control_line"]) {
 	  return("");
-   }
+	}
 
-   $o = "\n"
+	$o = "\n"
 	  . '<div class="action-links control-links">';
-   if (!$hide_hr) {
+	if (!$hide_hr) {
 	  $o .=  "\n<br>\n" . "<hr noshade>" . "\n";
-   }
+	}
 
-   if ($ewiki_config["forced_version"] && ewiki_auth($id, $data, "edit")) {
+	if ($ewiki_config["forced_version"] && ewiki_auth($id, $data, "edit")) {
 
 	  $o .= '<form action="' . ewiki_script("edit", $id) . '" method="POST">' .
 			'<input type="hidden" name="edit" value="old">' .
 			'<input type="hidden" name="version" value="'.$ewiki_config["forced_version"].'">' .
 			'<input type="submit" value="' . ewiki_t("OLDVERCOMEBACK") . '"></form> ';
-   }
-   else {
+	}
+	else {
 	  $o .= ewiki_control_links_list($id, $data, $action_links);
-   }
+	}
 
-   if (!$hide_mtime && ($data["lastmodified"] >= UNIX_MILLENNIUM)) { 
+	if (!$hide_mtime && ($data["lastmodified"] >= UNIX_MILLENNIUM)) { 
 	  $o .= '<small>' . strftime(ewiki_t("LASTCHANGED"), @$data["lastmodified"]) . '</small>';
-   }
+	}
 
-   $o .= "</div>\n";
-   return($o);
+	$o .= "</div>\n";
+	return($o);
 }
 
 
 #-- the core of ewiki_control_links, separated for use in info and plugins
 function ewiki_control_links_list($id, &$data, $action_links, $version=0) {
-   global $ewiki_plugins;
+	global $ewiki_plugins;
 	
 	$o = '<div class="action-links-buttons">';
 	
-   foreach ($action_links as $action => $title)
-   if (!empty($ewiki_plugins["action"][$action]) || !empty($ewiki_plugins["action_always"][$action]) || strpos($action, ":/"))
-   {
+	foreach ($action_links as $action => $title)
+	if (!empty($ewiki_plugins["action"][$action]) || !empty($ewiki_plugins["action_always"][$action]) || strpos($action, ":/"))
+	{
 	  if (EWIKI_PROTECTED_MODE && EWIKI_PROTECTED_MODE_HIDING && !ewiki_auth($id, $data, $action)) {
 		 continue;
 	  }
 	  $o .= '<a href="' .
 		 ( strpos($action, "://")
-			? $action   # an injected "action" URL
+			? $action	# an injected "action" URL
 			: ewiki_script($action, $id, $version?array("version"=>$version):NULL)
 		 ) . '">' . ewiki_t($title) . '</a> ';
-   }
+	}
 	$o .= '</div>';
 
-   return($o);
+	return($o);
 }
 
 
@@ -1783,32 +1792,32 @@ function ewiki_control_links_list($id, &$data, $action_links, $version=0) {
 
 
 
-########  ###   ###  #########  ###  ###   ###  #######
+########  ###	###  #########  ###  ###	###  #######
 ########  ####  ###  #########  ###  ####  ###  #######
-###	   ##### ###  ###			 ##### ###  ###
+###		##### ###  ###			 ##### ###  ###
 ######	#########  ###  ####  ###  #########  ######
 ######	#########  ###  ####  ###  #########  ######
-###	   ### #####  ###   ###  ###  ### #####  ###
+###		### #####  ###	###  ###  ### #####  ###
 ########  ###  ####  #########  ###  ###  ####  #######
-########  ###   ###  #########  ###  ###   ###  #######
+########  ###	###  #########  ###  ###	###  #######
 
 
 /*
-   The _format() function transforms $wiki_source pages into <html> strings,
-   also calls various markup and helper plugins during the transformation
-   process. The $params array can activate various features and extensions.
-   only accepts UNIX newlines!
+	The _format() function transforms $wiki_source pages into <html> strings,
+	also calls various markup and helper plugins during the transformation
+	process. The $params array can activate various features and extensions.
+	only accepts UNIX newlines!
 */
 function ewiki_format (
 			$wiki_source,
 			$params = array()
 		 )
 {
-   global $ewiki_links, $ewiki_plugins, $ewiki_config;
+	global $ewiki_links, $ewiki_plugins, $ewiki_config;
 
-   #-- state vars
-   $params = array_merge($ewiki_config["format_params"]?$ewiki_config["format_params"]:array(), is_array($params)?$params:array($params));
-   $s = array(
+	#-- state vars
+	$params = array_merge($ewiki_config["format_params"]?$ewiki_config["format_params"]:array(), is_array($params)?$params:array($params));
+	$s = array(
 	  "in" => 0,		 # current input $iii[] block array index
 	  "para" => "",
 	  "line" => "",
@@ -1819,63 +1828,63 @@ function ewiki_format (
 	  "tbl" => 0,		# open table?
 	  "indent" => 0,	 # indentation
 	  "close" => array(),
-   );
-   #-- aliases
-   $in = &$s["in"]; 
-   $line = &$s["line"];
-   $lines = &$s["lines"];
-   $para = &$s["para"];
-   $post = &$s["post"];
-   $list = &$s["list"];
+	);
+	#-- aliases
+	$in = &$s["in"]; 
+	$line = &$s["line"];
+	$lines = &$s["lines"];
+	$para = &$s["para"];
+	$post = &$s["post"];
+	$list = &$s["list"];
 
-   #-- input and output arrays
-   if ($wiki_source[0] == "<") {			# also prepend an empty line 
+	#-- input and output arrays
+	if ($wiki_source[0] == "<") {			# also prepend an empty line 
 	  $wiki_source = "\n" . $wiki_source;	# for faster strpos() searchs
-   }
-   $iii = array(
+	}
+	$iii = array(
 	  0 => array(
 		 0 => $wiki_source."\n",	# body + empty line
-		 1 => 0x0FFF,			   # flags (0x1=WikiMarkup, 0x2=WikiLinks, 0x100=BlockPlugins)
-		 2 => "core",			   # block plugin name
+		 1 => 0x0FFF,				# flags (0x1=WikiMarkup, 0x2=WikiLinks, 0x100=BlockPlugins)
+		 2 => "core",				# block plugin name
 	  )
-   );
-   $ooo = array(
-   );
-   unset($wiki_source);
+	);
+	$ooo = array(
+	);
+	unset($wiki_source);
 
-   #-- plugins
-   $pf_tbl = @$ewiki_plugins["format_table"][0];
-   $pf_line = @$ewiki_plugins["format_line"];
+	#-- plugins
+	$pf_tbl = @$ewiki_plugins["format_table"][0];
+	$pf_line = @$ewiki_plugins["format_line"];
 
-   #-- wikimarkup (wm)
-   $htmlentities = $ewiki_config["htmlentities"];
-   $wm_indent = &$ewiki_config["wm_indent"];
-   $s["wm_indent_close"] = "</" . strtok($wm_indent, "< />"). ">";
-   $wm_table_defaults = &$ewiki_config["wm_table_defaults"];
-   $wm_source = &$ewiki_config["wm_source"];
-   $wm_list = &$ewiki_config["wm_list"];
-   $wm_list_chars = implode("", array_keys($wm_list));
-   $wm_style = &$ewiki_config["wm_style"];
-   $wm_start_end = &$ewiki_config["wm_start_end"];
-   $wm_max_header = &$ewiki_config["wm_max_header"];
-   $wm_publishing_headers = &$ewiki_config["wm_publishing_headers"];
-   $wm_whole_line = &$ewiki_config["wm_whole_line"];
+	#-- wikimarkup (wm)
+	$htmlentities = $ewiki_config["htmlentities"];
+	$wm_indent = &$ewiki_config["wm_indent"];
+	$s["wm_indent_close"] = "</" . strtok($wm_indent, "< />"). ">";
+	$wm_table_defaults = &$ewiki_config["wm_table_defaults"];
+	$wm_source = &$ewiki_config["wm_source"];
+	$wm_list = &$ewiki_config["wm_list"];
+	$wm_list_chars = implode("", array_keys($wm_list));
+	$wm_style = &$ewiki_config["wm_style"];
+	$wm_start_end = &$ewiki_config["wm_start_end"];
+	$wm_max_header = &$ewiki_config["wm_max_header"];
+	$wm_publishing_headers = &$ewiki_config["wm_publishing_headers"];
+	$wm_whole_line = &$ewiki_config["wm_whole_line"];
 
-   #-- eleminate html
-   $iii[0][0] = strtr($iii[0][0], $htmlentities);
-   unset($htmlentities["&"]);
+	#-- eleminate html
+	$iii[0][0] = strtr($iii[0][0], $htmlentities);
+	unset($htmlentities["&"]);
 
-   #-- pre-processing plugins (working on wiki source)
-   if ($pf_source = $ewiki_plugins["format_source"]) {
+	#-- pre-processing plugins (working on wiki source)
+	if ($pf_source = $ewiki_plugins["format_source"]) {
 	  foreach ($pf_source as $pf) $pf($iii[0][0]);
-   }
+	}
 
-   #-- simple markup
-   $iii[0][0] = strtr($iii[0][0], $wm_source);
+	#-- simple markup
+	$iii[0][0] = strtr($iii[0][0], $wm_source);
 
 
-   #-- separate input into blocks ------------------------------------------
-   foreach ($ewiki_config["format_block"] as $btype => $binfo) {
+	#-- separate input into blocks ------------------------------------------
+	foreach ($ewiki_config["format_block"] as $btype => $binfo) {
 
 	  #-- disabled block plugin?
 	  if ($binfo[2] && !$params[$binfo[2]])  {
@@ -1891,7 +1900,7 @@ function ewiki_format (
 		 while (
 			($c = & $iii[$in][0]) &&
 			(($l = strpos($c, $binfo[0])) !== false) &&
-			($r = strpos($c, $binfo[1], $l))   )
+			($r = strpos($c, $binfo[1], $l))	)
 		 {
 			$l_len = strlen($binfo[0]);
 			$r_len = strlen($binfo[1]);
@@ -1899,39 +1908,39 @@ function ewiki_format (
 			$repl = array();
 			// pre-text
 			if (($l > 0) && trim($text = substr($c, 0, $l))) {
-			   $repl[] = array($text, 0xFFFF, "core");
+				$repl[] = array($text, 0xFFFF, "core");
 			}
 			// the extracted part
 			if (trim($text = substr($c, $l+$l_len, $r-$l-$l_len))) {
-			   $repl[] = array($text, $binfo[3], "$btype");
+				$repl[] = array($text, $binfo[3], "$btype");
 			}
 			// rest
 			if (($r+$r_len < strlen($c)) && trim($text = substr($c, $r+$r_len))) {
-			   $repl[] = array($text, 0xFFFF, "core");
+				$repl[] = array($text, 0xFFFF, "core");
 			}
 			array_splice($iii, $in, 1, $repl);
 
 			$in += 1;
 		 }
 	  }
-   }
+	}
 
-   #-- run format_block plugins
-   $in = -1;
-   while ((++$in) < count($iii)) {
+	#-- run format_block plugins
+	$in = -1;
+	while ((++$in) < count($iii)) {
 	  if (($btype = $iii[$in][2]) && ($pf_a = $ewiki_plugins["format_block"][$btype])) {
 		 $c = &$iii[$in][0];
-		 foreach ($pf_a as $pf) {   
+		 foreach ($pf_a as $pf) {	
 			# current buffer $c and pointer $in into $iii[] and state $s
 			$pf($c, $in, $iii, $s, $btype);
 		 }
 	  }
-   }
+	}
 
-   #-- wiki markup ------------------------------------------------------
-   $para = "";
-   $in = -1;   
-   while ((++$in) < count($iii)) {
+	#-- wiki markup ------------------------------------------------------
+	$para = "";
+	$in = -1;	
+	while ((++$in) < count($iii)) {
 	  #-- wikimarkup
 	  if ($iii[$in][1] & 0x0001) {
 
@@ -1955,21 +1964,21 @@ function ewiki_format (
 
 			#-- empty lines separate paragraphs
 			if (!strlen($line)) {
-			   ewiki_format_close_para($ooo, $s);
-			   ewiki_format_close_tags($ooo, $s);
-			   if (!$s["block"]) {
+				ewiki_format_close_para($ooo, $s);
+				ewiki_format_close_tags($ooo, $s);
+				if (!$s["block"]) {
 				  $out .= "\n";
-			   }
+				}
 			}
 			#-- horiz bar
 			if (!$list && !strncmp($line, "----", 4)) {
-			   $s["para"] .= "<hr noshade>\n";
-			   continue;
+				$s["para"] .= "<hr noshade>\n";
+				continue;
 			}
 			#-- html comment
 			if (!strncmp($line, "&lt;!--", 7)) {
-			   $out .= "<!-- " . htmlentities(str_replace("--", "__", substr($line, 7))) . " -->\n";
-			   continue;
+				$out .= "<!-- " . htmlentities(str_replace("--", "__", substr($line, 7))) . " -->\n";
+				continue;
 			}
 
 			($c0 = $line[0])
@@ -1977,48 +1986,48 @@ function ewiki_format (
 
 			#-- tables
 			if (($c0 == "|") && ($s["tbl"] || ($line[strlen($line)-1] == "|"))) {
-			   if (!$s["tbl"]) {
+				if (!$s["tbl"]) {
 				  ewiki_format_close_para($ooo, $s);
 				  ewiki_format_close_tags($ooo, $s);
 				  $s["list"] = "";
-			   }
-			   $line = substr($line, 1);
-			   if ($line[strlen($line)-1] == "|") {
+				}
+				$line = substr($line, 1);
+				if ($line[strlen($line)-1] == "|") {
 				  $line = substr($line, 0, -1);
-			   }
-			   if ($pf_tbl) { 
+				}
+				if ($pf_tbl) { 
 				  $pf_tbl($line, $ooo, $s);
-			   }
-			   else {
+				}
+				else {
 				  if (!$s["tbl"]) {  
 					 $out .= "<table " . $wm_table_defaults . ">\n";
 					 $s["close"][] = "\n</table>"; 
 				  }
 				  $line = "<tr>\n<td>" . str_replace("|", "</td>\n<td>", $line) . "</td>\n</tr>";
-			   }
-			   $s["tbl"] = 1;
-			   $para = false;
+				}
+				$s["tbl"] = 1;
+				$para = false;
 			}
 			elseif ($s["tbl"]) {
-			   $s["tbl"] = 0;
+				$s["tbl"] = 0;
 			}
 
 
 			#-- headlines
 			if (($c0 == "!") && ($excl = strspn($line, "!"))) {
 			
-			   if ($excl > $wm_max_header) { 
+				if ($excl > $wm_max_header) { 
 				  $excl = $wm_max_header;
-			   }
-			   $line = substr($line, $excl);
-			   //publishing headers go from h2 smaller "like word"
-			   $excl = $wm_publishing_headers? (1+$excl) :5 - $excl;
-			   $line = "<h$excl>" . $line . "</h$excl>";
-			   if ($para) {
+				}
+				$line = substr($line, $excl);
+				//publishing headers go from h2 smaller "like word"
+				$excl = $wm_publishing_headers? (1+$excl) :5 - $excl;
+				$line = "<h$excl>" . $line . "</h$excl>";
+				if ($para) {
 				  ewiki_format_close_para($ooo, $s);
-			   }
-			   ewiki_format_close_tags($ooo, $s);
-			   $para = false;
+				}
+				ewiki_format_close_tags($ooo, $s);
+				$para = false;
 			}
 
 // /*
@@ -2033,37 +2042,37 @@ function ewiki_format (
 			#-- indentation (space/tab markup)
 			$n_indent = 0;
 			if (!$list && (!$s["block"]) && ($n_indent = strspn($line, " "))) {
-			   $n_indent = (int) ($n_indent / 2.65);
-			   while ($n_indent > $s["indent"]) { 
+				$n_indent = (int) ($n_indent / 2.65);
+				while ($n_indent > $s["indent"]) { 
 				  $s["para"] .= $wm_indent;
 				  $s["indent"]++;
-			   }
+				}
 			}
 			while ($n_indent < $s["indent"]) { 
-			   $s["para"] .= $s["wm_indent_close"] . "\n";
-			   $s["indent"]--;
+				$s["para"] .= $s["wm_indent_close"] . "\n";
+				$s["indent"]--;
 			}
 
 
 
 			#-- list markup
 			if (isset($wm_list[$c0])) {
-			   if (!$list) {
+				if (!$list) {
 				  ewiki_format_close_para($ooo, $s);
 				  ewiki_format_close_tags($ooo, $s);
-			   }
-			   $new_len = strspn($line, $wm_list_chars);
-			   $new_list = substr($line, 0, $new_len);
-			   $old_len = strlen($list);
-			   $lchar = $new_list[$new_len-1];
-			   list($lopen, $ltag1, $ltag2) = $wm_list[$lchar];
+				}
+				$new_len = strspn($line, $wm_list_chars);
+				$new_list = substr($line, 0, $new_len);
+				$old_len = strlen($list);
+				$lchar = $new_list[$new_len-1];
+				list($lopen, $ltag1, $ltag2) = $wm_list[$lchar];
 
-			   #-- exception: "--" is treated as literal
-			   if (($old_len===0) && (($new_len>=2) && ($new_list=="--"))) {
+				#-- exception: "--" is treated as literal
+				if (($old_len===0) && (($new_len>=2) && ($new_list=="--"))) {
 				  $list = '';		 # change this ^^ to an OR (||)
 									  # to filter bad list markup
-			   }
-			   else {
+				}
+				else {
 				  #-- cut line
 				  $line = substr($line, $new_len);
 				  $lspace = "";
@@ -2097,9 +2106,9 @@ function ewiki_format (
 						$lspace = str_repeat("  ", $new_len);
 
 						if ($ltype) {
-						   $rltype = ($ltype<"A"?"1": ($ltype=="I"?"I": ($ltype=="i"?"i": ($ltype<"a"?"A": "a"))));
-						   $lopen .= " type=\"$rltype\"";
-						   if ($rltype!=$ltype) { $lopen .= " start=\"$ltype\""; }
+							$rltype = ($ltype<"A"?"1": ($ltype=="I"?"I": ($ltype=="i"?"i": ($ltype<"a"?"A": "a"))));
+							$lopen .= " type=\"$rltype\"";
+							if ($rltype!=$ltype) { $lopen .= " start=\"$ltype\""; }
 						}
 						
 						$out .= "\n$lspace<$lopen>\n" . "$lspace". $linsert . "<$ltag2>";
@@ -2122,45 +2131,45 @@ function ewiki_format (
 
 				  $list = $new_list;
 				  $para = false;
-			   }
+				}
 			}
 			elseif ($list) {
-			   if ($c0 == " ") {
+				if ($c0 == " ") {
 				  $para = false;
-			   }
-			   else {
+				}
+				else {
 				  ewiki_format_close_tags($ooo, $s);
 				  $list = "";
-			   }
+				}
 			}
 
 
 			#-- text style triggers
 			foreach ($wm_style as $find=>$replace) {
-			   $find_len = strlen($find);
-			   $loop = 20;
-			   while(($loop--) && (($l = strpos($line, $find)) !== false) && ($r = strpos($line, $find, $l + $find_len))) {
+				$find_len = strlen($find);
+				$loop = 20;
+				while(($loop--) && (($l = strpos($line, $find)) !== false) && ($r = strpos($line, $find, $l + $find_len))) {
 				  $line = substr($line, 0, $l) . $replace[0] .
 						  substr($line, $l + strlen($find), $r - $l - $find_len) .
 						  $replace[1] . substr($line, $r + $find_len);
-			   }
+				}
 			}
 
 			#-- start-end markup
 			foreach ($wm_start_end as $d) {
-			   $len0 = strlen($d[0]);
-			   $loop = 20;
-			   while(($loop--) && (($l = strpos($line, $d[0])) !== false) && ($r = strpos($line, $d[1], $l + $len0))) {
+				$len0 = strlen($d[0]);
+				$loop = 20;
+				while(($loop--) && (($l = strpos($line, $d[0])) !== false) && ($r = strpos($line, $d[1], $l + $len0))) {
 				  $len1 = strlen($d[1]);
 				  $line = substr($line, 0, $l) . $d[2] .
 						  substr($line, $l + $len0, $r - $l - $len0) .
 						  $d[1] . substr($line, $r + $len1);
-			   }
+				}
 			}
 
 			#-- call wiki source formatting plugins that work on current line
 			if ($pf_line) {
-			   foreach ($pf_line as $pf) $pf($out, $line, $post);
+				foreach ($pf_line as $pf) $pf($out, $line, $post);
 			}
 
 
@@ -2168,11 +2177,11 @@ function ewiki_format (
 			#-- add formatted line to page-output
 			$line .= $post;
 			if ($para === false) {
-			   $out .= $line;
-			   $para = "";
+				$out .= $line;
+				$para = "";
 			}
 			else {
-			   $para .= $line . "\n";
+				$para .= $line . "\n";
 			}
 
 		 }
@@ -2188,12 +2197,12 @@ function ewiki_format (
 		 $ooo[$in] = $iii[$in];
 	  }
 	  $iii[$in] = array();
-   }
+	}
 
 
-   #-- wiki linking ------------------------------------------------------
-   $scan_src = "";
-   for ($in=0; $in<count($ooo); $in++) {
+	#-- wiki linking ------------------------------------------------------
+	$scan_src = "";
+	for ($in=0; $in<count($ooo); $in++) {
 	  if (EWIKI_HTML_CHARS && ($ooo[$in][1] & 0x0004)) {  # html character entities
 		 $ooo[$in][0] = str_replace("&amp;#", "&#", $ooo[$in][0]);
 	  }
@@ -2201,51 +2210,51 @@ function ewiki_format (
 		 #-- join together multiple WikiSource blocks
 		 while (isset($ooo[$in+1]) && ($ooo[$in][1] & 0x0002) && ($ooo[$in+1][1] & 0x0002)) {
 			$ooo[$in] = array(
-			   0 => $ooo[$in][0] . "\n" . $ooo[$in+1][0],
-			   1 => $ooo[$in][1] | $ooo[$in+1][1],
+				0 => $ooo[$in][0] . "\n" . $ooo[$in+1][0],
+				1 => $ooo[$in][1] | $ooo[$in+1][1],
 			);
 			array_splice($ooo, $in+1, 1);
 		 }
 	  }
 	  $scan_src .= $ooo[$in][0];
-   }
+	}
 
-   #-- pre-scan
-   if ($params["scan_links"]) {
+	#-- pre-scan
+	if ($params["scan_links"]) {
 	  ewiki_scan_wikiwords($scan_src, $ewiki_links);
-   }
-   if ($pf_linkprep = $ewiki_plugins["format_prepare_linking"]) {
+	}
+	if ($pf_linkprep = $ewiki_plugins["format_prepare_linking"]) {
 	  foreach ($pf_linkprep as $pf) $pf($scan_src);
-   }
-   $scan_src = NULL;
+	}
+	$scan_src = NULL;
 
-   #-- finally the link-creation-regex
-   for ($in=0; $in<count($ooo); $in++) {
+	#-- finally the link-creation-regex
+	for ($in=0; $in<count($ooo); $in++) {
 	  if ($ooo[$in][1] & 0x0002) {
 		 ewiki_render_wiki_links($ooo[$in][0]);
 	  }
-   }
+	}
 
 
-   #-- fin: combine all blocks into html string ----------------------------
-   $html = "";
-   for ($in=0; $in<count($ooo); $in++) {
+	#-- fin: combine all blocks into html string ----------------------------
+	$html = "";
+	for ($in=0; $in<count($ooo); $in++) {
 	  $html .= $ooo[$in][0] . "\n";
 	  $ooo[$in] = 0;
-   }
-   #-- call post processing plugins
-   if ($pf_final = $ewiki_plugins["format_final"]) {
+	}
+	#-- call post processing plugins
+	if ($pf_final = $ewiki_plugins["format_final"]) {
 	  foreach ($pf_final as $pf) $pf($html);
-   }
-   return($html);
+	}
+	return($html);
 }
 
 
 
 function ewiki_format_close_para(&$ooo, &$s) {
-   $out = &$ooo[$s["in"]][0];
-   #-- output text block
-   if (trim($s["para"])) {
+	$out = &$ooo[$s["in"]][0];
+	#-- output text block
+	if (trim($s["para"])) {
 	  #-- indentation
 	  while ($s["indent"]) {
 		 $s["para"] .= $s["wm_indent_close"];
@@ -2263,245 +2272,245 @@ function ewiki_format_close_para(&$ooo, &$s) {
 	  }
 	  $out .= $s["para"];
 	  $s["para"] = "";
-   }
+	}
 }
 
 
 function ewiki_format_close_tags(&$ooo, &$s, $count=100) {
-   $out = &$ooo[$s["in"]][0];
-   if (!is_array($s) || !is_array($s["close"])) { 
+	$out = &$ooo[$s["in"]][0];
+	if (!is_array($s) || !is_array($s["close"])) { 
 	  die("\$s is garbaged == $s!!");
-   }
-   while (($count--) && ($add = array_pop($s["close"]))) {
+	}
+	while (($count--) && ($add = array_pop($s["close"]))) {
 	  $out .= $add . "\n";
-   }
+	}
 }
 
 
 function ewiki_format_pre(&$str, &$in, &$iii, &$s, $btype) {
-   $str = "<pre class=\"markup $btype\">" . $str . "</pre>";
+	$str = "<pre class=\"markup $btype\">" . $str . "</pre>";
 }
 
 
 function ewiki_format_html(&$str, &$in, &$iii, &$s) {
-   $he = array_reverse($GLOBALS["ewiki_config"]["htmlentities"]);
-   $str = strtr($str, array_flip($he));
-   $str = "<span class=\"markup html\">" . $str . "\n</span>\n"; 
+	$he = array_reverse($GLOBALS["ewiki_config"]["htmlentities"]);
+	$str = strtr($str, array_flip($he));
+	$str = "<span class=\"markup html\">" . $str . "\n</span>\n"; 
 }
 
 
 function ewiki_format_comment(&$str, &$in, &$iii, &$s, $btype) {
-   $str = "<!-- "  . str_replace("--", "¯¯", $str) . " -->";
+	$str = "<!-- "  . str_replace("--", "¯¯", $str) . " -->";
 }
 
 
 
 
 /* unclean pre-scanning for WikiWords in a page,
-   pre-query to the db */
+	pre-query to the db */
 function ewiki_scan_wikiwords(&$wiki_source, &$ewiki_links, $se=0) {
 
-   global $ewiki_config, $ewiki_id;
+	global $ewiki_config, $ewiki_id;
 
-   #-- find matches
-   preg_match_all($ewiki_config["wiki_pre_scan_regex"], $wiki_source, $uu);
-   $uu = array_merge($uu[1], $uu[2], $uu[3], $uu[4], (array)@$uu[5]);
+	#-- find matches
+	preg_match_all($ewiki_config["wiki_pre_scan_regex"], $wiki_source, $uu);
+	$uu = array_merge($uu[1], $uu[2], $uu[3], $uu[4], (array)@$uu[5]);
 
-   #-- clean up list, trim() spaces (allows more unclean regex) - page id unification
-   foreach ($uu as $i=>$id) {
+	#-- clean up list, trim() spaces (allows more unclean regex) - page id unification
+	foreach ($uu as $i=>$id) {
 	  $uu[$i] = trim($id);
-   }
-   unset($uu[""]);
-   $uu = array_unique($uu);
+	}
+	unset($uu[""]);
+	$uu = array_unique($uu);
 
-   #-- unfold SubPage names
-   if (EWIKI_SUBPAGE_START) {
+	#-- unfold SubPage names
+	if (EWIKI_SUBPAGE_START) {
 	  foreach ($uu as $i=>$id) {
 		 if ($id && (strpos(EWIKI_SUBPAGE_START, $id[0]) !== false)) {
 			if ($id[1] == "/") { $id = substr($id, 1); }
 			$uu[$i] = $ewiki_id . $id;
 		 }
-   }  }
+	}  }
 
-   #-- query db
-   $ewiki_links = ewiki_database("FIND",  $uu);
+	#-- query db
+	$ewiki_links = ewiki_database("FIND",  $uu);
 
-   #-- strip email adresses
-   if ($se) {
+	#-- strip email adresses
+	if ($se) {
 	  foreach ($ewiki_links as $c=>$uu) {
 		 if (strpos($c, "@") && (strpos($c, ".") || strpos($c, ":"))) {
 			unset($ewiki_links[$c]);
 		 }
-   }  }
+	}  }
 }
 
 
 
 /* regex on page content,
-   handled by callback (see below)
+	handled by callback (see below)
 */
 function ewiki_render_wiki_links(&$o) {
-   global $ewiki_links, $ewiki_config, $ewiki_plugins;
+	global $ewiki_links, $ewiki_config, $ewiki_plugins;
 
-   #-- merge with dynamic pages list
-   ewiki_merge_links($ewiki_links);
+	#-- merge with dynamic pages list
+	ewiki_merge_links($ewiki_links);
 
-   #-- replace WikiWords
-   $link_regex = &$ewiki_config["wiki_link_regex"];
-   $o = preg_replace_callback($link_regex, "ewiki_link_regex_callback", $o);
+	#-- replace WikiWords
+	$link_regex = &$ewiki_config["wiki_link_regex"];
+	$o = preg_replace_callback($link_regex, "ewiki_link_regex_callback", $o);
 
-   #-- cleanup
-///////////   unset($ewiki_links);
+	#-- cleanup
+///////////	unset($ewiki_links);
 }
 
 
 /* combines with page plugin list,
-   and makes all case-insensitive (=lowercased)
-   in accord with EWIKI_CASE_INSENSITIVE 
+	and makes all case-insensitive (=lowercased)
+	in accord with EWIKI_CASE_INSENSITIVE 
 		(handled within ewiki_array)
 */
 function ewiki_merge_links(&$ewiki_links) {
-   global $ewiki_plugins;
-   if ($ewiki_links !== true) {
+	global $ewiki_plugins;
+	if ($ewiki_links !== true) {
 	  foreach ($ewiki_plugins["page"] as $page=>$uu) {
 		 $ewiki_links[$page] = 1;
 	  }
 	  $ewiki_links = ewiki_array($ewiki_links);
-   }
+	}
 }
 
 
 
 
 /* link rendering (p)regex callback
-   (ooutch, this is a complicated one)
+	(ooutch, this is a complicated one)
 */
 function ewiki_link_regex_callback($uu, $force_noimg=0) {
 
-   global $ewiki_links, $ewiki_plugins, $ewiki_config, $ewiki_id;
+	global $ewiki_links, $ewiki_plugins, $ewiki_config, $ewiki_id;
 
-   $str = trim($uu[0]);
-   $type = array();
-   $states = array();
+	$str = trim($uu[0]);
+	$type = array();
+	$states = array();
 
-   #-- link bracket '[' escaped with '!' or '~'
-   if (($str[0] == "!") || ($str[0] == "~")) {
+	#-- link bracket '[' escaped with '!' or '~'
+	if (($str[0] == "!") || ($str[0] == "~")) {
 	  return(substr($str, 1));
-   }
-   if ($str[0] == "#") {
+	}
+	if ($str[0] == "#") {
 	  $states["define"] = 1;
 	  $str = substr($str, 1);
-   }
-   if ($str[0] == "[") {
+	}
+	if ($str[0] == "[") {
 	  $states["brackets"] = 1;
 	  $str = substr($str, 1, -1);
-   }
+	}
 
-   #-- explicit title given via [ title | WikiLink ]
-   $href = $title = strtok($str, "|");
-   if ($uu = strtok("|")) {
+	#-- explicit title given via [ title | WikiLink ]
+	$href = $title = strtok($str, "|");
+	if ($uu = strtok("|")) {
 	  $href = $uu;
 	  $states["titled"] = 1;
-   }
-   #-- title and href swapped: swap back
-   if (strpos("://", $title) || strpos($title, ":") && !strpos($href, ":")) {
+	}
+	#-- title and href swapped: swap back
+	if (strpos("://", $title) || strpos($title, ":") && !strpos($href, ":")) {
 	  $uu = $title; $title = $href; $href = $uu;
-   }
-   #-- new entitling scheme [ url "title" ]
-   if ((($l=strpos($str, '"')) < ($r=strrpos($str, '"'))) && ($l!==false) ) {
+	}
+	#-- new entitling scheme [ url "title" ]
+	if ((($l=strpos($str, '"')) < ($r=strrpos($str, '"'))) && ($l!==false) ) {
 	  $title = substr($str, $l + 1, $r - $l - 1);
 	  $href = substr($str, 0, $l) . substr($str, $r + 1);
 	  $states["titled"] = 1;
 	}
 
-   #-- strip spaces
-   $spaces_l = ($href[0]==" ") ?1:0;
-   $spaces_r = ($href[strlen($href)-1]==" ") ?1:0;
-   $title = ltrim(trim($title), "^");
-   $href = ltrim(trim($href), "^");
+	#-- strip spaces
+	$spaces_l = ($href[0]==" ") ?1:0;
+	$spaces_r = ($href[strlen($href)-1]==" ") ?1:0;
+	$title = ltrim(trim($title), "^");
+	$href = ltrim(trim($href), "^");
 
-   #-- strip_htmlentities()
-   if (1&&	(strpos($href, "&")!==false) && strpos($href, ";")) {
+	#-- strip_htmlentities()
+	if (1&&	(strpos($href, "&")!==false) && strpos($href, ";")) {
 	  foreach (array("&lt;"=>"<", "&gt;"=>">", "&amp;"=>"&") as $f=>$t) {
 		 $href = str_replace($f, $t, $href);
 	  }
-   }
+	}
  
-   #-- anchors
-   $href2 = "";
-   if (($p = strrpos($href, "#")) && ($p) && ($href[$p-1] != "&")) {
+	#-- anchors
+	$href2 = "";
+	if (($p = strrpos($href, "#")) && ($p) && ($href[$p-1] != "&")) {
 	  $href2 = trim(substr($href, $p));
 	  $href = trim(substr($href, 0, $p));
-   }
-   elseif ($p === 0) {
+	}
+	elseif ($p === 0) {
 	  $states["define"] = 1;
-   }
-   if ($href == ".") {
+	}
+	if ($href == ".") {
 	  $href = $ewiki_id;
-   }
+	}
 
-   #-- SubPages
-   $c0 = $href[0];
-   if ($c0 && (strpos(EWIKI_SUBPAGE_START, $c0) !== false)) {
+	#-- SubPages
+	$c0 = $href[0];
+	if ($c0 && (strpos(EWIKI_SUBPAGE_START, $c0) !== false)) {
 	  $_set = EWIKI_SUBPAGE_LONGTITLE && ($href==$title);
-	  if (($href[1] == "/")) {   ##($c0 == ".") && 
+	  if (($href[1] == "/")) {	##($c0 == ".") && 
 		 $href = substr($href, 1);
 	  }
 	  $href = $ewiki_id . $href;
 	  if ($_set) {
 		 $title = $href;
 	  }
-   }
+	}
 
-   #-- for case-insensitivines
-   $href_i = EWIKI_CASE_INSENSITIVE ? strtolower($href) : ($href);
+	#-- for case-insensitivines
+	$href_i = EWIKI_CASE_INSENSITIVE ? strtolower($href) : ($href);
 
-   #-- injected URLs
-   if (strpos($inj_url = (string)$ewiki_links[$href_i], "://")) {
+	#-- injected URLs
+	if (strpos($inj_url = (string)$ewiki_links[$href_i], "://")) {
 	  if ($href==$title) { $href = $inj_url; }
-   }
+	}
 
 
-   #-- interwiki links
-   if (strpos($href, ":") && ($uu = ewiki_interwiki($href, $type))) {
+	#-- interwiki links
+	if (strpos($href, ":") && ($uu = ewiki_interwiki($href, $type))) {
 	  $href = $uu;
 	  $str = "<a href=\"$href$href2\">$title</a>";
-   }
-   #-- action:WikiLinks
-   elseif ($ewiki_plugins["action"][$a=strtolower(strtok($href, ":"))]) {
+	}
+	#-- action:WikiLinks
+	elseif ($ewiki_plugins["action"][$a=strtolower(strtok($href, ":"))]) {
 	  $type = array($a, "action", "wikipage");
 	  $str = '<a href="' . ewiki_script($a, strtok("\000")) . '">' . $title . '</a>';
-   }
-   #-- page anchor definitions, if ($href[0]=="#")
-   elseif (@$states["define"]) {
+	}
+	#-- page anchor definitions, if ($href[0]=="#")
+	elseif (@$states["define"]) {
 	  $type = array("anchor");
 	  if ($title==$href) { $title="&nbsp;"; }
 	  $str = '<a name="' . htmlentities(ltrim($href, "#")) . '">' . ltrim($title, "#") . '</a>';
-   }
-   #-- inner page anchor jumps
-   elseif (strlen($href2) && ($href==$ewiki_id) || ($href[0]=="#") && ($href2=&$href)) {
+	}
+	#-- inner page anchor jumps
+	elseif (strlen($href2) && ($href==$ewiki_id) || ($href[0]=="#") && ($href2=&$href)) {
 	  $type = array("jump");
 	  $str = '<a href="' . htmlentities($href2) . '">' . $title . '</a>';
-   }
-   #-- ordinary internal WikiLinks
-   elseif (($ewiki_links === true) || @$ewiki_links[$href_i]) {
+	}
+	#-- ordinary internal WikiLinks
+	elseif (($ewiki_links === true) || @$ewiki_links[$href_i]) {
 	  $type = array("wikipage");
 	  $str = '<a href="' . ewiki_script("", $href) . htmlentities($href2)
-		   . '">' . $title . '</a>';
-   }
-   #-- guess for mail@addresses, convert to URI if
-   elseif (strpos($href, "@") && !strpos($href, ":")) {
+			. '">' . $title . '</a>';
+	}
+	#-- guess for mail@addresses, convert to URI if
+	elseif (strpos($href, "@") && !strpos($href, ":")) {
 	  $type = array("email");
 	  $href = "mailto:" . $href;
-   }
-   #-- not found fallback
-   else {
+	}
+	#-- not found fallback
+	else {
 	  $str = "";
 	  #-- a plugin may take care
 	  if ($pf_a = $ewiki_plugins["link_notfound"]) {
 		 foreach ($pf_a as $pf) {
 			if ($str = $pf($title, $href, $href2, $type)) {
-			   break;
+				break;
 		 }  }
 	  }
 
@@ -2511,17 +2520,17 @@ function ewiki_link_regex_callback($uu, $force_noimg=0) {
 		 $str = '<span class="NotFound"><b>' . $title . '</b><a href="' .
 			 ewiki_script("", $href) . '">?</a></span>';
 	  }
-   }
+	}
 
-   #-- convert standard and internal:// URLs
-   $is_url = preg_match('#^('.implode('|', $ewiki_config["idf"]["url"]).')#', $href);
-   $is_internal = 0;
-   //
-   if (!$is_url && ($ewiki_links[$href_i]["flags"] & EWIKI_DB_F_BINARY)) {
+	#-- convert standard and internal:// URLs
+	$is_url = preg_match('#^('.implode('|', $ewiki_config["idf"]["url"]).')#', $href);
+	$is_internal = 0;
+	//
+	if (!$is_url && ($ewiki_links[$href_i]["flags"] & EWIKI_DB_F_BINARY)) {
 	  $is_url = 1;
 	  $is_internal = 1;
-   }
-   if ($is_url) {
+	}
+	if ($is_url) {
 	  $type[-2] = "url";
 	  $type[-1] = strtok($find, ":");
 
@@ -2567,27 +2576,27 @@ function ewiki_link_regex_callback($uu, $force_noimg=0) {
 		 }
 		 $str = ewiki_link_img($href, $id, $title, $meta, $spaces_l+2*$spaces_r, $obj, $states);
 	  }
-   }
+	}
 
-   #-- icon/transform plugins
-   ksort($type);
-   if ($pf_a = @$ewiki_plugins["link_final"]) {
+	#-- icon/transform plugins
+	ksort($type);
+	if ($pf_a = @$ewiki_plugins["link_final"]) {
 	  foreach ($pf_a as $pf) { $pf($str, $type, $href, $title); }
-   }
+	}
 
-   return($str);
+	return($str);
 }
 
 
 
 function ewiki_link_img($href, $id, $title, $meta, $spaces, $obj, $states) {
 
-   #-- size of cached image
-   $x = $meta["width"];
-   $y = $meta["height"];
+	#-- size of cached image
+	$x = $meta["width"];
+	$y = $meta["height"];
 
-   #-- width/height given in url
-   if ($p = strpos($id, '?')) {
+	#-- width/height given in url
+	if ($p = strpos($id, '?')) {
 	  $id = str_replace("&amp;", "&", substr($id, $p+1));
 	  parse_str($id, $meta);
 	  if ($uu = $meta["x"].$meta["width"]) {
@@ -2603,33 +2612,33 @@ function ewiki_link_img($href, $id, $title, $meta, $spaces, $obj, $states) {
 		 $x *= $scale;
 		 $y *= $scale;
 	  }
-   }
+	}
 
-   #-- alignment
-   $align = array('', ' align="right"', ' align="left"', ' align="center"');
-   $align = $align[$spaces];
-   $size = ($x && $y ? " width=\"$x\" height=\"$y\"" : "");
+	#-- alignment
+	$align = array('', ' align="right"', ' align="left"', ' align="center"');
+	$align = $align[$spaces];
+	$size = ($x && $y ? " width=\"$x\" height=\"$y\"" : "");
 
-   return
+	return
 	 ($obj ? '<embed' : '<img')
 	 . ' src="' . $href . '"'
 	 . ' alt="' . ($title) . '"'
 	 . (@$states["titled"] ? ' title="' . ($title) . '"' : '')
 	 . $size . $align . ">"
 	 . ($obj ? "</embed>" : "");
-   # htmlentities($title)
+	# htmlentities($title)
 }
 
 
 
 /*
-   Returns URL if it encounters an InterWiki:Link or workalike.
+	Returns URL if it encounters an InterWiki:Link or workalike.
 */
 function ewiki_interwiki($href, &$type) {
-   global $ewiki_config, $ewiki_plugins;
+	global $ewiki_config, $ewiki_plugins;
 
-   if (strpos($href, ":") and !strpos($href, "//")
-   and ($p1 = strtok($href, ":"))) {
+	if (strpos($href, ":") and !strpos($href, "//")
+	and ($p1 = strtok($href, ":"))) {
 
 	  $page = strtok("\000");
 
@@ -2648,28 +2657,28 @@ function ewiki_interwiki($href, &$type) {
 	  elseif ($pf = $ewiki_plugins["intermap"][$p1]) {
 		 return($pf($p1, $page));
 	  }
-   }
+	}
 }
 
 
 /* 
-   implements FeatureWiki:InterMapWalking
+	implements FeatureWiki:InterMapWalking
 */
 function ewiki_intermap_walking($id, &$data, $action) {
-   if (empty($data["version"]) && ($href = ewiki_interwiki($id, $uu))) {
+	if (empty($data["version"]) && ($href = ewiki_interwiki($id, $uu))) {
 	  header("Location: $href$sid");
 	  return("<a href=\"$href\">$href</a>");
-   }
+	}
 }
 
 
 
 function ewiki_link($pagename, $title="") {
-   if (!($url = ewiki_interwiki($pagename, $uu))) {
+	if (!($url = ewiki_interwiki($pagename, $uu))) {
 	  $url = ewiki_script("", $pagename);
-   }
-   if (!$title) { $title = $pagename; }
-   return("<a href=\"$url\">".htmlentities($title)."</a>");
+	}
+	if (!$title) { $title = $pagename; }
+	return("<a href=\"$url\">".htmlentities($title)."</a>");
 }
 
 
@@ -2678,15 +2687,15 @@ function ewiki_link($pagename, $title="") {
 
 
 
-#####	##  ##   ##	##	#####   ##  ##
-######   ##  ###  ##   ####   ######  ##  ##
-##  ##   ##  ###  ##  ######  ##  ##  ##  ##
+#####	##  ##	##	##	#####	##  ##
+######	##  ###  ##	####	######  ##  ##
+##  ##	##  ###  ##  ######  ##  ##  ##  ##
 #####	##  #### ##  ##  ##  ######  ######
 #####	##  #######  ######  ####	 ####
 ##  ###  ##  ## ####  ######  #####	 ##
 ##  ###  ##  ##  ###  ##  ##  ## ###	##
-######   ##  ##  ###  ##  ##  ##  ##	##
-######   ##  ##   ##  ##  ##  ##  ##	##
+######	##  ##  ###  ##  ##  ##  ##	##
+######	##  ##	##  ##  ##  ##  ##	##
 
 
 
@@ -2698,25 +2707,25 @@ function ewiki_binary($break=0) {
 	 global $ewiki_request;
   global $ewiki_plugins;
 
-   #-- reject calls
-   if (!strlen($id = @$ewiki_request[EWIKI_UP_BINARY]) || !EWIKI_IDF_INTERNAL) {
+	#-- reject calls
+	if (!strlen($id = @$ewiki_request[EWIKI_UP_BINARY]) || !EWIKI_IDF_INTERNAL) {
 	  return(false);
-   }
-   if (headers_sent()) die("ewiki-binary configuration error");
+	}
+	if (headers_sent()) die("ewiki-binary configuration error");
 
-   #-- upload requests
-   $upload_file = @$_FILES[EWIKI_UP_UPLOAD];
-   $add_meta = array();
-   if ($orig_name = @$upload_file["name"]) {
+	#-- upload requests
+	$upload_file = @$_FILES[EWIKI_UP_UPLOAD];
+	$add_meta = array();
+	if ($orig_name = @$upload_file["name"]) {
 	  $add_meta["Content-Location"] = urlencode($orig_name);
 	  $add_meta["Content-Disposition"] = 'inline; filename="'.urlencode(basename("remote://$orig_name")).'"';
-   }
+	}
 
-   #-- what are we doing here?
-   if (($id == EWIKI_IDF_INTERNAL) && ($upload_file)) { 
+	#-- what are we doing here?
+	if (($id == EWIKI_IDF_INTERNAL) && ($upload_file)) { 
 	  $do = "upload";
-   }
-   else {
+	}
+	else {
 	  $data = ewiki_database("GET", array("id" => $id));
 	  $flags = @$data["flags"];
 	  if (EWIKI_DB_F_BINARY == ($flags & EWIKI_DB_F_TYPE)) { 
@@ -2728,16 +2737,16 @@ function ewiki_binary($break=0) {
 	  else { 
 		 $do = "nop";
 	  }
-   }
+	}
 
-   #-- auth only happens when enforced with _PROTECTED_MODE_XXL setting
-   #   (authentication for inline images in violation of the WWW spirit)
-   if ((EWIKI_PROTECTED_MODE>=5) && !ewiki_auth($id, $data, "binary-{$do}")) {
+	#-- auth only happens when enforced with _PROTECTED_MODE_XXL setting
+	#	(authentication for inline images in violation of the WWW spirit)
+	if ((EWIKI_PROTECTED_MODE>=5) && !ewiki_auth($id, $data, "binary-{$do}")) {
 	  return($ewiki_request["id"]="view/BinaryPermissionError");
-   }
+	}
 
-   #-- upload an image
-   if ($do == "upload"){
+	#-- upload an image
+	if ($do == "upload"){
 
 	  $id = ewiki_binary_save_image($upload_file["tmp_name"], "", $return=0, $add_meta);
 	  @unlink($upload_file["tmp_name"]);
@@ -2754,16 +2763,16 @@ function ewiki_binary($break=0) {
 </b></big>.<br><br><noscript>Please copy this &uarr; into the text input box:<br>select/mark it with your mouse, press [Ctrl]+[Insert], go back<br>to the previous screen and paste it into the textbox by pressing<br>[Shift]+[Insert] inside there.</noscript></body></html>
 EOF;
 	  }
-   }
+	}
 
-   #-- request for contents from the db
-   elseif ($do == "get") {
+	#-- request for contents from the db
+	elseif ($do == "get") {
 
 	  #-- send http_headers from meta
 	  if (is_array($data["meta"])) {
 		 foreach ($data["meta"] as $hdr=>$val) {
 			if (($hdr[0] >= "A") && ($hdr[0] <= "Z")) {
-			   header("$hdr: $val");
+				header("$hdr: $val");
 			}
 		 }
 	  }
@@ -2775,13 +2784,13 @@ EOF;
 
 	  #-- else fpassthru
 	  echo $data["content"];
-   }
+	}
 
-   #-- fetch & cache requested URL,
-   elseif ($do == "cache") {
+	#-- fetch & cache requested URL,
+	elseif ($do == "cache") {
 
 	  #-- check for standard protocol names, to prevent us from serving
-	  #   evil requests for '/etc/passwd.jpeg' or '../.htaccess.gif'
+	  #	evil requests for '/etc/passwd.jpeg' or '../.htaccess.gif'
 	  if (preg_match('@^\w?(http|ftp|https|ftps|sftp)\w?://@', $id)) {
 
 		 #-- generate local copy
@@ -2790,9 +2799,9 @@ EOF;
 			  ewiki_log("ewiki_binary: error copying $id to $filename", 0);
 			} else {
 			$add_meta = array(
-			   "Content-Location" => urlencode($id),
-			   "Content-Disposition" => 'inline; filename="'.urlencode(basename($id)).'"',
-			   'PageType' => 'CachedImage'
+				"Content-Location" => urlencode($id),
+				"Content-Disposition" => 'inline; filename="'.urlencode(basename($id)).'"',
+				'PageType' => 'CachedImage'
 			);
 
 			$result = ewiki_binary_save_image($filename, $id, "RETURN", $add_meta);
@@ -2820,10 +2829,10 @@ EOF;
 		 ewiki_log("imgcache: did not find '$id', and marked it now in database as DISABLED", 2);
 	  }
 	  
-   }
+	}
 
-   #-- "we don't sell this!"
-   else {
+	#-- "we don't sell this!"
+	else {
 	  if (strpos($id, EWIKI_IDF_INTERNAL) === false) {
 		 header("Status: 301 Located SomeWhere Else");
 		 header("Location: $id");
@@ -2832,10 +2841,10 @@ EOF;
 		 header("Status: 404 Absent");
 		 header("X-Broken-URI: $id");
 	  }
-   }
+	}
 
-   // you should not remove this one, it is really a good idea to use it!
-   die();
+	// you should not remove this one, it is really a good idea to use it!
+	die();
 }
 
 
@@ -2846,29 +2855,29 @@ EOF;
 function ewiki_binary_save_image($filename, $id="", $return=0,
 $add_meta=array(), $accept_all=EWIKI_ACCEPT_BINARY, $care_for_images=1)
 {
-   global $ewiki_plugins;
+	global $ewiki_plugins;
 
-   #-- break on empty files
-   if (!filesize($filename)) {
+	#-- break on empty files
+	if (!filesize($filename)) {
 	  return(false);
-   }
+	}
 
-   #-- check for image type and size
-   $mime_types = array(
+	#-- check for image type and size
+	$mime_types = array(
 	  "application/octet-stream",
 	  "image/gif",
 	  "image/jpeg",
 	  "image/png",
 	  "application/x-shockwave-flash"
-   );
-   $ext_types = array(
+	);
+	$ext_types = array(
 	  "bin", "gif", "jpeg", "png", "swf"
-   );
-   list($width, $height, $mime_i, $uu) = getimagesize($filename);
-   (!$mime_i) && ($mime_i=0) || ($mime = $mime_types[$mime_i]);
+	);
+	list($width, $height, $mime_i, $uu) = getimagesize($filename);
+	(!$mime_i) && ($mime_i=0) || ($mime = $mime_types[$mime_i]);
 
-   #-- images expected
-   if ($care_for_images) {
+	#-- images expected
+	if ($care_for_images) {
 
 	  #-- mime type
 	  if (!$mime_i && !$accept_all || !filesize($filename)) {
@@ -2895,57 +2904,57 @@ $add_meta=array(), $accept_all=EWIKI_ACCEPT_BINARY, $care_for_images=1)
 	  list($width, $height, $mime_i, $uu) = getimagesize($filename);
 	  (!$mime_i) && ($mime_i=0) || ($mime = $mime_types[$mime_i]);
 
-   }
-   ($ext = $ext_types[$mime_i]) or ($ext = $ext_types[0]);
+	}
+	($ext = $ext_types[$mime_i]) or ($ext = $ext_types[0]);
 
-   #-- binary files
-   if ((!$mime_i) && ($pf = $ewiki_plugins["mime_magic"][0])) {
+	#-- binary files
+	if ((!$mime_i) && ($pf = $ewiki_plugins["mime_magic"][0])) {
 	  if ($tmp = $pf($content)) {
 		 $mime = $tmp;
 	  }
-   }
-   if (!strlen($mime)) {
+	}
+	if (!strlen($mime)) {
 	  $mime = $mime_types[0];
-   }
+	}
 
-   #-- store size of binary file
-   $add_meta["size"] = filesize($filename);
-   $content = "";
+	#-- store size of binary file
+	$add_meta["size"] = filesize($filename);
+	$content = "";
 
-   #-- handler for (large/) binary content?
-   if ($pf_a = $ewiki_plugins["binary_store"]) {
+	#-- handler for (large/) binary content?
+	if ($pf_a = $ewiki_plugins["binary_store"]) {
 	  foreach ($pf_a as $pf) {
 		 $pf($filename, $id, $add_meta, $ext);
 	  }
-   }
+	}
 
-   #-- read file into memory (2MB), to store it into the database
-   if ($filename) {
+	#-- read file into memory (2MB), to store it into the database
+	if ($filename) {
 	  $f = fopen($filename, "rb");
 	  $content = fread($f, 1<<21);
 	  fclose($f);
-   }
+	}
 
-   #-- generate db file name
-   if (empty($id)) {
+	#-- generate db file name
+	if (empty($id)) {
 	  $md5sum = md5($content);
 	  $id = EWIKI_IDF_INTERNAL . $md5sum . ".$ext";
 	  ewiki_log("generated md5sum '$md5sum' from file content");
-   }
+	}
 
-   #-- prepare meta data
-   $meta = @array_merge(array(
+	#-- prepare meta data
+	$meta = @array_merge(array(
 	  "class" => $mime_i ? "image" : "file",
 	  "Content-Type" => $mime,
 	  "Pragma" => "cache",
-   ), $add_meta);
-   if ($mime_i) {
+	), $add_meta);
+	if ($mime_i) {
 	  $meta["width"] = $width;
 	  $meta["height"] = $height;
-   }
+	}
 
-   #-- database entry
-   $data = array(
+	#-- database entry
+	$data = array(
 	  "id" => $id,
 	  "version" => "1", 
 	  "author" => ewiki_author(),
@@ -2954,19 +2963,19 @@ $add_meta=array(), $accept_all=EWIKI_ACCEPT_BINARY, $care_for_images=1)
 	  "lastmodified" => time(),
 	  "meta" => &$meta,
 	  "content" => &$content,
-   );
-   
-   #-- write if not exist
-   $exists = ewiki_database("FIND", array($id));
-   if (! $exists[$id] ) {
+	);
+	
+	#-- write if not exist
+	$exists = ewiki_database("FIND", array($id));
+	if (! $exists[$id] ) {
 	  $result = ewiki_database("WRITE", $data);
 	  ewiki_log("saving of '$id': " . ($result ? "ok" : "error"));
-   }
-   else {
+	}
+	else {
 	  ewiki_log("binary_save_image: '$id' was already in the database", 2);
-   }
+	}
 
-   return($id);
+	return($id);
 }
 
 
@@ -2975,16 +2984,16 @@ $add_meta=array(), $accept_all=EWIKI_ACCEPT_BINARY, $care_for_images=1)
 # =========================================================================
 
 
-####	 ####  ####   ########	 ########
-#####   #####  ####  ##########   ##########
-###### ######  ####  ####   ###   ####	###
+####	 ####  ####	########	 ########
+#####	#####  ####  ##########	##########
+###### ######  ####  ####	###	####	###
 #############		####		####
-#############  ####   ########   ####
+#############  ####	########	####
 #### ### ####  ####	########  ####
 ####  #  ####  ####		####  ####
-####	 ####  ####  ###   ####  ####	###
+####	 ####  ####  ###	####  ####	###
 ####	 ####  ####  #########	##########
-####	 ####  ####   #######	  ########
+####	 ####  ####	#######	  ########
 
 //Get current time in micro seconds
 function getmicrotime(){ 
@@ -2993,84 +3002,84 @@ function getmicrotime(){
 	} 
 
 /* yes! it is not neccessary to annoy users with country flags, if the
-   http already provides means to determine preferred languages!
+	http already provides means to determine preferred languages!
 */
 function ewiki_localization() {
 
-   global $ewiki_t;
+	global $ewiki_t;
 
-   $deflangs = ','.@$_ENV["LANGUAGE"] . ','.@$_ENV["LANG"]
+	$deflangs = ','.@$_ENV["LANGUAGE"] . ','.@$_ENV["LANG"]
 			 . ",".EWIKI_DEFAULT_LANG . ",en,C";
 
-   foreach (explode(",", @$_SERVER["HTTP_ACCEPT_LANGUAGE"].$deflangs) as $l) {
+	foreach (explode(",", @$_SERVER["HTTP_ACCEPT_LANGUAGE"].$deflangs) as $l) {
 
 	  $l = strtok($l, ";");
 	  $l = strtok($l, "-"); $l = strtok($l, "_"); $l = strtok($l, ".");
 	  $l = trim($l);
 
 	  $ewiki_t["languages"][] = strtolower($l);
-   }
+	}
 }
 
 
 
 
 /* poor mans gettext, $repl is an array of string replacements to get
-   applied to the fetched text chunk,
-   "$const" is either an entry from $ewiki_t[] or a larger text block
-   containing _{text} replacement braces of the form "_{...}"
+	applied to the fetched text chunk,
+	"$const" is either an entry from $ewiki_t[] or a larger text block
+	containing _{text} replacement braces of the form "_{...}"
 */
 function ewiki_t($const, $repl=array(), $pref_langs=array()) {
 
-   global $ewiki_t;
+	global $ewiki_t;
 
-   #-- use default language wishes
-   if (empty($pref_langs)) {
+	#-- use default language wishes
+	if (empty($pref_langs)) {
 	  $pref_langs = $ewiki_t["languages"];
-   }
+	}
 
-   #-- large text snippet replaceing
-   if (strpos($const, "_{") !== false) {
+	#-- large text snippet replaceing
+	if (strpos($const, "_{") !== false) {
 	  while ( (($l=strpos($const,"_{")) || ($l===0)) && ($r=strpos($const,"}",$l)) ) {
 		 $const = substr($const, 0, $l)
 				. ewiki_t(substr($const, $l+2, $r-$l-2))
 				. substr($const,$r+1);
 	  }
-   }
+	}
 
-   #-- just one string
-   else foreach ($pref_langs as $l) {
+	#-- just one string
+	else foreach ($pref_langs as $l) {
 
 	  if (is_string($r = @$ewiki_t[$l][$const]) || ($r = @$ewiki_t[$l][strtoupper($const)])) {
 
 		 foreach ($repl as $key=>$value) {
 			if ($key[0] != '$') {
-			   $key = '$'.$key;
+				$key = '$'.$key;
 			}
 			$r = str_replace($key, $value, $r);
 		 }
 		 return($r);
 
 	  }
-   }
+	}
 
-   return($const);
+	return($const);
 }
 
 
 
 
 /* takes all ISO-8859-1 characters into account
-   but won't work with all databases
+	but won't work with all databases
 */
 function ewiki_lowercase($s) {
-   $len = strlen($s);
-   for ($i=0; $i<$len; $i++) {
+	$len = strlen($s);
+	for ($i=0; $i<$len; $i++) {
 	  if (ord($s[$i]) >= 192) {
 		 $s[$i] = chr(ord($s[$i]) | 0x20);
 	  }
-   }
-   return(strtolower($s));
+	}
+	return(strtolower($s));
 }
 
 
@@ -3078,51 +3087,51 @@ function ewiki_lowercase($s) {
 
 function ewiki_log($msg, $error_type=3) {
 
-   if ((EWIKI_LOGLEVEL >= 0) && ($error_type <= EWIKI_LOGLEVEL)) {
+	if ((EWIKI_LOGLEVEL >= 0) && ($error_type <= EWIKI_LOGLEVEL)) {
 
 	  $msg = time() . " - " .
 			 $_SERVER["REMOTE_ADDR"] . ":" . $_SERVER["REMOTE_PORT"] . " - " .
 			 $_SERVER["REQUEST_METHOD"] . " " . $_SERVER["REQUEST_URI"] . " - " .
 			 strtr($msg, "\n\r\000\377\t\f", "\r\r\r\r\t\f") . "\n";
 	  error_log($msg, 3, EWIKI_LOGFILE);
-   }
+	}
 }
 
 
 
 
 function ewiki_die($msg, $return=0) {
-   ewiki_log($msg, 1);
-   if ($return) {
+	ewiki_log($msg, 1);
+	if ($return) {
 	  return($GLOBALS["ewiki_error"] = $msg);
-   }
-   else {
+	}
+	else {
 	  die($msg);
-   }
+	}
 }
 
 
 
 function ewiki_array_hash(&$a) {
-   return(count($a) . ":" . implode(":", array_keys(array_slice($a, 0, 3))));
+	return(count($a) . ":" . implode(":", array_keys(array_slice($a, 0, 3))));
 }
 
 
 
 /* provides an case-insensitive in_array replacement to search a page name
-   in a list of others;
-   the supplied $array WILL be lowercased afterwards, unless $dn was set
+	in a list of others;
+	the supplied $array WILL be lowercased afterwards, unless $dn was set
 */
 function ewiki_in_array($value, &$array, $dn=0, $ci=EWIKI_CASE_INSENSITIVE) {
 
-   static $as = array();
+	static $as = array();
 
-   #-- work around pass-by-reference
-   if ($dn && $ci) {   $dest = array();   }
-			  else {   $dest = &$array;   }
+	#-- work around pass-by-reference
+	if ($dn && $ci) {	$dest = array();	}
+			  else {	$dest = &$array;	}
 
-   #-- make everything lowercase
-   if ($ci) {
+	#-- make everything lowercase
+	if ($ci) {
 	  $value = strtolower($value);
 	  if (empty($as[ewiki_array_hash($array)])) {  // prevent working on the
 		 foreach ($array as $i=>$v) {			  // same array multiple times
@@ -3130,21 +3139,21 @@ function ewiki_in_array($value, &$array, $dn=0, $ci=EWIKI_CASE_INSENSITIVE) {
 		 }
 		 $as[ewiki_array_hash($dest)] = 1;
 	  }
-   }
+	}
 
-   #-- search in values
-   return(in_array($value, $dest));
+	#-- search in values
+	return(in_array($value, $dest));
 }
 
 
 
 /* case-insensitively retrieves an entry from an $array,
-   or returns the given $array lowercased if $key was obmitted
+	or returns the given $array lowercased if $key was obmitted
 */
 function ewiki_array($array, $key=false, $am=1, $ci=EWIKI_CASE_INSENSITIVE) {
 
-   #-- make everything lowercase
-   if ($ci) {
+	#-- make everything lowercase
+	if ($ci) {
 	  $key = strtolower($key);
 
 	  $r = array();
@@ -3158,15 +3167,15 @@ function ewiki_array($array, $key=false, $am=1, $ci=EWIKI_CASE_INSENSITIVE) {
 		 }			// but should be "+" here for integers
 	  }
 	  $array = &$r;
-   }
+	}
 
-   #-- search in values
-   if ($key) {
+	#-- search in values
+	if ($key) {
 	  return(@$array[$key]);
-   }
-   else {
+	}
+	else {
 	  return($array);
-   }
+	}
 }
 
 
@@ -3176,28 +3185,28 @@ function ewiki_array($array, $key=false, $am=1, $ci=EWIKI_CASE_INSENSITIVE) {
 
 function ewiki_author($defstr="") {
 
-   $author = @$GLOBALS["ewiki_author"];
-   ($ip = &$_SERVER["REMOTE_ADDR"]) or ($ip = "127.0.0.0");
-   ($port = $_SERVER["REMOTE_PORT"]) or ($port = "null");
+	$author = @$GLOBALS["ewiki_author"];
+	($ip = &$_SERVER["REMOTE_ADDR"]) or ($ip = "127.0.0.0");
+	($port = $_SERVER["REMOTE_PORT"]) or ($port = "null");
 
-   #-- this call may be very slow (~20 sec)
-   if (EWIKI_RESOLVE_DNS) {
+	#-- this call may be very slow (~20 sec)
+	if (EWIKI_RESOLVE_DNS) {
 	  $hostname = gethostbyaddr($ip);
-   }
-   $remote = (($ip != $hostname) ? $hostname . " " : "")
-		   . $ip . ":" . $port;
+	}
+	$remote = (($ip != $hostname) ? $hostname . " " : "")
+			. $ip . ":" . $port;
 
-   (empty($author)) && (
+	(empty($author)) && (
 	  ($author = $defstr) ||
 	  ($author = $_SERVER["HTTP_FROM"]) ||	// RFC2068 sect 14.22
 	  ($author = $_SERVER["PHP_AUTH_USER"])
-   );
+	);
 
-   (empty($author))
+	(empty($author))
 	  && ($author = $remote)
 	  || ($author = addslashes($author) . " (" . $remote . ")" );
 
-   return($author);
+	return($author);
 }
 
 
@@ -3212,14 +3221,14 @@ function ewiki_author($defstr="") {
 */
 function ewiki_auth($id, &$data, $action, $ring=false, $request_auth=0) {
 
-   global $ewiki_plugins, $ewiki_ring, $ewiki_author,
+	global $ewiki_plugins, $ewiki_ring, $ewiki_author,
 	  $ewiki_errmsg, $ewiki_config;
-   $ok = true;
-   $ewiki_errmsg="";
+	$ok = true;
+	$ewiki_errmsg="";
 
 #echo "_a($id,dat,$action,$ring,$request_auth)<br>\n";
 
-   if (EWIKI_PROTECTED_MODE) {
+	if (EWIKI_PROTECTED_MODE) {
 
 	  #-- set required vars
 	  if (!isset($ewiki_ring)) {
@@ -3237,7 +3246,7 @@ function ewiki_auth($id, &$data, $action, $ring=false, $request_auth=0) {
 	  $pf_perm = $ewiki_plugins["auth_perm"][0];
 
 	  #-- nobody is currently logged in, so try to fetch username,
-	  #   the login <form> is not yet enforced
+	  #	the login <form> is not yet enforced
 	  if ($pf_login && empty($ewiki_auth_user)) {
 		 $pf_login($data, 0);
 	  }
@@ -3249,7 +3258,7 @@ function ewiki_auth($id, &$data, $action, $ring=false, $request_auth=0) {
 		 $ok = $pf_perm($id, $data, $action, $ring, $request_auth);
 
 		 #-- if it failed, we really depend on the login <form>,
-		 #   and then recall the _perm plugin
+		 #	and then recall the _perm plugin
 		 if ($pf_login && (($request_auth >= 2) || !$ok && $request_auth && (empty($ewiki_auth_user) || EWIKI_AUTO_LOGIN) && empty($ewiki_errmsg))) {
 //@FIXME: complicated if()  - strip empty(errmsg) ??
 			$pf_login($data, $request_auth);
@@ -3264,16 +3273,16 @@ function ewiki_auth($id, &$data, $action, $ring=false, $request_auth=0) {
 	  if (!$ok && empty($ewiki_errmsg)) {
 		 $ewiki_errmsg = ewiki_t("FORBIDDEN");
 	  }
-   }
+	}
 
-   return($ok);
+	return($ok);
 }
 
 
 /*
-   Queries all registered ["auth_userdb"] plugins for the given
-   username, and compares password to against "db" value, sets
-   $ewiki_ring and returns(true) if valid.
+	Queries all registered ["auth_userdb"] plugins for the given
+	username, and compares password to against "db" value, sets
+	$ewiki_ring and returns(true) if valid.
 */
 function ewiki_auth_user($username, $password) {
   global $ewiki_ring, $ewiki_errmsg, $ewiki_auth_user, $ewiki_plugins, $ewiki_author;
@@ -3293,7 +3302,7 @@ function ewiki_auth_user($username, $password) {
 
 		#-- get and compare password
 		if ($entry = (array) $entry) {
-		   $enc_pw = $entry[0];
+			$enc_pw = $entry[0];
 		}
 		$success = false
 				|| ($enc_pw == substr($password, 0, 12))
@@ -3304,16 +3313,16 @@ function ewiki_auth_user($username, $password) {
 
 		#-- return if it matches
 		if ($success) {
-		   if (isset($entry[1])) { 
+			if (isset($entry[1])) { 
 			  $ewiki_ring = (int)($entry[1]);
-		   } else {
+			} else {
 			  $ewiki_ring = 2;  //(EWIKI_AUTH_DEFAULT_RING - 1);
-		   }
-		   if (empty($ewiki_author)) {
+			}
+			if (empty($ewiki_author)) {
 			  ($ewiki_author = $entry[2]) or
 			  ($ewiki_author = $username);
-		   }
-		   return($success && ($ewiki_auth_user=$username));
+			}
+			return($success && ($ewiki_auth_user=$username));
 		}
 	 }
   }
@@ -3336,15 +3345,15 @@ function ewiki_auth_user($username, $password) {
 */
 function ewiki_eventually_initialize(&$id, &$data, &$action) {
 
-   #-- initialize database only if frontpage missing
-   if (($id==EWIKI_PAGE_INDEX) && ($action=="edit") && empty($data["version"])) {
+	#-- initialize database only if frontpage missing
+	if (($id==EWIKI_PAGE_INDEX) && ($action=="edit") && empty($data["version"])) {
 
 	  ewiki_database("INIT", array());
 	  if ($dh = @opendir($path=EWIKI_INIT_PAGES)) {
 		 while ($filename = readdir($dh)) {
 			if (preg_match('/^(['.EWIKI_CHARS_U.']+['.EWIKI_CHARS_L.']+\w*)+/', $filename)) {
-			   $found = ewiki_database("FIND", array($filename));
-			   if (! $found[$filename]) {
+				$found = ewiki_database("FIND", array($filename));
+				if (! $found[$filename]) {
 				  $content = implode("", file("$path/$filename"));
 				  ewiki_scan_wikiwords($content, $ewiki_links, "_STRIP_EMAIL=1");
 				  $refs = "\n\n" . implode("\n", array_keys($ewiki_links)) . "\n\n";
@@ -3356,10 +3365,10 @@ function ewiki_eventually_initialize(&$id, &$data, &$action) {
 					 "author" => ewiki_author("ewiki_initialize"),
 					 "refs" => $refs,
 					 "lastmodified" => filemtime("$path/$filename"),
-					 "created" => filectime("$path/$filename")   // (not exact)
+					 "created" => filectime("$path/$filename")	// (not exact)
 				  );
 				  ewiki_database("WRITE", $save);
-			   }
+				}
 			}
 		 }
 		 closedir($dh);
@@ -3372,7 +3381,7 @@ function ewiki_eventually_initialize(&$id, &$data, &$action) {
 	  if ($data = ewiki_database("GET", array("id"=>$id))) {
 		 $action = "view";
 	  }
-   }
+	}
 }
 
 
@@ -3384,14 +3393,14 @@ function ewiki_eventually_initialize(&$id, &$data, &$action) {
 
 ########	 ###	########	###	########	 ###	 ######  ########
 ########	 ###	########	###	########	 ###	 ######  ########
-##	 ##   ## ##	  ##	  ## ##   ##	 ##   ## ##   ##	## ##
-##	 ##   ## ##	  ##	  ## ##   ##	 ##   ## ##   ##	## ##
-##	 ##  ##   ##	 ##	 ##   ##  ##	 ##  ##   ##  ##	   ##
-##	 ##  ##   ##	 ##	 ##   ##  ##	 ##  ##   ##  ##	   ##
+##	 ##	## ##	  ##	  ## ##	##	 ##	## ##	##	## ##
+##	 ##	## ##	  ##	  ## ##	##	 ##	## ##	##	## ##
+##	 ##  ##	##	 ##	 ##	##  ##	 ##  ##	##  ##		##
+##	 ##  ##	##	 ##	 ##	##  ##	 ##  ##	##  ##		##
 ##	 ## ##	 ##	##	##	 ## ########  ##	 ##  ######  ######
 ##	 ## ##	 ##	##	##	 ## ########  ##	 ##  ######  ######
-##	 ## #########	##	######### ##	 ## #########	   ## ##
-##	 ## #########	##	######### ##	 ## #########	   ## ##
+##	 ## #########	##	######### ##	 ## #########		## ##
+##	 ## #########	##	######### ##	 ## #########		## ##
 ##	 ## ##	 ##	##	##	 ## ##	 ## ##	 ## ##	## ##
 ##	 ## ##	 ##	##	##	 ## ##	 ## ##	 ## ##	## ##
 ########  ##	 ##	##	##	 ## ########  ##	 ##  ######  ########
@@ -3404,13 +3413,13 @@ function ewiki_eventually_initialize(&$id, &$data, &$action) {
 */
 function ewiki_database($action, $args, $sw1=0, $sw2=0, $pf=false) {
 
-   #-- normalize (fetch bad parameters)
-   if (($action=="GET") && !is_array($args) && is_string($args)) {   
+	#-- normalize (fetch bad parameters)
+	if (($action=="GET") && !is_array($args) && is_string($args)) {	
 	  $args = array("id" => $args);
-   }
+	}
 
-   #-- treat special
-   switch ($action) {
+	#-- treat special
+	switch ($action) {
 
 	  case "GETALL":
 		 $args = array_unique(array_merge($args, array("flags", "version")));
@@ -3424,36 +3433,36 @@ function ewiki_database($action, $args, $sw1=0, $sw2=0, $pf=false) {
 
 	  default:
 		 break;
-   }
+	}
 
-   #-- handle {meta} sub array as needed
-   if (is_array(@$args["meta"])) {
+	#-- handle {meta} sub array as needed
+	if (is_array(@$args["meta"])) {
 	  $args["meta"] = serialize($args["meta"]);
-   }
+	}
 
-   #-- database plugin
-   if (($pf) || ($pf = @$GLOBALS["ewiki_plugins"]["database"][0])) {
+	#-- database plugin
+	if (($pf) || ($pf = @$GLOBALS["ewiki_plugins"]["database"][0])) {
 	  $r = $pf($action, $args, $sw1, $sw2);
-   }
-   else {
+	}
+	else {
 	  ewiki_log("DB layer: no backend!", 0);
 	  $r = false;
-   }
+	}
 
-   #-- database layer generation 2 abstraction
-   if (is_array($r) && (($action=="SEARCH") || ($action=="GETALL"))) {
+	#-- database layer generation 2 abstraction
+	if (is_array($r) && (($action=="SEARCH") || ($action=="GETALL"))) {
 	  $z = new ewiki_dbquery_result(array_keys($args));
 	  foreach ($r as $id=>$row) {
 		 $z->add($row);
 	  }
 	  $r = $z;
-   }
+	}
 
-   #-- extract {meta} sub array
-   if (is_array($r) && !is_array(@$r["meta"]) && strlen(@$r["meta"])) {
+	#-- extract {meta} sub array
+	if (is_array($r) && !is_array(@$r["meta"]) && strlen(@$r["meta"])) {
 	  $r["meta"] = unserialize($r["meta"]);
-   }
-   return($r);
+	}
+	return($r);
 }
 
 
@@ -3463,17 +3472,17 @@ function ewiki_database($action, $args, $sw1=0, $sw2=0, $pf=false) {
 */
 class ewiki_dbquery_result {
 
-   var $keys = array();
-   var $entries = array();
-   var $buffer = EWIKI_DBQUERY_BUFFER;
-   var $size = 0;
+	var $keys = array();
+	var $entries = array();
+	var $buffer = EWIKI_DBQUERY_BUFFER;
+	var $size = 0;
 
-   function ewiki_dbquery_result($keys) {
+	function ewiki_dbquery_result($keys) {
 	  $keys = array_merge($keys, array(-50=>"id", "version", "flags"));
 	  $this->keys = array_unique($keys);
-   }
+	}
 
-   function add($row) {
+	function add($row) {
 	  if (is_array($row)) {
 		 if ($this->buffer) {
 			$this->size += strlen(serialize($row));
@@ -3484,9 +3493,9 @@ class ewiki_dbquery_result {
 		 }
 	  }
 	  $this->entries[] = $row;
-   }
+	}
 
-   function get($all=0, $flags=0x00) {
+	function get($all=0, $flags=0x00) {
 	  $row = array();
 
 	  $prot_hide = ($flags&0x0020) && EWIKI_PROTECTED_MODE && EWIKI_PROTECTED_MODE_HIDING;
@@ -3498,21 +3507,21 @@ class ewiki_dbquery_result {
 
 			#-- finish if buffered entry
 			if (is_array($r) && !$all) {
-			   $row = $r;
+				$row = $r;
 			}
 			#-- else refetch complete entry from database
 			else {
-			   if (is_array($r)) {
+				if (is_array($r)) {
 				  $r = $r["id"];
-			   }
-			   $r = ewiki_database("GET", array("id"=>$r));
-			   if (!$all) {
+				}
+				$r = ewiki_database("GET", array("id"=>$r));
+				if (!$all) {
 				  foreach ($this->keys as $key) {
 					 $row[$key] = $r[$key];
 				  }
-			   } else { 
+				} else { 
 				  $row = $r;
-			   }
+				}
 			}
 			unset($r);
 		 }
@@ -3532,11 +3541,11 @@ class ewiki_dbquery_result {
 	  } while ($prot_hide && empty($row));
 
 	  return($row);
-   }
+	}
 
-   function count() {
+	function count() {
 	  return(count($this->entries));
-   }
+	}
 }
 
 
@@ -3548,13 +3557,13 @@ class ewiki_dbquery_result {
 */
 function ewiki_database_mysql($action, &$args, $sw1, $sw2) {
 
-   #-- reconnect to the database (if multiple are used)
-   #<off>#  mysql_ping($GLOBALS["db"]);
+	#-- reconnect to the database (if multiple are used)
+	#<off>#  mysql_ping($GLOBALS["db"]);
 
-   #-- result array
-   $r = array();
+	#-- result array
+	$r = array();
 
-   switch($action) {
+	switch($action) {
 
 	  /*  Returns database entry as array for the page whose name was given
 		  with the "id" key in the $args array, usually fetches the latest
@@ -3605,7 +3614,7 @@ function ewiki_database_mysql($action, &$args, $sw1, $sw2) {
 		 $sql1 = $sql2 = "";
 		 foreach ($args as $index => $value) {
 			if (is_int($index)) {
-			   continue;
+				continue;
 			}
 			$a = ($sql1 ? ', ' : '');
 			$sql1 .= $a . $index;
@@ -3663,8 +3672,8 @@ function ewiki_database_mysql($action, &$args, $sw1, $sw2) {
 		 while ($result && ($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
 			$i = EWIKI_CASE_INSENSITIVE ? strtolower($row["id"]) : $row["id"];
 			if ($i != $drop) {
-			   $drop = $i;
-			   $r->add($row);
+				$drop = $i;
+				$r->add($row);
 			}
 		 }
 		 break;
@@ -3692,8 +3701,8 @@ function ewiki_database_mysql($action, &$args, $sw1, $sw2) {
 		 while ($result && ($row = mysql_fetch_array($result, MYSQL_ASSOC))) {
 			$i = EWIKI_CASE_INSENSITIVE ? strtolower($row["id"]) : $row["id"];
 			if ($i != $drop) {
-			   $drop = $i;
-			   $r->add($row);
+				$drop = $i;
+				$r->add($row);
 			}
 		 }
 		 break;
@@ -3727,9 +3736,9 @@ function ewiki_database_mysql($action, &$args, $sw1, $sw2) {
 		 break;
 
 	  default:
-   }
+	}
 
-   return($r);
+	return($r);
 }
 
 
