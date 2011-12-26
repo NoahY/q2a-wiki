@@ -8,7 +8,7 @@
 			}
 			if($this->template == 'question' && qa_opt('wiki_send_enable') && !qa_permit_value_error(qa_opt('wiki_send_allow'), qa_get_logged_in_userid(), qa_get_logged_in_level(), qa_get_logged_in_flags())  && isset($this->content['a_list']['as']) && count($this->content['a_list']['as'])) {
 
-				$this->output('<script>',"function wikifyName(name){var newname = prompt('Enter wiki post name:',name); if(!newname) return false; jQuery('#qa_wikify_title').val(newname); return true; }",'</script>');
+				$this->output('<script>',"function wikifyName(name){var newname = prompt('Enter wiki post name:',name); if(!newname) return false; jQuery('.qa_wikify_title').val(newname); return true; }",'</script>');
 
 				$wikified = $this->wiki_meta();
 
@@ -29,7 +29,7 @@
 							'label' => qa_lang_html('wiki_page/a_to_wiki_button'),
 							'popup' => qa_lang_html('wiki_page/a_to_wiki_popup'),
 						);
-						$this->content['a_list']['as'][$idx]['form']['hidden']['qa_wikify_title" ID="qa_wikify_title'] = qa_html($this->content['q_view']['raw']['title']);
+						$this->content['a_list']['as'][$idx]['form']['hidden']['qa_wikify_title" class="qa_wikify_title'] = qa_html($this->content['q_view']['raw']['title']);
 					}
 					else
 						$this->content['a_list']['as'][$idx]['form']['buttons']['wiki'] = array(
