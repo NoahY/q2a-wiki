@@ -91,6 +91,17 @@
 		if(function_exists('qa_badge_award_check') && qa_opt('badge_active') && qa_opt('badge_custom_badges'))
 			qa_badge_award_check(array('wikifier','wacky_wikifier','wicked_wikifier'), $var, qa_get_logged_in_userid(), NULL, 2); 
 	}
+	if(function_exists('qa_register_plugin_overrides')) { // 1.5
+		qa_register_plugin_overrides('qa-wiki-overrides.php');
+	}
+
+	if(!function_exists('qa_permit_check')) {
+		function qa_permit_check($opt) {
+			if(qa_opt($opt) == QA_PERMIT_POINTS)
+				return qa_get_logged_in_points() >= qa_opt($opt.'_points');
+			return !qa_permit_value_error(qa_opt($opt), qa_get_logged_in_userid(), qa_get_logged_in_level(), qa_get_logged_in_flags());
+		}
+	}
 
 /*
 	Omit PHP closing tag to help avoid accidental output

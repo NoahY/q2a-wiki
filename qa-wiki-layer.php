@@ -2,13 +2,44 @@
 
 	class qa_html_theme_layer extends qa_html_theme_base {
 
-		function head_custom() {
-			if(strpos($this->request,'wiki') === 0) {
-					$this->output('<style>',str_replace('^',QA_HTML_THEME_LAYER_URLTOROOT,qa_opt('wiki_page_css')),'</style>');
-			}
-			if($this->template == 'question' && qa_opt('wiki_send_enable') && !qa_permit_value_error(qa_opt('wiki_send_allow'), qa_get_logged_in_userid(), qa_get_logged_in_level(), qa_get_logged_in_flags())  && isset($this->content['a_list']['as']) && count($this->content['a_list']['as'])) {
+		function doctype() {
+			qa_html_theme_base::doctype();
+			if($this->request == 'admin/permissions') {
 
-				$this->output('<script>',"function wikifyName(name){var newname = prompt('Enter wiki post name:',name); if(!newname) return false; jQuery('.qa_wikify_title').val(newname); return true; }",'</script>');
+				$permits[] = 'wiki_edit_allow';
+				$permits[] = 'wiki_send_allow';			
+				foreach($permits as $optionname) {
+					$value = qa_opt($optionname);
+					$optionfield=array(
+						'id' => $optionname,
+						'label' => qa_lang_html('wiki_page/'.$optionname).':',
+						'tags' => 'NAME="option_'.$optionname.'" ID="option_'.$optionname.'"',
+						'value' => $value,
+						'error' => qa_html(@$errors[$optionname]),
+					);					
+					$widest=QA_PERMIT_ALL;
+					$narrowest=QA_PERMIT_ADMINS;
+					
+					$permitoptions=qa_admin_permit_options($widest, $narrowest, (!QA_FINAL_EXTERNAL_USERS) && qa_opt('confirm_user_emails'));
+					
+					if (count($permitoptions)>1)
+						qa_optionfield_make_select($optionfield, $permitoptions, $value,
+							($value==QA_PERMIT_CONFIRMED) ? QA_PERMIT_USERS : min(array_keys($permitoptions)));
+					$this->content['form']['fields'][$optionname]=$optionfield;
+
+					$this->content['form']['fields'][$optionname.'_points']= array(
+						'id' => $optionname.'_points',
+						'tags' => 'NAME="option_'.$optionname.'_points" ID="option_'.$optionname.'_points"',
+						'type'=>'number',
+						'value'=>qa_opt($optionname.'_points'),
+						'prefix'=>qa_lang_html('admin/users_must_have').'&nbsp;',
+						'note'=>qa_lang_html('admin/points')
+					);
+					$checkboxtodisplay[$permitoption.'_points']='(option_'.$permitoption.'=='.qa_js(QA_PERMIT_POINTS).') ||(option_'.$permitoption.'=='.qa_js(QA_PERMIT_POINTS_CONFIRMED).')';
+				}
+				qa_set_display_rules(&$this->content, $checkboxtodisplay);
+			}
+			if($this->template == 'question' && qa_opt('wiki_send_enable') && qa_permit_check('wiki_send_allow')  && isset($this->content['a_list']['as']) && count($this->content['a_list']['as'])) {
 
 				$wikified = $this->wiki_meta();
 
@@ -38,6 +69,15 @@
 							'popup' => qa_lang_html('wiki_page/a_to_wikified_popup'),
 						);
 				}
+			}
+		}
+		function head_custom() {
+			if(strpos($this->request,'wiki') === 0) {
+				$this->output('<style>',str_replace('^',QA_HTML_THEME_LAYER_URLTOROOT,qa_opt('wiki_page_css')),'</style>');
+			}
+			if($this->template == 'question' && qa_opt('wiki_send_enable') && qa_permit_check('wiki_send_allow')  && isset($this->content['a_list']['as']) && count($this->content['a_list']['as'])) {
+
+				$this->output('<script type="text/javascript">',"function wikifyName(name){var newname = prompt('Enter wiki post name:',name); if(!newname) return false; jQuery('.qa_wikify_title').val(newname); return true; }",'</script>');
 			}
 			qa_html_theme_base::head_custom();
 		}
@@ -85,6 +125,5 @@
 			if (!isset($handle)) return;
 			return $handle;
 		}
-
 	}
 

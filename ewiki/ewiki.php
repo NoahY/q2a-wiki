@@ -489,6 +489,12 @@ function ewiki_page($id=false) {
 	elseif (EWIKI_USE_ACTION_PARAM && isset($ewiki_request["action"])) {
 	  $action = $ewiki_request["action"];
 	}
+	
+	if ($action == "edit" && !qa_permit_check('wiki_edit_allow')) {
+		$o .= '<div class="qa-wiki-error">You are not allowed to edit this post.</div>';
+		$action = "view";
+	}
+	
 	$ewiki_data = array();
 	$ewiki_id = $id;
 	$ewiki_title = ewiki_split_title($id);
@@ -518,7 +524,7 @@ function ewiki_page($id=false) {
 
 	#-- edit <form> for non-existent pages
 	if (($action==EWIKI_DEFAULT_ACTION) && empty($data["content"]) && empty($pf_page)) {
-	  if (EWIKI_AUTO_EDIT) {
+	  if (EWIKI_AUTO_EDIT && qa_permit_check('wiki_edit_allow')) {
 		 $action = "edit";
 	  }
 	  else {
@@ -528,7 +534,7 @@ function ewiki_page($id=false) {
 
 	#-- internal "create" action / used for authentication requests
 	if ($action == "edit") {
-	  $ewiki_config["create"] = !$data["version"] || !$data["created"] && !$data["flags"];
+		$ewiki_config["create"] = !$data["version"] || !$data["created"] && !$data["flags"];
 	}
 
 	#-- require auth
@@ -1647,6 +1653,7 @@ function ewiki_page_edit_form(&$id, &$data, &$hidden_postdata) {
 	$hidden_postdata["version"] = &$data["version"];
 
 	#-- edit textarea/form
+	$o .= '<div id="tool__bar"></div>';
 	$o .= ewiki_t("EDIT_FORM_1")
 		. '<form method="POST" enctype="multipart/form-data" action="'
 		. ewiki_script("edit", $id) . '" name="ewiki"'

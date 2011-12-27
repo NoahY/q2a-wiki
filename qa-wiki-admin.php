@@ -4,8 +4,14 @@
 	function option_default($option) {
 		
 	    switch($option) {
+		case 'wiki_edit_allow':
+		    return 150;
 		case 'wiki_send_allow':
 		    return 100;
+		case 'wiki_edit_allow_points':
+		    return 0;
+		case 'wiki_send_allow_points':
+		    return 0;
 		case 'badges/wikifier':
 			return 'Wikifier';
 		case 'badges/wacky_wikifier':
@@ -63,6 +69,10 @@
 #wiki-main .action-links-buttons {
   float:right;
 }
+.qa-wiki-error {
+    font-weight:bold;
+    color:Maroon;
+}
 ';
 		default:
 		    return null;				
@@ -108,8 +118,6 @@
             if (qa_clicked('wiki_plugin_save')) {
 			
                 qa_opt('wiki_send_enable',(bool)qa_post_text('wiki_send_enable'));
-                qa_opt('wiki_send_allow',(int)qa_post_text('wiki_send_allow'));
-                qa_opt('wiki_send_allow_points',(int)qa_post_text('wiki_send_allow_points'));
                 qa_opt('wiki_page_css',qa_post_text('wiki_page_css'));
 		
 		$ok = qa_lang('admin/options_saved');
@@ -127,10 +135,38 @@
 		    'wiki_send_allow_points' => 'wiki_send_allow_points_hidden',
 		));
 	    }
+	    if(qa_opt('wiki_edit_allow')!=106) {
+		qa_set_display_rules($qa_content, array(
+		    'wiki_edit_allow_points' => 'wiki_send_allow_points_hidden',
+		));
+	    }
   
         // Create the form for display
             
             $fields = array();
+
+	    $permitoptions=qa_admin_permit_options(QA_PERMIT_ALL, QA_PERMIT_ADMINS, (!QA_FINAL_EXTERNAL_USERS) && qa_opt('confirm_user_emails'));
+
+	    $fields[] = array(
+		'id' => 'wiki_edit_allow',
+		'label' => 'Roles allowed to edit pages in wiki',
+		'tags' => 'onclick="if(this.selectedIndex==2) jQuery(\'#wiki_edit_allow_points\').show(); else jQuery(\'#wiki_edit_allow_points\').hide()" NAME="wiki_edit_allow" ID="wiki_edit_allow"',
+		'type' => 'select',
+		'options' => $permitoptions,
+		'value' => $permitoptions[qa_opt('wiki_edit_allow')],
+	    );
+
+	    $fields[] = array(
+		'id' => 'wiki_edit_allow_points',
+		'label' => 'Minimum points',
+		'tags' => 'NAME="wiki_edit_allow_points"',
+		'type' => 'number',
+		'value' => qa_opt('wiki_edit_allow_points'),
+	    );
+
+	    $fields[] = array(
+		'type' => 'blank',
+	    );
 
             $fields[] = array(
                 'label' => 'Allow sending answers to wiki',
@@ -139,8 +175,7 @@
                 'type' => 'checkbox',
                 'value' => qa_opt('wiki_send_enable'),
             );
-            	    
-	    $permitoptions=qa_admin_permit_options(QA_PERMIT_ALL, QA_PERMIT_ADMINS, (!QA_FINAL_EXTERNAL_USERS) && qa_opt('confirm_user_emails'));
+            	  
 
 	    $fields[] = array(
 		'id' => 'wiki_send_allow',

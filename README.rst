@@ -11,7 +11,12 @@ Features
 --------
 - simple but fully-featured wiki based on public domain ErfurtWiki_
 - revision history
-- adds wikify button to answers, creating new wiki pages and updating the WikiAnswers wiki page.
+- adds wikify button to answers
+- ability to change question title when wikifying
+- adds parent question and selected answer text to new wiki pages
+- updates the WikiAnswers wiki page on wikify
+- specify what roles can edit wiki pages, and which can wikify via admin/permissions
+- adds three custom badges for wikifying posts (req. badges plugin)
 
 .. _ErfurtWiki: http://erfurtwiki.sourceforge.net/
 

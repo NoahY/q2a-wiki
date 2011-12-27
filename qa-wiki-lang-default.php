@@ -30,6 +30,9 @@
 		'a_to_wiki_button' => 'wikify',
 		'a_to_wiki_popup' => 'create wiki post out of this answer',
 		'a_to_wiki_link' => 'By ^:',
+		
+		'wiki_edit_allow' => 'Edit wiki posts',
+		'wiki_send_allow' => 'Wikify answers',
 	);
 	
 
