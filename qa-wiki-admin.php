@@ -145,28 +145,6 @@
             
             $fields = array();
 
-	    $permitoptions=qa_admin_permit_options(QA_PERMIT_ALL, QA_PERMIT_ADMINS, (!QA_FINAL_EXTERNAL_USERS) && qa_opt('confirm_user_emails'));
-
-	    $fields[] = array(
-		'id' => 'wiki_edit_allow',
-		'label' => 'Roles allowed to edit pages in wiki',
-		'tags' => 'onclick="if(this.selectedIndex==2) jQuery(\'#wiki_edit_allow_points\').show(); else jQuery(\'#wiki_edit_allow_points\').hide()" NAME="wiki_edit_allow" ID="wiki_edit_allow"',
-		'type' => 'select',
-		'options' => $permitoptions,
-		'value' => $permitoptions[qa_opt('wiki_edit_allow')],
-	    );
-
-	    $fields[] = array(
-		'id' => 'wiki_edit_allow_points',
-		'label' => 'Minimum points',
-		'tags' => 'NAME="wiki_edit_allow_points"',
-		'type' => 'number',
-		'value' => qa_opt('wiki_edit_allow_points'),
-	    );
-
-	    $fields[] = array(
-		'type' => 'blank',
-	    );
 
             $fields[] = array(
                 'label' => 'Allow sending answers to wiki',
@@ -175,25 +153,6 @@
                 'type' => 'checkbox',
                 'value' => qa_opt('wiki_send_enable'),
             );
-            	  
-
-	    $fields[] = array(
-		'id' => 'wiki_send_allow',
-		'label' => 'Roles allowed to send answers to wiki',
-		'tags' => 'onclick="if(this.selectedIndex==2) jQuery(\'#wiki_send_allow_points\').show(); else jQuery(\'#wiki_send_allow_points\').hide()" NAME="wiki_send_allow" ID="wiki_send_allow"',
-		'type' => 'select',
-		'options' => $permitoptions,
-		'value' => $permitoptions[qa_opt('wiki_send_allow')],
-	    );
-
-	    $fields[] = array(
-		'id' => 'wiki_send_allow_points',
-		'label' => 'Minimum points',
-		'tags' => 'NAME="wiki_send_allow_points"',
-		'type' => 'number',
-		'value' => qa_opt('wiki_send_allow_points'),
-	    );
-
 
 	    $fields[] = array(
 		'type' => 'blank',
