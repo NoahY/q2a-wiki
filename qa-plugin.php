@@ -2,7 +2,7 @@
 
 /*
 	Plugin Name: Wiki Page
-	Plugin URI: Plugin URI: https://github.com/NoahY/q2a-wiki
+	Plugin URI: https://github.com/NoahY/q2a-wiki
 	Plugin Description: Wiki plugin page
 	Plugin Version: 0.2
 	Plugin Date: 2011-12-23

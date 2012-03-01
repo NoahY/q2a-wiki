@@ -46,7 +46,7 @@
 				foreach($this->content['a_list']['as'] as $idx => $answer) {
 					if(qa_clicked('a_to_wiki_'.$idx)) {
 						if(!in_array($answer['raw']['postid'],$wikified)) {
-							$handle = $this->id_to_handle($this->content['q_view']['raw']['userid']);
+							$handle = $this->id_to_handle($answer['raw']['userid']);
 							qa_redirect('wiki',array('id'=>qa_html('edit/'.qa_post_text('qa_wikify_title')),'qa_wiki_oid'=>$answer['raw']['postid'],'qa_wiki_handle'=>$handle,'qa_wiki_link'=>qa_html(qa_q_path($this->content['q_view']['raw']['postid'],$this->content['q_view']['raw']['title'],true,'A',$answer['raw']['postid']))));
 						}
 						else
