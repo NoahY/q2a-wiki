@@ -12,16 +12,7 @@
 		    return 0;
 		case 'wiki_send_allow_points':
 		    return 0;
-		case 'badges/wikifier':
-			return 'Wikifier';
-		case 'badges/wacky_wikifier':
-			return 'Wacky Wikifier';
-		case 'badges/wicked_wikifier':
-			return 'Wicked Wikifier';
-		case 'badges/wikifier_desc':
-		case 'badges/wacky_wikifier_desc':
-		case 'badges/wicked_wikifier_desc':
-			return 'Wikified # answers';
+
 		case 'wiki_page_css':
 		    return '
 #wiki_container .rbr {

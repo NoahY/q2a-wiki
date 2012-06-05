@@ -4,7 +4,7 @@
 	Plugin Name: Wiki Page
 	Plugin URI: https://github.com/NoahY/q2a-wiki
 	Plugin Description: Wiki plugin page
-	Plugin Version: 0.4
+	Plugin Version: 0.5
 	Plugin Date: 2011-12-23
 	Plugin Author: NoahY
 	Plugin Author URI: http://www.question2answer.org/

@@ -33,6 +33,14 @@
 		
 		'wiki_edit_allow' => 'Edit wiki posts',
 		'wiki_send_allow' => 'Wikify answers',
+
+		'badge_wikifier' => 'Wikifier',
+		'badge_wacky_wikifier' => 'Wacky Wikifier',
+		'badge_wicked_wikifier' => 'Wicked Wikifier',
+		'badge_wikifier_desc' => 'Wikified # answers',
+		'badge_wacky_wikifier_desc' => 'Wikified # answers',
+		'badge_wicked_wikifier_desc' => 'Wikified # answers',
+
 	);
 	
 
