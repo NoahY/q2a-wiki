@@ -4,7 +4,7 @@
 
 		function doctype() {
 			qa_html_theme_base::doctype();
-			if($this->request == 'admin/permissions') {
+			if($this->request == 'admin/permissions' && qa_get_logged_in_level()>=QA_USER_LEVEL_ADMIN) {
 
 				$permits[] = 'wiki_edit_allow';
 				$permits[] = 'wiki_send_allow';			

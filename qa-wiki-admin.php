@@ -91,7 +91,16 @@
 		
 		function custom_badges_rebuild() {
 			$awarded = 0;
-			
+			qa_db_query_sub(
+				'CREATE TABLE IF NOT EXISTS ^usermeta (
+				meta_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+				user_id bigint(20) unsigned NOT NULL,
+				meta_key varchar(255) DEFAULT NULL,
+				meta_value longtext,
+				PRIMARY KEY (meta_id),
+				UNIQUE (user_id,meta_key)
+				) ENGINE=MyISAM  DEFAULT CHARSET=utf8'
+			);			
 			$posts = qa_db_query_sub(
 				'SELECT user_id AS userid, meta_value FROM ^usermeta WHERE meta_key=$',
 				'wikified'
