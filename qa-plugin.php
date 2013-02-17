@@ -10,7 +10,7 @@
 	Plugin Author URI: http://www.question2answer.org/
 	Plugin License: GPLv2
 	Plugin Minimum Question2Answer Version: 1.5
-	Plugin Update Check URI: https://github.com/NoahY/q2a-wiki/raw/master/qa-plugin.php
+	Plugin Update Check URI: https://raw.github.com/NoahY/q2a-wiki/master/qa-plugin.php
 */
 
 
@@ -67,9 +67,7 @@
 		if(function_exists('qa_badge_award_check') && qa_opt('badge_active') && qa_opt('badge_custom_badges'))
 			qa_badge_award_check(array('wikifier','wacky_wikifier','wicked_wikifier'), $var, qa_get_logged_in_userid(), NULL, 2); 
 	}
-	if(function_exists('qa_register_plugin_overrides')) { // 1.5
-		qa_register_plugin_overrides('qa-wiki-overrides.php');
-	}
+	qa_register_plugin_overrides('qa-wiki-overrides.php');
 
 	if(!function_exists('qa_permit_check')) {
 		function qa_permit_check($opt) {
